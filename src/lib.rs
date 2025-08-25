@@ -13,4 +13,6 @@ mod wikitext;
 pub use error::{ParserError, ParserErrorKind};
 pub use parser::parse_wikitext;
 pub use tokenizer::TextPosition;
-pub use wikitext::{Attribute, Headline, Section, Text, TextFormatting, TextPiece, Wikitext, Line, Paragraph};
+pub use wikitext::{
+    Attribute, Headline, Line, Paragraph, Section, Text, TextFormatting, TextPiece, Wikitext,
+};

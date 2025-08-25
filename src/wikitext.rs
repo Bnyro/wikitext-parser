@@ -79,8 +79,16 @@ impl Section {
             .iter()
             .flat_map(|paragraph| paragraph.lines.iter())
             .flat_map(|line| match line {
-                Line::Normal { text } => text.pieces.iter(),
-                Line::List { text, .. } => text.pieces.iter(),
+                Line::Normal { text } => text.pieces.iter().collect::<Vec<_>>(),
+                Line::List { text, .. } => text.pieces.iter().collect::<Vec<_>>(),
+                Line::Table { header, rows } => {
+                    let header_pieces = header.iter().flat_map(|h| h.pieces.iter());
+                    let content_pieces = rows
+                        .iter()
+                        .flat_map(|row| row.iter().flat_map(|r| r.pieces.iter()));
+
+                    header_pieces.chain(content_pieces).collect()
+                }
             })
     }
 
@@ -141,8 +149,17 @@ pub struct Paragraph {
 #[derive(Debug, Clone, Eq, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum Line {
-    Normal { text: Text },
-    List { list_prefix: String, text: Text },
+    Normal {
+        text: Text,
+    },
+    List {
+        list_prefix: String,
+        text: Text,
+    },
+    Table {
+        header: Vec<Text>,
+        rows: Vec<Vec<Text>>,
+    },
 }
 
 impl Line {
@@ -151,6 +168,7 @@ impl Line {
         match self {
             Line::Normal { text } => text.is_empty(),
             Line::List { .. } => false,
+            Line::Table { .. } => false,
         }
     }
 }

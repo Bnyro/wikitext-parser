@@ -252,3 +252,89 @@ fn test_multiple_root_sections() {
         }
     );
 }
+
+#[test]
+fn test_simple_table() {
+    let input = r#"{| class="wikitable" style="margin:auto"
+        |+ Caption text
+        |-
+        ! Header text 1 !! Header text !! Header text
+        |-
+        |Orange || Apple
+        |-
+        |Bread
+        |Pie
+        |-
+        |Butter
+        |Ice cream
+        |}"#;
+
+    let mut errors = Vec::new();
+    let parsed = parse_wikitext(
+        input,
+        Default::default(),
+        &mut Box::new(|error| errors.push(error)),
+    );
+
+    assert_eq!(
+        parsed,
+        Wikitext {
+            root_section: Section {
+                headline: Headline {
+                    label: "".to_string(),
+                    level: 1
+                },
+                paragraphs: vec![Paragraph {
+                    lines: vec![Line::Table {
+                        header: vec![],
+                        rows: vec![
+                            vec![
+                                Text {
+                                    pieces: vec![TextPiece::Text {
+                                        formatting: TextFormatting::Normal,
+                                        text: "Orange".to_string()
+                                    }]
+                                },
+                                Text {
+                                    pieces: vec![TextPiece::Text {
+                                        formatting: TextFormatting::Normal,
+                                        text: "Apple".to_string()
+                                    }]
+                                }
+                            ],
+                            vec![
+                                Text {
+                                    pieces: vec![TextPiece::Text {
+                                        formatting: TextFormatting::Normal,
+                                        text: "Bread".to_string()
+                                    }]
+                                },
+                                Text {
+                                    pieces: vec![TextPiece::Text {
+                                        formatting: TextFormatting::Normal,
+                                        text: "Pie".to_string()
+                                    }]
+                                }
+                            ],
+                            vec![
+                                Text {
+                                    pieces: vec![TextPiece::Text {
+                                        formatting: TextFormatting::Normal,
+                                        text: "Butter".to_string()
+                                    }]
+                                },
+                                Text {
+                                    pieces: vec![TextPiece::Text {
+                                        formatting: TextFormatting::Normal,
+                                        text: "Ice cream".to_string()
+                                    }]
+                                }
+                            ]
+                        ]
+                    }]
+                }],
+                subsections: vec![]
+            }
+        }
+    );
+}

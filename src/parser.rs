@@ -76,14 +76,18 @@ fn parse_line(
     }
 
     // parse remaining text
-    if !list_prefix.is_empty() {
+    if tokenizer.peek(0).0 == Token::OpenBraceWithBar {
+        parse_table(tokenizer, error_consumer)
+    } else if !list_prefix.is_empty() {
         let mut text_formatting = TextFormatting::Normal;
         let text = parse_text_until(
             tokenizer,
             error_consumer,
             Text::new(),
             &mut text_formatting,
-            &|token: &Token<'_>| matches!(token, Token::Newline | Token::Eof),
+            &|token: &Token<'_>| {
+                matches!(token, Token::Newline | Token::Eof | Token::OpenBraceWithBar)
+            },
         );
         let (_, text_position) = tokenizer.next();
         if text_formatting != TextFormatting::Normal {
@@ -97,7 +101,7 @@ fn parse_line(
             error_consumer,
             Text::new(),
             &mut text_formatting,
-            &|token| matches!(token, Token::Newline | Token::Eof),
+            &|token| matches!(token, Token::Newline | Token::Eof | Token::OpenBraceWithBar),
         );
         let (_, text_position) = tokenizer.next();
         if text_formatting != TextFormatting::Normal {
@@ -105,6 +109,116 @@ fn parse_line(
         }
         Line::Normal { text }
     }
+}
+
+enum TableRowType {
+    Header,
+    Content,
+}
+fn parse_table(
+    tokenizer: &mut MultipeekTokenizer,
+    error_consumer: &mut impl FnMut(ParserError),
+) -> Line {
+    if DO_PARSER_DEBUG_PRINTS {
+        println!("parse_table token: {:?}", tokenizer.peek(0));
+    }
+
+    // remove {| from start
+    tokenizer.next();
+
+    let mut header = vec![];
+    let mut rows = vec![];
+
+    let mut current_content_type = TableRowType::Content;
+    let mut current_row_content: Vec<Text> = vec![];
+
+    loop {
+        let (current_token, current_pos) = tokenizer.next();
+
+        match current_token {
+            Token::BarWithPlus => {
+                // seek to end of comment/caption
+                while tokenizer.peek(0).0 != Token::BarWithDash {
+                    tokenizer.next();
+                }
+            }
+            Token::BarWithDash => {
+                if !current_row_content.is_empty() {
+                    match current_content_type {
+                        TableRowType::Header => {
+                            header = current_row_content;
+                        }
+                        TableRowType::Content => {
+                            rows.push(current_row_content);
+                        }
+                    }
+                }
+
+                current_content_type = TableRowType::Content;
+                current_row_content = vec![];
+            }
+            Token::Exclamation => {
+                current_content_type = TableRowType::Header;
+
+                let mut text = parse_text_until(
+                    tokenizer,
+                    error_consumer,
+                    Text::new(),
+                    &mut TextFormatting::Normal,
+                    &|token: &Token<'_>| {
+                        matches!(
+                            token,
+                            Token::Exclamation | Token::CloseBraceWithBar | Token::BarWithDash
+                        )
+                    },
+                );
+                text.trim_self_start();
+                text.trim_self_end();
+
+                current_row_content.push(text);
+            }
+            Token::VerticalBar => {
+                current_content_type = TableRowType::Content;
+
+                let mut text = parse_text_until(
+                    tokenizer,
+                    error_consumer,
+                    Text::new(),
+                    &mut TextFormatting::Normal,
+                    &|token: &Token<'_>| {
+                        matches!(
+                            token,
+                            Token::VerticalBar | Token::CloseBraceWithBar | Token::BarWithDash
+                        )
+                    },
+                );
+                text.trim_self_start();
+                text.trim_self_end();
+
+                current_row_content.push(text);
+            }
+            Token::CloseBraceWithBar | Token::Eof => {
+                if !current_row_content.is_empty() {
+                    match current_content_type {
+                        TableRowType::Header => {
+                            header = current_row_content;
+                        }
+                        TableRowType::Content => {
+                            rows.push(current_row_content);
+                        }
+                    }
+                }
+
+                // end of table
+                break;
+            }
+            _token => {
+                continue;
+            }
+        }
+    }
+
+    Line::Table { header, rows }
 }
 
 fn parse_text_until(
@@ -131,6 +245,11 @@ fn parse_text_until(
             | Token::Star
             | Token::Sharp
             | Token::Newline
+            | Token::OpenBraceWithBar
+            | Token::CloseBraceWithBar
+            | Token::BarWithDash
+            | Token::BarWithPlus
+            | Token::Exclamation
             | Token::VerticalBar) => {
                 prefix.extend_with_formatted_text(*text_formatting, token.to_str());
                 tokenizer.next();
@@ -352,7 +471,7 @@ fn parse_double_brace_expression(
         }
         let (token, text_position) = tokenizer.peek(0);
         match token {
-            Token::VerticalBar => {
+            Token::VerticalBar | Token::BarWithDash | Token::BarWithPlus | Token::Exclamation => {
                 attributes.push(parse_attribute(tokenizer, error_consumer, text_formatting))
             }
             Token::DoubleCloseBrace => {
@@ -371,6 +490,8 @@ fn parse_double_brace_expression(
             | Token::Colon
             | Token::Semicolon
             | Token::Star
+            | Token::OpenBraceWithBar
+            | Token::CloseBraceWithBar
             | Token::Sharp) => {
                 error_consumer(
                     ParserErrorKind::UnexpectedToken {
@@ -493,6 +614,11 @@ fn parse_attribute(
             | Token::Apostrophe
             | Token::Colon
             | Token::Semicolon
+            | Token::OpenBraceWithBar
+            | Token::CloseBraceWithBar
+            | Token::BarWithDash
+            | Token::BarWithPlus
+            | Token::Exclamation
             | Token::Star
             | Token::Sharp => {
                 value.pieces.push(TextPiece::Text {
@@ -568,6 +694,7 @@ fn parse_internal_link(
                     | Token::VerticalBar
                     | Token::DoubleCloseBrace
                     | Token::DoubleOpenBracket
+                    | Token::OpenBraceWithBar
                     | Token::Newline
                     | Token::Eof
             )
@@ -586,11 +713,16 @@ fn parse_internal_link(
         | Token::Apostrophe
         | Token::Equals
         | Token::DoubleOpenBrace
+        | Token::OpenBraceWithBar
+        | Token::CloseBraceWithBar
         | Token::NoWikiOpen
         | Token::NoWikiClose) => {
             unreachable!("Not a stop token above: {token:?}");
         }
-        Token::DoubleCloseBracket => {
+        Token::DoubleCloseBracket
+        | Token::BarWithDash
+        | Token::BarWithPlus
+        | Token::Exclamation => {
             tokenizer.next();
         }
         Token::VerticalBar => {
@@ -665,6 +797,11 @@ fn parse_internal_link(
                 | Token::Semicolon
                 | Token::Star
                 | Token::Sharp
+                | Token::OpenBraceWithBar
+                | Token::CloseBraceWithBar
+                | Token::BarWithDash
+                | Token::BarWithPlus
+                | Token::Exclamation
                 | Token::Newline => {
                     break;
                 }

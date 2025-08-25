@@ -10,8 +10,9 @@ static NOWIKI_OPEN: &str = "<nowiki>";
 static NOWIKI_CLOSE: &str = "</nowiki>";
 
 lazy_static! {
-    static ref TEXT_REGEX: Regex = Regex::new(&format!(
-        "(\\{{\\{{|\\}}\\}}|\\[\\[|\\]\\]|=|\\||'|\n|:|;|\\*|#|{NOWIKI_OPEN}|{NOWIKI_CLOSE})"
+    static ref SPECIAL_TOKEN_START_REGEX: Regex = Regex::new(&format!(
+        r#"(\{{\{{|\}}\}}|\[\[|\]\]|=|\||'|\|-|\|\+|\{{\||\|\}}|\n|:|;|\*|#|{}|{})"#, NOWIKI_OPEN, NOWIKI_CLOSE
+        // "(\\{{\\{{|\\}}\\}}|\\[\\[|\\]\\]|=|\\|\\!|\\|\\-|\\|\\+|\\{{\\||\\|\\}}|'|\n|:|;|\\*|#|{NOWIKI_OPEN}|{NOWIKI_CLOSE})"
     ))
     .unwrap();
 }
@@ -24,6 +25,11 @@ pub enum Token<'a> {
     DoubleCloseBrace,
     DoubleOpenBracket,
     DoubleCloseBracket,
+    OpenBraceWithBar,
+    CloseBraceWithBar,
+    BarWithDash,
+    BarWithPlus,
+    Exclamation,
     NoWikiOpen,
     NoWikiClose,
     VerticalBar,
@@ -109,6 +115,7 @@ impl<'input> PositionAwareStrIterator<'input> {
     }
 }
 
+#[derive(Debug)]
 pub struct Tokenizer<'input> {
     input: PositionAwareStrIterator<'input>,
 }
@@ -148,6 +155,18 @@ impl<'input> Tokenizer<'input> {
         } else if input.starts_with("]]") {
             self.input.advance_until(2);
             Token::DoubleCloseBracket
+        } else if input.starts_with("{|") {
+            self.input.advance_until(2);
+            Token::OpenBraceWithBar
+        } else if input.starts_with("|}") && !input.starts_with("|}}") {
+            self.input.advance_until(2);
+            Token::CloseBraceWithBar
+        } else if input.starts_with("|-") && !input.starts_with("|-|") {
+            self.input.advance_until(2);
+            Token::BarWithDash
+        } else if input.starts_with("|+") && !input.starts_with("|+|") {
+            self.input.advance_until(2);
+            Token::BarWithPlus
         } else if input.starts_with(NOWIKI_OPEN) {
             self.input.advance_until(NOWIKI_OPEN.len());
             Token::NoWikiOpen
@@ -157,6 +176,15 @@ impl<'input> Tokenizer<'input> {
         } else if input.starts_with('=') {
             self.input.advance_one();
             Token::Equals
+        } else if input.starts_with("!!") {
+            self.input.advance_until(2);
+            Token::Exclamation
+        } else if input.starts_with('!') {
+            self.input.advance_one();
+            Token::Exclamation
+        } else if input.starts_with("||") {
+            self.input.advance_until(2);
+            Token::VerticalBar
         } else if input.starts_with('|') {
             self.input.advance_one();
             Token::VerticalBar
@@ -178,7 +206,7 @@ impl<'input> Tokenizer<'input> {
         } else if input.starts_with('#') {
             self.input.advance_one();
             Token::Sharp
-        } else if let Some(regex_match) = TEXT_REGEX.find(input) {
+        } else if let Some(regex_match) = SPECIAL_TOKEN_START_REGEX.find(input) {
             let result = Token::Text(input[..regex_match.start()].into());
             self.input.advance_until(regex_match.start());
             result
@@ -196,6 +224,7 @@ impl<'input> Tokenizer<'input> {
     }
 }
 
+#[derive(Debug)]
 pub struct MultipeekTokenizer<'tokenizer> {
     tokenizer: Tokenizer<'tokenizer>,
     peek: VecDeque<(Token<'tokenizer>, TextPosition)>,
@@ -274,6 +303,11 @@ impl Token<'_> {
             Token::DoubleCloseBrace => "}}",
             Token::DoubleOpenBracket => "[[",
             Token::DoubleCloseBracket => "]]",
+            Token::OpenBraceWithBar => "{|",
+            Token::CloseBraceWithBar => "|}",
+            Token::BarWithDash => "|-",
+            Token::BarWithPlus => "|+",
+            Token::Exclamation => "!",
             Token::NoWikiOpen => NOWIKI_OPEN,
             Token::NoWikiClose => NOWIKI_CLOSE,
             Token::VerticalBar => "|",
