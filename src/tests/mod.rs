@@ -260,7 +260,7 @@ fn test_simple_table() {
         |-
         ! Header text 1 !! Header text !! Header text
         |-
-        |Orange || Apple
+        |align="center"|Orange || Apple
         |-
         |Bread
         |Pie

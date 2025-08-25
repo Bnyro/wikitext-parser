@@ -3,7 +3,9 @@ use crate::level_stack::LevelStack;
 use crate::tokenizer::{MultipeekTokenizer, Token, Tokenizer};
 use crate::wikitext::{Attribute, Headline, Line, Text, TextFormatting, TextPiece, Wikitext};
 use crate::ParserError;
+use lazy_static::lazy_static;
 use log::debug;
+use regex::Regex;
 use std::mem;
 
 pub const MAX_SECTION_DEPTH: usize = 6;
@@ -12,6 +14,10 @@ pub const MAX_SECTION_DEPTH: usize = 6;
 static DO_PARSER_DEBUG_PRINTS: bool = false;
 #[cfg(test)]
 static DO_PARSER_DEBUG_PRINTS: bool = true;
+
+lazy_static! {
+    static ref CSS_ATTR_REGEX: Regex = Regex::new(r#"\w+="?.*"?"#).unwrap();
+}
 
 /// Parse textual wikitext into a semantic representation.
 pub fn parse_wikitext(
@@ -133,7 +139,7 @@ fn parse_table(
     let mut current_row_content: Vec<Text> = vec![];
 
     loop {
-        let (current_token, current_pos) = tokenizer.next();
+        let (current_token, _current_pos) = tokenizer.next();
 
         match current_token {
             Token::BarWithPlus => {
@@ -157,7 +163,7 @@ fn parse_table(
                 current_content_type = TableRowType::Content;
                 current_row_content = vec![];
             }
-            Token::Exclamation => {
+            Token::Exclamation | Token::DoubleExclamation => {
                 current_content_type = TableRowType::Header;
 
                 let mut text = parse_text_until(
@@ -168,16 +174,21 @@ fn parse_table(
                     &|token: &Token<'_>| {
                         matches!(
                             token,
-                            Token::Exclamation | Token::CloseBraceWithBar | Token::BarWithDash
+                            Token::Exclamation
+                                | Token::DoubleExclamation
+                                | Token::CloseBraceWithBar
+                                | Token::BarWithDash
                         )
                     },
                 );
                 text.trim_self_start();
                 text.trim_self_end();
 
-                current_row_content.push(text);
+                if !CSS_ATTR_REGEX.is_match_at(text.to_string().trim(), 0) {
+                    current_row_content.push(text);
+                }
             }
-            Token::VerticalBar => {
+            Token::VerticalBar | Token::DoubleVerticalBar => {
                 current_content_type = TableRowType::Content;
 
                 let mut text = parse_text_until(
@@ -188,14 +199,19 @@ fn parse_table(
                     &|token: &Token<'_>| {
                         matches!(
                             token,
-                            Token::VerticalBar | Token::CloseBraceWithBar | Token::BarWithDash
+                            Token::VerticalBar
+                                | Token::DoubleVerticalBar
+                                | Token::CloseBraceWithBar
+                                | Token::BarWithDash
                         )
                     },
                 );
                 text.trim_self_start();
                 text.trim_self_end();
 
-                current_row_content.push(text);
+                if !CSS_ATTR_REGEX.is_match_at(text.to_string().trim(), 0) {
+                    current_row_content.push(text);
+                }
             }
             Token::CloseBraceWithBar | Token::Eof => {
                 if !current_row_content.is_empty() {
@@ -212,9 +228,7 @@ fn parse_table(
                 // end of table
                 break;
             }
-            _token => {
-                continue;
-            }
+            _token => {}
         }
     }
 
@@ -250,7 +264,9 @@ fn parse_text_until(
             | Token::BarWithDash
             | Token::BarWithPlus
             | Token::Exclamation
-            | Token::VerticalBar) => {
+            | Token::DoubleExclamation
+            | Token::VerticalBar
+            | Token::DoubleVerticalBar) => {
                 prefix.extend_with_formatted_text(*text_formatting, token.to_str());
                 tokenizer.next();
             }
@@ -471,7 +487,7 @@ fn parse_double_brace_expression(
         }
         let (token, text_position) = tokenizer.peek(0);
         match token {
-            Token::VerticalBar | Token::BarWithDash | Token::BarWithPlus | Token::Exclamation => {
+            Token::VerticalBar => {
                 attributes.push(parse_attribute(tokenizer, error_consumer, text_formatting))
             }
             Token::DoubleCloseBrace => {
@@ -492,6 +508,11 @@ fn parse_double_brace_expression(
             | Token::Star
             | Token::OpenBraceWithBar
             | Token::CloseBraceWithBar
+            | Token::DoubleVerticalBar
+            | Token::BarWithDash
+            | Token::BarWithPlus
+            | Token::Exclamation
+            | Token::DoubleExclamation
             | Token::Sharp) => {
                 error_consumer(
                     ParserErrorKind::UnexpectedToken {
@@ -611,6 +632,7 @@ fn parse_attribute(
             | Token::DoubleCloseBrace
             | Token::NoWikiClose
             | Token::VerticalBar
+            | Token::DoubleVerticalBar
             | Token::Apostrophe
             | Token::Colon
             | Token::Semicolon
@@ -619,6 +641,7 @@ fn parse_attribute(
             | Token::BarWithDash
             | Token::BarWithPlus
             | Token::Exclamation
+            | Token::DoubleExclamation
             | Token::Star
             | Token::Sharp => {
                 value.pieces.push(TextPiece::Text {
@@ -722,10 +745,11 @@ fn parse_internal_link(
         Token::DoubleCloseBracket
         | Token::BarWithDash
         | Token::BarWithPlus
-        | Token::Exclamation => {
+        | Token::Exclamation
+        | Token::DoubleExclamation => {
             tokenizer.next();
         }
-        Token::VerticalBar => {
+        Token::VerticalBar | Token::DoubleVerticalBar => {
             tokenizer.next();
             label = Some(Text::new());
         }
@@ -765,7 +789,7 @@ fn parse_internal_link(
                     label.extend_with_formatted_text(*text_formatting, token.to_str());
                     tokenizer.next();
                 }
-                Token::VerticalBar => {
+                Token::VerticalBar | Token::DoubleVerticalBar => {
                     let mut new_label = Text::new();
                     mem::swap(&mut label, &mut new_label);
                     if new_label.pieces.is_empty() {
@@ -802,6 +826,7 @@ fn parse_internal_link(
                 | Token::BarWithDash
                 | Token::BarWithPlus
                 | Token::Exclamation
+                | Token::DoubleExclamation
                 | Token::Newline => {
                     break;
                 }
@@ -903,4 +928,9 @@ fn parse_internal_link(
     }
 
     text
+}
+
+#[test]
+fn test_css_attr_regex() {
+    assert!(CSS_ATTR_REGEX.is_match(r#"align="center"""#))
 }

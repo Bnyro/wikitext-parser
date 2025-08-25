@@ -30,9 +30,11 @@ pub enum Token<'a> {
     BarWithDash,
     BarWithPlus,
     Exclamation,
+    DoubleExclamation,
     NoWikiOpen,
     NoWikiClose,
     VerticalBar,
+    DoubleVerticalBar,
     Apostrophe,
     Colon,
     Semicolon,
@@ -178,13 +180,13 @@ impl<'input> Tokenizer<'input> {
             Token::Equals
         } else if input.starts_with("!!") {
             self.input.advance_until(2);
-            Token::Exclamation
+            Token::DoubleExclamation
         } else if input.starts_with('!') {
             self.input.advance_one();
             Token::Exclamation
         } else if input.starts_with("||") {
             self.input.advance_until(2);
-            Token::VerticalBar
+            Token::DoubleVerticalBar
         } else if input.starts_with('|') {
             self.input.advance_one();
             Token::VerticalBar
@@ -308,9 +310,11 @@ impl Token<'_> {
             Token::BarWithDash => "|-",
             Token::BarWithPlus => "|+",
             Token::Exclamation => "!",
+            Token::DoubleExclamation => "!!",
             Token::NoWikiOpen => NOWIKI_OPEN,
             Token::NoWikiClose => NOWIKI_CLOSE,
             Token::VerticalBar => "|",
+            Token::DoubleVerticalBar => "||",
             Token::Apostrophe => "'",
             Token::Newline => "\n",
             Token::Colon => ":",
