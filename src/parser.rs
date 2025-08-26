@@ -18,7 +18,7 @@ static DO_PARSER_DEBUG_PRINTS: bool = false;
 static DO_PARSER_DEBUG_PRINTS: bool = true;
 
 lazy_static! {
-    static ref HTML_ATTR_REGEX: Regex = Regex::new(r#"(\w+)="?(.*)"?"#).unwrap();
+    static ref HTML_ATTR_REGEX: Regex = Regex::new(r#"(\w+)=(".*"|.*)"#).unwrap();
 }
 
 /// Parse textual wikitext into a semantic representation.
@@ -141,6 +141,7 @@ fn collect_table_cell(
                 matches!(
                     token,
                     Token::VerticalBar
+                        | Token::Exclamation
                         | Token::DoubleVerticalBar
                         | Token::DoubleExclamation
                         | Token::CloseBraceWithBar
@@ -153,8 +154,8 @@ fn collect_table_cell(
             if let Some(html_attr) = HTML_ATTR_REGEX.captures(text.to_string().trim()) {
                 tokenizer.next();
 
-                if let (Some(key), Some(value)) = (html_attr.get(0), html_attr.get(1)) {
-                    let Ok(value) = value.as_str().parse::<i32>() else {
+                if let (Some(key), Some(value)) = (html_attr.get(1), html_attr.get(2)) {
+                    let Ok(value) = value.as_str().replace('"', "").parse::<i32>() else {
                         continue;
                     };
                     if key.as_str().eq_ignore_ascii_case("rowspan") {
@@ -176,11 +177,7 @@ fn collect_table_cell(
     cell.text.trim_self_start();
     cell.text.trim_self_end();
 
-    if !cell.text.is_empty() {
-        Some(cell)
-    } else {
-        None
-    }
+    Some(cell)
 }
 
 fn parse_table(
@@ -194,11 +191,11 @@ fn parse_table(
     // remove {| from start
     tokenizer.next();
 
-    let mut header = vec![];
-    let mut rows = vec![];
+    let mut header_rows = vec![];
+    let mut content_rows = vec![];
 
-    let mut current_content_type = TableRowType::Content;
-    let mut current_row_content: Vec<TableCell> = vec![];
+    let mut current_type = TableRowType::Content;
+    let mut current_row: Vec<TableCell> = vec![];
 
     loop {
         let (current_token, _current_pos) = tokenizer.next();
@@ -211,42 +208,42 @@ fn parse_table(
                 }
             }
             Token::BarWithDash => {
-                if !current_row_content.is_empty() {
-                    match current_content_type {
+                if !current_row.is_empty() {
+                    match current_type {
                         TableRowType::Header => {
-                            header = current_row_content;
+                            header_rows.push(current_row);
                         }
                         TableRowType::Content => {
-                            rows.push(current_row_content);
+                            content_rows.push(current_row);
                         }
                     }
                 }
 
-                current_content_type = TableRowType::Content;
-                current_row_content = vec![];
+                current_type = TableRowType::Content;
+                current_row = vec![];
             }
             Token::Exclamation | Token::DoubleExclamation => {
-                current_content_type = TableRowType::Header;
+                current_type = TableRowType::Header;
 
                 if let Some(cell) = collect_table_cell(tokenizer, error_consumer) {
-                    current_row_content.push(cell);
+                    current_row.push(cell);
                 }
             }
             Token::VerticalBar | Token::DoubleVerticalBar => {
-                current_content_type = TableRowType::Content;
+                current_type = TableRowType::Content;
 
                 if let Some(cell) = collect_table_cell(tokenizer, error_consumer) {
-                    current_row_content.push(cell);
+                    current_row.push(cell);
                 }
             }
             Token::CloseBraceWithBar | Token::Eof => {
-                if !current_row_content.is_empty() {
-                    match current_content_type {
+                if !current_row.is_empty() {
+                    match current_type {
                         TableRowType::Header => {
-                            header = current_row_content;
+                            header_rows.push(current_row);
                         }
                         TableRowType::Content => {
-                            rows.push(current_row_content);
+                            content_rows.push(current_row);
                         }
                     }
                 }
@@ -258,7 +255,10 @@ fn parse_table(
         }
     }
 
-    Line::Table { header, rows }
+    Line::Table {
+        header_rows,
+        content_rows,
+    }
 }
 
 fn parse_text_until(
@@ -958,5 +958,5 @@ fn parse_internal_link(
 
 #[test]
 fn test_css_attr_regex() {
-    assert!(HTML_ATTR_REGEX.is_match(r#"align="center"""#))
+    assert!(HTML_ATTR_REGEX.is_match(r#"align="center""#))
 }

@@ -283,7 +283,7 @@ fn test_simple_table() {
                 },
                 paragraphs: vec![Paragraph {
                     lines: vec![Line::Table {
-                        header: vec![
+                        header_rows: vec![vec![
                             TableCell {
                                 rowspan: 1,
                                 colspan: 1,
@@ -304,8 +304,8 @@ fn test_simple_table() {
                                     }]
                                 }
                             }
-                        ],
-                        rows: vec![
+                        ]],
+                        content_rows: vec![
                             vec![
                                 TableCell {
                                     rowspan: 1,
@@ -331,7 +331,7 @@ fn test_simple_table() {
                             vec![
                                 TableCell {
                                     rowspan: 1,
-                                    colspan: 1,
+                                    colspan: 2,
                                     text: Text {
                                         pieces: vec![TextPiece::Text {
                                             formatting: TextFormatting::Normal,
@@ -357,4 +357,40 @@ fn test_simple_table() {
             }
         }
     );
+}
+
+#[test]
+fn test_complex_table_header() {
+    let input = r#"{|class="wikitable sortable"
+|-
+!rowspan=2|Year !! rowspan=2|Total number of<br>billionaires !! rowspan=2|Combined wealth of<br>known billionaires !! colspan=5|Number of billionaires 
+! colspan="2" |World's wealthiest<br>individual
+|-
+!   [[List of Americans by net worth|U.S.]] !! [[List of Chinese by net worth|Chinese]] !! [[List of Indian people by net worth|Indian]]  
+![[Germany|German]]!! [[List of Russians by net worth|Russian]]
+! Name!!Net worth
+|}
+    "#;
+
+    let mut errors = Vec::new();
+    let parsed = parse_wikitext(
+        input,
+        Default::default(),
+        &mut Box::new(|error| errors.push(error)),
+    );
+    match &parsed.root_section.paragraphs[0].lines[0] {
+        Line::Table {
+            header_rows,
+            content_rows: _,
+        } => {
+            let first_cell = header_rows.first().unwrap().first().unwrap();
+            assert_eq!(first_cell.rowspan, 2);
+            assert_eq!(first_cell.colspan, 1);
+            assert_eq!(first_cell.text.to_string(), "Year");
+        }
+        _ => panic!(
+            "expected table type, got {:?}",
+            parsed.root_section.paragraphs[0].lines[0]
+        ),
+    }
 }

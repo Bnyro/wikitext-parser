@@ -81,9 +81,14 @@ impl Section {
             .flat_map(|line| match line {
                 Line::Normal { text } => text.pieces.iter().collect::<Vec<_>>(),
                 Line::List { text, .. } => text.pieces.iter().collect::<Vec<_>>(),
-                Line::Table { header, rows } => {
-                    let header_pieces = header.iter().flat_map(|h| h.text.pieces.iter());
-                    let content_pieces = rows
+                Line::Table {
+                    header_rows,
+                    content_rows,
+                } => {
+                    let header_pieces = header_rows
+                        .iter()
+                        .flat_map(|row| row.iter().flat_map(|r| r.text.pieces.iter()));
+                    let content_pieces = content_rows
                         .iter()
                         .flat_map(|row| row.iter().flat_map(|r| r.text.pieces.iter()));
 
@@ -149,8 +154,11 @@ pub struct Paragraph {
 #[derive(Debug, Clone, Eq, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct TableCell {
+    /// The amount of columns this cell fills.
     pub colspan: i32,
+    /// The amount of rows this cell fills.
     pub rowspan: i32,
+    /// The text content of the cell.
     pub text: Text,
 }
 
@@ -168,16 +176,24 @@ impl Default for TableCell {
 #[derive(Debug, Clone, Eq, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum Line {
+    /// A normal text line.
     Normal {
+        /// The text of the line.
         text: Text,
     },
+    /// A list containing multiple list items.
     List {
+        /// The prefix string of the list.
         list_prefix: String,
+        /// The actual content of the list.
         text: Text,
     },
+    /// A table element.
     Table {
-        header: Vec<TableCell>,
-        rows: Vec<Vec<TableCell>>,
+        /// The header rows of the table.
+        header_rows: Vec<Vec<TableCell>>,
+        /// The content rows of the table.
+        content_rows: Vec<Vec<TableCell>>,
     },
 }
 
