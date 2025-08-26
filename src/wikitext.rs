@@ -82,10 +82,10 @@ impl Section {
                 Line::Normal { text } => text.pieces.iter().collect::<Vec<_>>(),
                 Line::List { text, .. } => text.pieces.iter().collect::<Vec<_>>(),
                 Line::Table { header, rows } => {
-                    let header_pieces = header.iter().flat_map(|h| h.pieces.iter());
+                    let header_pieces = header.iter().flat_map(|h| h.text.pieces.iter());
                     let content_pieces = rows
                         .iter()
-                        .flat_map(|row| row.iter().flat_map(|r| r.pieces.iter()));
+                        .flat_map(|row| row.iter().flat_map(|r| r.text.pieces.iter()));
 
                     header_pieces.chain(content_pieces).collect()
                 }
@@ -145,6 +145,25 @@ pub struct Paragraph {
     pub lines: Vec<Line>,
 }
 
+/// A cell in a table
+#[derive(Debug, Clone, Eq, PartialEq)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+pub struct TableCell {
+    pub colspan: i32,
+    pub rowspan: i32,
+    pub text: Text,
+}
+
+impl Default for TableCell {
+    fn default() -> Self {
+        Self {
+            rowspan: 1,
+            colspan: 1,
+            text: Text::new(),
+        }
+    }
+}
+
 /// A line of a paragraph.
 #[derive(Debug, Clone, Eq, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
@@ -157,8 +176,8 @@ pub enum Line {
         text: Text,
     },
     Table {
-        header: Vec<Text>,
-        rows: Vec<Vec<Text>>,
+        header: Vec<TableCell>,
+        rows: Vec<Vec<TableCell>>,
     },
 }
 

@@ -1,7 +1,9 @@
 use crate::error::ParserErrorKind;
 use crate::level_stack::LevelStack;
 use crate::tokenizer::{MultipeekTokenizer, Token, Tokenizer};
-use crate::wikitext::{Attribute, Headline, Line, Text, TextFormatting, TextPiece, Wikitext};
+use crate::wikitext::{
+    Attribute, Headline, Line, TableCell, Text, TextFormatting, TextPiece, Wikitext,
+};
 use crate::ParserError;
 use lazy_static::lazy_static;
 use log::debug;
@@ -16,7 +18,7 @@ static DO_PARSER_DEBUG_PRINTS: bool = false;
 static DO_PARSER_DEBUG_PRINTS: bool = true;
 
 lazy_static! {
-    static ref CSS_ATTR_REGEX: Regex = Regex::new(r#"\w+="?.*"?"#).unwrap();
+    static ref HTML_ATTR_REGEX: Regex = Regex::new(r#"(\w+)="?(.*)"?"#).unwrap();
 }
 
 /// Parse textual wikitext into a semantic representation.
@@ -117,10 +119,70 @@ fn parse_line(
     }
 }
 
+#[derive(Debug, Clone, Copy)]
 enum TableRowType {
     Header,
     Content,
 }
+
+fn collect_table_cell(
+    tokenizer: &mut MultipeekTokenizer,
+    error_consumer: &mut impl FnMut(ParserError),
+) -> Option<TableCell> {
+    let mut cell = TableCell::default();
+
+    loop {
+        let text = parse_text_until(
+            tokenizer,
+            error_consumer,
+            Text::new(),
+            &mut TextFormatting::Normal,
+            &|token: &Token<'_>| {
+                matches!(
+                    token,
+                    Token::VerticalBar
+                        | Token::DoubleVerticalBar
+                        | Token::DoubleExclamation
+                        | Token::CloseBraceWithBar
+                        | Token::BarWithDash
+                )
+            },
+        );
+
+        if tokenizer.peek(0).0 == Token::VerticalBar {
+            if let Some(html_attr) = HTML_ATTR_REGEX.captures(text.to_string().trim()) {
+                tokenizer.next();
+
+                if let (Some(key), Some(value)) = (html_attr.get(0), html_attr.get(1)) {
+                    let Ok(value) = value.as_str().parse::<i32>() else {
+                        continue;
+                    };
+                    if key.as_str().eq_ignore_ascii_case("rowspan") {
+                        cell.rowspan = value;
+                    } else if key.as_str().eq_ignore_ascii_case("colspan") {
+                        cell.colspan = value;
+                    }
+                }
+
+                continue;
+            }
+        }
+
+        for piece in text.pieces {
+            cell.text.pieces.push(piece);
+        }
+        break;
+    }
+    cell.text.trim_self_start();
+    cell.text.trim_self_end();
+
+    if !cell.text.is_empty() {
+        Some(cell)
+    } else {
+        None
+    }
+}
+
 fn parse_table(
     tokenizer: &mut MultipeekTokenizer,
     error_consumer: &mut impl FnMut(ParserError),
@@ -136,7 +198,7 @@ fn parse_table(
     let mut rows = vec![];
 
     let mut current_content_type = TableRowType::Content;
-    let mut current_row_content: Vec<Text> = vec![];
+    let mut current_row_content: Vec<TableCell> = vec![];
 
     loop {
         let (current_token, _current_pos) = tokenizer.next();
@@ -166,51 +228,15 @@ fn parse_table(
             Token::Exclamation | Token::DoubleExclamation => {
                 current_content_type = TableRowType::Header;
 
-                let mut text = parse_text_until(
-                    tokenizer,
-                    error_consumer,
-                    Text::new(),
-                    &mut TextFormatting::Normal,
-                    &|token: &Token<'_>| {
-                        matches!(
-                            token,
-                            Token::Exclamation
-                                | Token::DoubleExclamation
-                                | Token::CloseBraceWithBar
-                                | Token::BarWithDash
-                        )
-                    },
-                );
-                text.trim_self_start();
-                text.trim_self_end();
-
-                if !CSS_ATTR_REGEX.is_match_at(text.to_string().trim(), 0) {
-                    current_row_content.push(text);
+                if let Some(cell) = collect_table_cell(tokenizer, error_consumer) {
+                    current_row_content.push(cell);
                 }
             }
             Token::VerticalBar | Token::DoubleVerticalBar => {
                 current_content_type = TableRowType::Content;
 
-                let mut text = parse_text_until(
-                    tokenizer,
-                    error_consumer,
-                    Text::new(),
-                    &mut TextFormatting::Normal,
-                    &|token: &Token<'_>| {
-                        matches!(
-                            token,
-                            Token::VerticalBar
-                                | Token::DoubleVerticalBar
-                                | Token::CloseBraceWithBar
-                                | Token::BarWithDash
-                        )
-                    },
-                );
-                text.trim_self_start();
-                text.trim_self_end();
-
-                if !CSS_ATTR_REGEX.is_match_at(text.to_string().trim(), 0) {
-                    current_row_content.push(text);
+                if let Some(cell) = collect_table_cell(tokenizer, error_consumer) {
+                    current_row_content.push(cell);
                 }
             }
             Token::CloseBraceWithBar | Token::Eof => {
@@ -932,5 +958,5 @@ fn parse_internal_link(
 
 #[test]
 fn test_css_attr_regex() {
-    assert!(CSS_ATTR_REGEX.is_match(r#"align="center"""#))
+    assert!(HTML_ATTR_REGEX.is_match(r#"align="center"""#))
 }

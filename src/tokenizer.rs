@@ -11,8 +11,8 @@ static NOWIKI_CLOSE: &str = "</nowiki>";
 
 lazy_static! {
     static ref SPECIAL_TOKEN_START_REGEX: Regex = Regex::new(&format!(
-        r#"(\{{\{{|\}}\}}|\[\[|\]\]|=|\||'|\|-|\|\+|\{{\||\|\}}|\n|:|;|\*|#|{}|{})"#, NOWIKI_OPEN, NOWIKI_CLOSE
-        // "(\\{{\\{{|\\}}\\}}|\\[\\[|\\]\\]|=|\\|\\!|\\|\\-|\\|\\+|\\{{\\||\\|\\}}|'|\n|:|;|\\*|#|{NOWIKI_OPEN}|{NOWIKI_CLOSE})"
+        r#"(\{{\{{|\}}\}}|\[\[|\]\]|=|\||'|\|-|\|\+|\{{\||\|\}}|!|\n|:|;|\*|#|{}|{})"#,
+        NOWIKI_OPEN, NOWIKI_CLOSE
     ))
     .unwrap();
 }

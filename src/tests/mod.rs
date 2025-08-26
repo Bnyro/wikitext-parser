@@ -1,7 +1,7 @@
 use crate::wikitext::{Headline, Line, Paragraph};
 use crate::{
-    parse_wikitext, ParserErrorKind, Section, Text, TextFormatting, TextPiece, TextPosition,
-    Wikitext,
+    parse_wikitext, ParserErrorKind, Section, TableCell, Text, TextFormatting, TextPiece,
+    TextPosition, Wikitext,
 };
 
 mod full_pages;
@@ -258,15 +258,12 @@ fn test_simple_table() {
     let input = r#"{| class="wikitable" style="margin:auto"
         |+ Caption text
         |-
-        ! Header text 1 !! Header text !! Header text
+        ! Header 1 !! Header 2
         |-
         |align="center"|Orange || Apple
         |-
-        |Bread
+        |colspan=2|Bread
         |Pie
-        |-
-        |Butter
-        |Ice cream
         |}"#;
 
     let mut errors = Vec::new();
@@ -286,50 +283,73 @@ fn test_simple_table() {
                 },
                 paragraphs: vec![Paragraph {
                     lines: vec![Line::Table {
-                        header: vec![],
+                        header: vec![
+                            TableCell {
+                                rowspan: 1,
+                                colspan: 1,
+                                text: Text {
+                                    pieces: vec![TextPiece::Text {
+                                        formatting: TextFormatting::Normal,
+                                        text: "Header 1".to_string()
+                                    }]
+                                }
+                            },
+                            TableCell {
+                                rowspan: 1,
+                                colspan: 1,
+                                text: Text {
+                                    pieces: vec![TextPiece::Text {
+                                        formatting: TextFormatting::Normal,
+                                        text: "Header 2".to_string()
+                                    }]
+                                }
+                            }
+                        ],
                         rows: vec![
                             vec![
-                                Text {
-                                    pieces: vec![TextPiece::Text {
-                                        formatting: TextFormatting::Normal,
-                                        text: "Orange".to_string()
-                                    }]
+                                TableCell {
+                                    rowspan: 1,
+                                    colspan: 1,
+                                    text: Text {
+                                        pieces: vec![TextPiece::Text {
+                                            formatting: TextFormatting::Normal,
+                                            text: "Orange".to_string()
+                                        }]
+                                    }
                                 },
-                                Text {
-                                    pieces: vec![TextPiece::Text {
-                                        formatting: TextFormatting::Normal,
-                                        text: "Apple".to_string()
-                                    }]
+                                TableCell {
+                                    rowspan: 1,
+                                    colspan: 1,
+                                    text: Text {
+                                        pieces: vec![TextPiece::Text {
+                                            formatting: TextFormatting::Normal,
+                                            text: "Apple".to_string()
+                                        }]
+                                    }
                                 }
                             ],
                             vec![
-                                Text {
-                                    pieces: vec![TextPiece::Text {
-                                        formatting: TextFormatting::Normal,
-                                        text: "Bread".to_string()
-                                    }]
+                                TableCell {
+                                    rowspan: 1,
+                                    colspan: 1,
+                                    text: Text {
+                                        pieces: vec![TextPiece::Text {
+                                            formatting: TextFormatting::Normal,
+                                            text: "Bread".to_string()
+                                        }]
+                                    }
                                 },
-                                Text {
-                                    pieces: vec![TextPiece::Text {
-                                        formatting: TextFormatting::Normal,
-                                        text: "Pie".to_string()
-                                    }]
+                                TableCell {
+                                    rowspan: 1,
+                                    colspan: 1,
+                                    text: Text {
+                                        pieces: vec![TextPiece::Text {
+                                            formatting: TextFormatting::Normal,
+                                            text: "Pie".to_string()
+                                        }]
+                                    }
                                 }
                             ],
-                            vec![
-                                Text {
-                                    pieces: vec![TextPiece::Text {
-                                        formatting: TextFormatting::Normal,
-                                        text: "Butter".to_string()
-                                    }]
-                                },
-                                Text {
-                                    pieces: vec![TextPiece::Text {
-                                        formatting: TextFormatting::Normal,
-                                        text: "Ice cream".to_string()
-                                    }]
-                                }
-                            ]
                         ]
                     }]
                 }],
