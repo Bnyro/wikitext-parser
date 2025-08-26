@@ -8,11 +8,17 @@ use std::fmt::Display;
 
 static NOWIKI_OPEN: &str = "<nowiki>";
 static NOWIKI_CLOSE: &str = "</nowiki>";
+static MATH_OPEN: &str = "<math";
+static MATH_CLOSE: &str = "</math>";
+static CODE_OPEN: &str = "<code";
+static CODE_CLOSE: &str = "</code>";
+static SYNTAX_HIGHLIGHT_OPEN: &str = "<syntaxhighlight";
+static SYNTAX_HIGHLIGHT_CLOSE: &str = "</syntaxhighlight>";
 
 lazy_static! {
     static ref SPECIAL_TOKEN_START_REGEX: Regex = Regex::new(&format!(
-        r#"(\{{\{{|\}}\}}|\[\[|\]\]|=|\||'|\|-|\|\+|\{{\||\|\}}|!|\n|:|;|\*|#|{}|{})"#,
-        NOWIKI_OPEN, NOWIKI_CLOSE
+        r#"(\{{\{{|\}}\}}|\[\[|\]\]|=|\||'|\|-|\|\+|\{{\||\|\}}|!|\n|:|;|\*|#|{}|{}|{}|{}|{}|{}|{}|{})"#,
+        NOWIKI_OPEN, NOWIKI_CLOSE, MATH_OPEN, MATH_CLOSE, CODE_OPEN, CODE_CLOSE, SYNTAX_HIGHLIGHT_OPEN, SYNTAX_HIGHLIGHT_CLOSE
     ))
     .unwrap();
 }
@@ -31,6 +37,10 @@ pub enum Token<'a> {
     BarWithPlus,
     Exclamation,
     DoubleExclamation,
+    CodeOpen(Cow<'a, str>),
+    CodeClose,
+    MathOpen(Cow<'a, str>),
+    MathClose,
     NoWikiOpen,
     NoWikiClose,
     VerticalBar,
@@ -175,6 +185,39 @@ impl<'input> Tokenizer<'input> {
         } else if input.starts_with(NOWIKI_CLOSE) {
             self.input.advance_until(NOWIKI_CLOSE.len());
             Token::NoWikiClose
+        } else if input.starts_with(MATH_OPEN) {
+            if let Some(end_index) = input.find(">") {
+                self.input.advance_until(end_index + 1);
+                Token::MathOpen(input[MATH_OPEN.len()..end_index].into())
+            } else {
+                self.input.advance_until(MATH_OPEN.len());
+                Token::Text(MATH_OPEN.into())
+            }
+        } else if input.starts_with(MATH_CLOSE) {
+            self.input.advance_until(MATH_CLOSE.len());
+            Token::MathClose
+        } else if input.starts_with(CODE_OPEN) {
+            if let Some(end_index) = input.find(">") {
+                self.input.advance_until(end_index + 1);
+                Token::CodeOpen(input[CODE_OPEN.len()..end_index].into())
+            } else {
+                self.input.advance_until(CODE_OPEN.len());
+                Token::Text(CODE_OPEN.into())
+            }
+        } else if input.starts_with(CODE_CLOSE) {
+            self.input.advance_until(CODE_CLOSE.len());
+            Token::CodeClose
+        } else if input.starts_with(SYNTAX_HIGHLIGHT_OPEN) {
+            if let Some(end_index) = input.find(">") {
+                self.input.advance_until(end_index + 1);
+                Token::CodeOpen(input[SYNTAX_HIGHLIGHT_OPEN.len()..end_index].into())
+            } else {
+                self.input.advance_until(SYNTAX_HIGHLIGHT_OPEN.len());
+                Token::Text(SYNTAX_HIGHLIGHT_OPEN.into())
+            }
+        } else if input.starts_with(SYNTAX_HIGHLIGHT_CLOSE) {
+            self.input.advance_until(SYNTAX_HIGHLIGHT_CLOSE.len());
+            Token::CodeClose
         } else if input.starts_with('=') {
             self.input.advance_one();
             Token::Equals
@@ -313,6 +356,10 @@ impl Token<'_> {
             Token::DoubleExclamation => "!!",
             Token::NoWikiOpen => NOWIKI_OPEN,
             Token::NoWikiClose => NOWIKI_CLOSE,
+            Token::MathOpen(_attrs) => "<math>",
+            Token::MathClose => "</math>",
+            Token::CodeOpen(_attrs) => "<code>",
+            Token::CodeClose => "</code>",
             Token::VerticalBar => "|",
             Token::DoubleVerticalBar => "||",
             Token::Apostrophe => "'",
@@ -349,6 +396,26 @@ mod tests {
                 Token::DoubleCloseBrace,
                 Token::Text(" } edf } } [ {".into()),
                 Token::Eof,
+            ]
+        );
+    }
+
+    #[test]
+    fn tokenize_math() {
+        let input = "Hello <math display=block>\\a_3 * 7 + a^4</math> World";
+        let mut tokenizer = Tokenizer::new(input);
+        let tokens = tokenizer.tokenize_all();
+        assert_eq!(
+            tokens.as_slice(),
+            [
+                Token::Text("Hello ".into()),
+                Token::MathOpen(" display=block".into()),
+                Token::Text("\\a_3 ".into()),
+                Token::Star,
+                Token::Text(" 7 + a^4".into()),
+                Token::MathClose,
+                Token::Text(" World".into()),
+                Token::Eof
             ]
         );
     }

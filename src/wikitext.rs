@@ -267,7 +267,9 @@ impl Text {
                 }
                 TextPiece::DoubleBraceExpression { .. }
                 | TextPiece::InternalLink { .. }
-                | TextPiece::ListItem { .. } => break,
+                | TextPiece::ListItem { .. }
+                | TextPiece::Math { .. }
+                | TextPiece::Code { .. } => break,
             }
             offset += 1;
         }
@@ -285,7 +287,10 @@ impl Text {
                         break;
                     }
                 }
-                TextPiece::DoubleBraceExpression { .. } | TextPiece::InternalLink { .. } => break,
+                TextPiece::DoubleBraceExpression { .. }
+                | TextPiece::InternalLink { .. }
+                | TextPiece::Math { .. }
+                | TextPiece::Code { .. } => break,
                 TextPiece::ListItem { text, .. } => {
                     text.trim_self_end();
                     break;
@@ -330,6 +335,13 @@ pub enum TextPiece {
         list_prefix: String,
         /// The text of the list item.
         text: Text,
+    },
+    /// A raw LaTeX string.
+    Math { block: bool, text: String },
+    /// A raw code string.
+    Code {
+        language: Option<String>,
+        text: String,
     },
 }
 
@@ -443,6 +455,12 @@ impl Display for TextPiece {
             }
             TextPiece::ListItem { list_prefix, text } => {
                 write!(fmt, "{list_prefix} {text}")
+            }
+            TextPiece::Math { block: _, text } => {
+                write!(fmt, "<math>{text}</math>")
+            }
+            TextPiece::Code { language, text } => {
+                write!(fmt, "<code lang=\"{:?}\">{text}</code>", language)
             }
         }
     }

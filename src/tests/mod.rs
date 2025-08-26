@@ -394,3 +394,79 @@ fn test_complex_table_header() {
         ),
     }
 }
+
+#[test]
+fn test_parse_math() {
+    let input = r#"See the following equation: <math display="block">2+3</math>. We see that"#;
+    let mut errors = Vec::new();
+    let parsed = parse_wikitext(
+        input,
+        Default::default(),
+        &mut Box::new(|error| errors.push(error)),
+    );
+    assert_eq!(
+        parsed,
+        Wikitext {
+            root_section: Section {
+                headline: Headline {
+                    label: "".to_string(),
+                    level: 1,
+                },
+                paragraphs: vec![Paragraph {
+                    lines: vec![Line::Normal {
+                        text: Text {
+                            pieces: vec![
+                                TextPiece::Text {
+                                    formatting: TextFormatting::Normal,
+                                    text: "See the following equation: ".to_string()
+                                },
+                                TextPiece::Math {
+                                    block: true,
+                                    text: "2+3".to_string(),
+                                },
+                                TextPiece::Text {
+                                    formatting: TextFormatting::Normal,
+                                    text: ". We see that".to_string()
+                                },
+                            ],
+                        },
+                    },],
+                },],
+                subsections: vec![],
+            },
+        }
+    );
+}
+
+#[test]
+fn test_parse_code() {
+    let input = r#"<syntaxhighlight lang="c">int a = 2+3;</syntaxhighlight>"#;
+    let mut errors = Vec::new();
+    let parsed = parse_wikitext(
+        input,
+        Default::default(),
+        &mut Box::new(|error| errors.push(error)),
+    );
+    assert_eq!(
+        parsed,
+        Wikitext {
+            root_section: Section {
+                headline: Headline {
+                    label: "".to_string(),
+                    level: 1,
+                },
+                paragraphs: vec![Paragraph {
+                    lines: vec![Line::Normal {
+                        text: Text {
+                            pieces: vec![TextPiece::Code {
+                                language: Some("c".to_string()),
+                                text: "int a = 2+3;".to_string(),
+                            },],
+                        },
+                    },],
+                },],
+                subsections: vec![],
+            },
+        }
+    );
+}

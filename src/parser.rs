@@ -8,6 +8,7 @@ use crate::ParserError;
 use lazy_static::lazy_static;
 use log::debug;
 use regex::Regex;
+use std::collections::HashMap;
 use std::mem;
 
 pub const MAX_SECTION_DEPTH: usize = 6;
@@ -261,6 +262,17 @@ fn parse_table(
     }
 }
 
+fn get_html_attrs(attr_text: &str) -> HashMap<String, String> {
+    let mut attrs = HashMap::new();
+    for html_attr in HTML_ATTR_REGEX.captures_iter(attr_text) {
+        if let (Some(key), Some(value)) = (html_attr.get(1), html_attr.get(2)) {
+            attrs.insert(key.as_str().to_string(), value.as_str().replace('"', ""));
+        }
+    }
+
+    attrs
+}
+
 fn parse_text_until(
     tokenizer: &mut MultipeekTokenizer,
     error_consumer: &mut impl FnMut(ParserError),
@@ -305,7 +317,49 @@ fn parse_text_until(
                 prefix = parse_internal_link(tokenizer, error_consumer, prefix, text_formatting);
             }
             Token::NoWikiOpen => {
-                prefix = parse_nowiki(tokenizer, error_consumer, prefix, text_formatting);
+                prefix = parse_nowiki(
+                    tokenizer,
+                    error_consumer,
+                    prefix,
+                    text_formatting,
+                    &Token::NoWikiClose,
+                );
+            }
+            Token::MathOpen(attrs) => {
+                let attrs = attrs.to_string();
+
+                let text = parse_nowiki(
+                    tokenizer,
+                    error_consumer,
+                    Text::new(),
+                    text_formatting,
+                    &Token::MathClose,
+                );
+                let attrs = get_html_attrs(&attrs);
+                let block = attrs.get("display") == Some(&"block".to_string());
+                let text_piece = TextPiece::Math {
+                    block,
+                    text: text.to_string(),
+                };
+                prefix.pieces.push(text_piece);
+            }
+            Token::CodeOpen(attrs) => {
+                let attrs = attrs.to_string();
+
+                let text = parse_nowiki(
+                    tokenizer,
+                    error_consumer,
+                    Text::new(),
+                    text_formatting,
+                    &Token::CodeClose,
+                );
+                let attrs = get_html_attrs(&attrs);
+                let language = attrs.get("language").or_else(|| attrs.get("lang")).cloned();
+                let text_piece = TextPiece::Code {
+                    language,
+                    text: text.to_string(),
+                };
+                prefix.pieces.push(text_piece);
             }
             Token::DoubleCloseBrace => {
                 error_consumer(
@@ -321,7 +375,7 @@ fn parse_text_until(
                 prefix.extend_with_formatted_text(*text_formatting, token.to_str());
                 tokenizer.next();
             }
-            Token::NoWikiClose => {
+            Token::NoWikiClose | Token::MathClose | Token::CodeClose => {
                 error_consumer(
                     ParserErrorKind::UnmatchedNoWikiClose.into_parser_error(*text_position),
                 );
@@ -363,8 +417,9 @@ fn parse_nowiki(
     error_consumer: &mut impl FnMut(ParserError),
     mut text: Text,
     text_formatting: &TextFormatting,
+    end_token: &Token,
 ) -> Text {
-    tokenizer.expect(&Token::NoWikiOpen).unwrap();
+    tokenizer.next();
 
     loop {
         if DO_PARSER_DEBUG_PRINTS {
@@ -372,11 +427,12 @@ fn parse_nowiki(
         }
         let (token, text_position) = tokenizer.peek(0);
 
+        if token == end_token {
+            tokenizer.next();
+            break;
+        }
+
         match token {
-            Token::NoWikiClose => {
-                tokenizer.next();
-                break;
-            }
             Token::Eof => {
                 error_consumer(
                     ParserErrorKind::UnmatchedNoWikiOpen.into_parser_error(*text_position),
@@ -525,8 +581,12 @@ fn parse_double_brace_expression(
             | Token::DoubleOpenBrace
             | Token::DoubleOpenBracket
             | Token::NoWikiOpen
+            | Token::MathOpen(_)
+            | Token::CodeOpen(_)
             | Token::DoubleCloseBracket
             | Token::NoWikiClose
+            | Token::MathClose
+            | Token::CodeClose
             | Token::Apostrophe
             | Token::Newline
             | Token::Colon
@@ -655,8 +715,12 @@ fn parse_attribute(
             Token::DoubleOpenBrace
             | Token::DoubleOpenBracket
             | Token::NoWikiOpen
+            | Token::MathOpen(_)
+            | Token::CodeOpen(_)
             | Token::DoubleCloseBrace
             | Token::NoWikiClose
+            | Token::MathClose
+            | Token::CodeClose
             | Token::VerticalBar
             | Token::DoubleVerticalBar
             | Token::Apostrophe
@@ -765,7 +829,11 @@ fn parse_internal_link(
         | Token::OpenBraceWithBar
         | Token::CloseBraceWithBar
         | Token::NoWikiOpen
-        | Token::NoWikiClose) => {
+        | Token::NoWikiClose
+        | Token::MathOpen(_)
+        | Token::CodeOpen(_)
+        | Token::MathClose
+        | Token::CodeClose) => {
             unreachable!("Not a stop token above: {token:?}");
         }
         Token::DoubleCloseBracket
@@ -843,6 +911,10 @@ fn parse_internal_link(
                 | Token::DoubleOpenBracket
                 | Token::NoWikiOpen
                 | Token::NoWikiClose
+                | Token::MathOpen(_)
+                | Token::CodeOpen(_)
+                | Token::MathClose
+                | Token::CodeClose
                 | Token::Colon
                 | Token::Semicolon
                 | Token::Star
