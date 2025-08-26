@@ -44,6 +44,12 @@ pub enum ParserErrorKind {
     /// Found a double open bracket that does not match any closed one.
     UnmatchedDoubleOpenBracket,
 
+    /// Found a `|}` that does not match any opened one.
+    UnmatchedCloseBraceWithBar,
+
+    /// Found a `{|` that does not match any closed one.
+    UnmatchedOpenBraceWithBar,
+
     /// Found a `</nowiki>` that does not match any `<nowiki>`.
     UnmatchedNoWikiClose,
 
@@ -124,6 +130,12 @@ impl Display for ParserErrorKind {
             }
             ParserErrorKind::UnmatchedDoubleOpenBracket => {
                 write!(f, "found an unmatched double open bracket [[")
+            }
+            ParserErrorKind::UnmatchedCloseBraceWithBar => {
+                write!(f, "found an unmatched brace with bar |}}")
+            }
+            ParserErrorKind::UnmatchedOpenBraceWithBar => {
+                write!(f, "found an unmatched brace with bar {{|")
             }
             ParserErrorKind::UnmatchedNoWikiClose => {
                 write!(f, "found an unmatched nowiki close tag </nowiki>")

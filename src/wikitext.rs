@@ -336,11 +336,18 @@ pub enum TextPiece {
         /// The text of the list item.
         text: Text,
     },
-    /// A raw LaTeX string.
-    Math { block: bool, text: String },
+    /// A raw LaTeX math string.
+    Math {
+        /// Whether the math content is inline or a full line (block).
+        block: bool,
+        /// The raw LaTeX string.
+        text: String,
+    },
     /// A raw code string.
     Code {
+        /// The name of the programming language of the code block.
         language: Option<String>,
+        /// The raw code block.
         text: String,
     },
 }

@@ -198,7 +198,7 @@ fn parse_table(
     let mut current_row: Vec<TableCell> = vec![];
 
     loop {
-        let (current_token, _current_pos) = tokenizer.next();
+        let (current_token, current_pos) = tokenizer.next();
 
         match current_token {
             Token::BarWithPlus => {
@@ -236,7 +236,7 @@ fn parse_table(
                     current_row.push(cell);
                 }
             }
-            Token::CloseBraceWithBar | Token::Eof => {
+            Token::CloseBraceWithBar => {
                 if !current_row.is_empty() {
                     match current_type {
                         TableRowType::Header => {
@@ -250,6 +250,11 @@ fn parse_table(
 
                 // end of table
                 break;
+            }
+            Token::Eof => {
+                error_consumer(
+                    ParserErrorKind::UnmatchedCloseBraceWithBar.into_parser_error(current_pos),
+                );
             }
             _token => {}
         }
