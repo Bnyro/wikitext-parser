@@ -175,9 +175,8 @@ fn collect_table_cell(
         }
         break;
     }
-    cell.text.trim_self_start();
-    cell.text.trim_self_end();
 
+    cell.text.trim_self();
     Some(cell)
 }
 
@@ -328,13 +327,15 @@ fn parse_text_until(
             Token::MathOpen(attrs) => {
                 let attrs = attrs.to_string();
 
-                let text = parse_nowiki(
+                let mut text = parse_nowiki(
                     tokenizer,
                     error_consumer,
                     Text::new(),
                     text_formatting,
                     &Token::MathClose,
                 );
+                text.trim_self();
+
                 let attrs = get_html_attrs(&attrs);
                 let block = attrs.get("display") == Some(&"block".to_string());
                 let text_piece = TextPiece::Math {
@@ -346,13 +347,15 @@ fn parse_text_until(
             Token::CodeOpen(attrs) => {
                 let attrs = attrs.to_string();
 
-                let text = parse_nowiki(
+                let mut text = parse_nowiki(
                     tokenizer,
                     error_consumer,
                     Text::new(),
                     text_formatting,
                     &Token::CodeClose,
                 );
+                text.trim_self();
+
                 let attrs = get_html_attrs(&attrs);
                 let language = attrs.get("language").or_else(|| attrs.get("lang")).cloned();
                 let text_piece = TextPiece::Code {
