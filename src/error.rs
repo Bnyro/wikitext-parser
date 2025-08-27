@@ -38,6 +38,12 @@ pub enum ParserErrorKind {
     /// Found a double open brace that does not match any closed one.
     UnmatchedDoubleOpenBrace,
 
+    /// Found a single close bracket that does not match any opened one.
+    UnmatchedCloseBracket,
+
+    /// Found a single open bracket that does not match any closed one.
+    UnmatchedOpenBracket,
+
     /// Found a double close bracket that does not match any opened one.
     UnmatchedDoubleCloseBracket,
 
@@ -130,6 +136,12 @@ impl Display for ParserErrorKind {
             }
             ParserErrorKind::UnmatchedDoubleOpenBracket => {
                 write!(f, "found an unmatched double open bracket [[")
+            }
+            ParserErrorKind::UnmatchedCloseBracket => {
+                write!(f, "found an unmatched single close bracket ]")
+            }
+            ParserErrorKind::UnmatchedOpenBracket => {
+                write!(f, "found an unmatched single open bracket [")
             }
             ParserErrorKind::UnmatchedCloseBraceWithBar => {
                 write!(f, "found an unmatched brace with bar |}}")

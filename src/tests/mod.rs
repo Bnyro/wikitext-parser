@@ -470,3 +470,52 @@ fn test_parse_code() {
         }
     );
 }
+
+#[test]
+fn test_external_link() {
+    let input = r"[https://example.com normal | ''italic'']";
+    let mut errors = Vec::new();
+    let parsed = parse_wikitext(
+        input,
+        Default::default(),
+        &mut Box::new(|error| errors.push(error)),
+    );
+    assert_eq!(
+        parsed,
+        Wikitext {
+            root_section: Section {
+                headline: Headline {
+                    label: "".to_string(),
+                    level: 1,
+                },
+                paragraphs: vec![Paragraph {
+                    lines: vec![Line::Normal {
+                        text: Text {
+                            pieces: vec![TextPiece::ExternalLink {
+                                target: Text {
+                                    pieces: vec![TextPiece::Text {
+                                        formatting: TextFormatting::Normal,
+                                        text: "https://example.com".to_string()
+                                    }]
+                                },
+                                label: Some(Text {
+                                    pieces: vec![
+                                        TextPiece::Text {
+                                            formatting: TextFormatting::Normal,
+                                            text: "normal | ".to_string()
+                                        },
+                                        TextPiece::Text {
+                                            formatting: TextFormatting::Italic,
+                                            text: "italic".to_string()
+                                        }
+                                    ]
+                                }),
+                            },],
+                        },
+                    },],
+                },],
+                subsections: vec![],
+            },
+        }
+    );
+}

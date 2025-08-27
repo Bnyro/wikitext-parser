@@ -10,6 +10,8 @@ static HTML_TAGS: &[&str] = &["nowiki", "math", "code", "syntaxhighlight", "pre"
 pub enum Token<'a> {
     Text(Cow<'a, str>),
     Equals,
+    OpenBracket,
+    CloseBracket,
     DoubleOpenBrace,
     DoubleCloseBrace,
     DoubleOpenBracket,
@@ -173,6 +175,10 @@ impl<'input> Tokenizer<'input> {
             Some((Token::DoubleOpenBracket, 2))
         } else if input.starts_with("]]") {
             Some((Token::DoubleCloseBracket, 2))
+        } else if input.starts_with(r"[") {
+            Some((Token::OpenBracket, 1))
+        } else if input.starts_with(r"]") {
+            Some((Token::CloseBracket, 1))
         } else if input.starts_with("{|") {
             Some((Token::OpenBraceWithBar, 2))
         } else if input.starts_with("|}") && !input.starts_with("|}}") {
@@ -317,7 +323,7 @@ impl<'tokenizer> MultipeekTokenizer<'tokenizer> {
     }
 }
 
-impl<'token> Display for Token<'token> {
+impl Display for Token<'_> {
     fn fmt(&self, fmt: &mut fmt::Formatter) -> Result<(), fmt::Error> {
         write!(fmt, "{}", self.to_str())
     }
@@ -339,7 +345,6 @@ impl Token<'_> {
             Token::Exclamation => "!".into(),
             Token::DoubleExclamation => "!!".into(),
             Token::HtmlTagOpen(tag, attrs) => format!("<{tag} {attrs}>"),
-
             Token::HtmlTagClose(tag) => format!("<{tag}/>"),
             Token::VerticalBar => "|".into(),
             Token::DoubleVerticalBar => "||".into(),
@@ -350,6 +355,8 @@ impl Token<'_> {
             Token::Star => "*".into(),
             Token::Sharp => "#".into(),
             Token::Eof => "<EOF>".into(),
+            Token::OpenBracket => "[".into(),
+            Token::CloseBracket => "]".into(),
         }
     }
 }
@@ -375,7 +382,9 @@ mod tests {
                 Token::DoubleCloseBrace,
                 Token::Text(" ".into()),
                 Token::DoubleCloseBrace,
-                Token::Text(" } edf } } [ {".into()),
+                Token::Text(" } edf } } ".into()),
+                Token::OpenBracket,
+                Token::Text(" {".into()),
                 Token::Eof,
             ]
         );

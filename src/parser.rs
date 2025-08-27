@@ -324,6 +324,9 @@ fn parse_text_until(
             Token::DoubleOpenBracket => {
                 prefix = parse_internal_link(tokenizer, error_consumer, prefix, text_formatting);
             }
+            Token::OpenBracket => {
+                prefix = parse_external_link(tokenizer, error_consumer, prefix, text_formatting);
+            }
             Token::HtmlTagOpen(tag, attrs) => {
                 let tag = tag.to_string();
                 let attrs = get_html_attrs(attrs);
@@ -373,6 +376,13 @@ fn parse_text_until(
             Token::DoubleCloseBracket => {
                 error_consumer(
                     ParserErrorKind::UnmatchedDoubleCloseBracket.into_parser_error(*text_position),
+                );
+                prefix.extend_with_formatted_text(*text_formatting, &token.to_str());
+                tokenizer.next();
+            }
+            Token::CloseBracket => {
+                error_consumer(
+                    ParserErrorKind::UnmatchedCloseBracket.into_parser_error(*text_position),
                 );
                 prefix.extend_with_formatted_text(*text_formatting, &token.to_str());
                 tokenizer.next();
@@ -583,6 +593,8 @@ fn parse_double_brace_expression(
             | Token::DoubleOpenBrace
             | Token::DoubleOpenBracket
             | Token::DoubleCloseBracket
+            | Token::OpenBracket
+            | Token::CloseBracket
             | Token::HtmlTagOpen(_, _)
             | Token::HtmlTagClose(_)
             | Token::Apostrophe
@@ -715,6 +727,8 @@ fn parse_attribute(
             | Token::HtmlTagOpen(_, _)
             | Token::HtmlTagClose(_)
             | Token::DoubleCloseBrace
+            | Token::OpenBracket
+            | Token::CloseBracket
             | Token::VerticalBar
             | Token::DoubleVerticalBar
             | Token::Apostrophe
@@ -801,6 +815,7 @@ fn parse_internal_link(
                     | Token::VerticalBar
                     | Token::DoubleCloseBrace
                     | Token::DoubleOpenBracket
+                    | Token::OpenBracket
                     | Token::OpenBraceWithBar
                     | Token::Newline
                     | Token::Eof
@@ -822,6 +837,7 @@ fn parse_internal_link(
         | Token::DoubleOpenBrace
         | Token::OpenBraceWithBar
         | Token::CloseBraceWithBar
+        | Token::CloseBracket
         | Token::HtmlTagOpen(_, _)
         | Token::HtmlTagClose(_)) => {
             unreachable!("Not a stop token above: {token:?}");
@@ -846,7 +862,7 @@ fn parse_internal_link(
             }
             tokenizer.next();
         }
-        token @ (Token::DoubleCloseBrace | Token::DoubleOpenBracket) => {
+        token @ (Token::DoubleCloseBrace | Token::DoubleOpenBracket | Token::OpenBracket) => {
             error_consumer(
                 ParserErrorKind::UnexpectedTokenInLink {
                     token: token.to_string(),
@@ -899,6 +915,7 @@ fn parse_internal_link(
                 }
                 Token::DoubleOpenBrace
                 | Token::DoubleOpenBracket
+                | Token::OpenBracket
                 | Token::HtmlTagOpen(_, _)
                 | Token::HtmlTagClose(_)
                 | Token::Colon
@@ -906,7 +923,6 @@ fn parse_internal_link(
                 | Token::Star
                 | Token::Sharp
                 | Token::OpenBraceWithBar
-                | Token::CloseBraceWithBar
                 | Token::BarWithDash
                 | Token::BarWithPlus
                 | Token::Exclamation
@@ -914,7 +930,9 @@ fn parse_internal_link(
                 | Token::Newline => {
                     break;
                 }
-                token @ Token::DoubleCloseBrace => {
+                token @ (Token::DoubleCloseBrace
+                | Token::CloseBracket
+                | Token::CloseBraceWithBar) => {
                     error_consumer(
                         ParserErrorKind::UnexpectedTokenInLinkLabel {
                             token: token.to_string(),
@@ -1010,6 +1028,66 @@ fn parse_internal_link(
             }
         }
     }
+
+    text
+}
+
+fn parse_external_link(
+    tokenizer: &mut MultipeekTokenizer,
+    error_consumer: &mut impl FnMut(ParserError),
+    mut text: Text,
+    text_formatting: &mut TextFormatting,
+) -> Text {
+    tokenizer.expect(&Token::OpenBracket).unwrap();
+
+    let link_with_title = parse_text_until(
+        tokenizer,
+        error_consumer,
+        Text::new(),
+        text_formatting,
+        &|token: &Token<'_>| matches!(token, Token::Eof | Token::CloseBracket),
+    );
+    let (end_token, text_position) = tokenizer.next();
+    match end_token {
+        Token::Eof => {
+            error_consumer(ParserErrorKind::UnmatchedOpenBracket.into_parser_error(text_position));
+        }
+        Token::CloseBracket => {}
+        _ => unreachable!(),
+    }
+
+    let mut is_in_link = true;
+    let mut link = Text::new();
+    let mut label = Text::new();
+    for piece in link_with_title.pieces {
+        // anything remaining is the link label
+        if !is_in_link {
+            label.pieces.push(piece);
+            continue;
+        }
+
+        // find the full url, e.g. the first part of [https://example.com label]
+        if let Some((url_part, text_part)) = piece.to_string().split_once(" ") {
+            is_in_link = false;
+
+            link.pieces.push(TextPiece::Text {
+                formatting: *text_formatting,
+                text: url_part.to_string(),
+            });
+
+            label.pieces.push(TextPiece::Text {
+                formatting: *text_formatting,
+                text: text_part.to_string(),
+            });
+        } else {
+            link.pieces.push(piece);
+        }
+    }
+
+    text.pieces.push(TextPiece::ExternalLink {
+        target: link,
+        label: if !label.is_empty() { Some(label) } else { None },
+    });
 
     text
 }

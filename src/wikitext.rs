@@ -274,6 +274,7 @@ impl Text {
                 }
                 TextPiece::DoubleBraceExpression { .. }
                 | TextPiece::InternalLink { .. }
+                | TextPiece::ExternalLink { .. }
                 | TextPiece::ListItem { .. }
                 | TextPiece::Math { .. }
                 | TextPiece::Code { .. } => break,
@@ -296,6 +297,7 @@ impl Text {
                 }
                 TextPiece::DoubleBraceExpression { .. }
                 | TextPiece::InternalLink { .. }
+                | TextPiece::ExternalLink { .. }
                 | TextPiece::Math { .. }
                 | TextPiece::Code { .. } => break,
                 TextPiece::ListItem { text, .. } => {
@@ -333,6 +335,13 @@ pub enum TextPiece {
         target: Text,
         /// The link options.
         options: Vec<Text>,
+        /// The label of the link.
+        label: Option<Text>,
+    },
+    /// An external link.
+    ExternalLink {
+        /// The link target.
+        target: Text,
         /// The label of the link.
         label: Option<Text>,
     },
@@ -466,6 +475,13 @@ impl Display for TextPiece {
                     write!(fmt, "|{label}")?;
                 }
                 write!(fmt, "]]")
+            }
+            TextPiece::ExternalLink { target: url, label } => {
+                write!(fmt, "[{url}")?;
+                if let Some(label) = label {
+                    write!(fmt, " {label}")?;
+                }
+                write!(fmt, "]")
             }
             TextPiece::ListItem { list_prefix, text } => {
                 write!(fmt, "{list_prefix} {text}")
