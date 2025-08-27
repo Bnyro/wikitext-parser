@@ -80,7 +80,7 @@ fn parse_line(
     while let token @ (Token::Colon | Token::Semicolon | Token::Star | Token::Sharp) =
         &tokenizer.peek(0).0
     {
-        list_prefix.push_str(token.to_str());
+        list_prefix.push_str(&token.to_str());
         tokenizer.next();
     }
 
@@ -270,7 +270,11 @@ fn get_html_attrs(attr_text: &str) -> HashMap<String, String> {
     let mut attrs = HashMap::new();
     for html_attr in HTML_ATTR_REGEX.captures_iter(attr_text) {
         if let (Some(key), Some(value)) = (html_attr.get(1), html_attr.get(2)) {
-            attrs.insert(key.as_str().to_string(), value.as_str().replace('"', ""));
+            attrs.insert(
+                key.as_str().to_string(),
+                // remove surrounding '"' for captures like key="value"
+                value.as_str().trim_matches('"').to_string(),
+            );
         }
     }
 
@@ -309,7 +313,7 @@ fn parse_text_until(
             | Token::DoubleExclamation
             | Token::VerticalBar
             | Token::DoubleVerticalBar) => {
-                prefix.extend_with_formatted_text(*text_formatting, token.to_str());
+                prefix.extend_with_formatted_text(*text_formatting, &token.to_str());
                 tokenizer.next();
             }
             Token::DoubleOpenBrace => prefix.pieces.push(parse_double_brace_expression(
@@ -320,74 +324,64 @@ fn parse_text_until(
             Token::DoubleOpenBracket => {
                 prefix = parse_internal_link(tokenizer, error_consumer, prefix, text_formatting);
             }
-            Token::NoWikiOpen => {
-                prefix = parse_nowiki(
-                    tokenizer,
-                    error_consumer,
-                    prefix,
-                    text_formatting,
-                    &Token::NoWikiClose,
-                );
-            }
-            Token::MathOpen(attrs) => {
-                let attrs = attrs.to_string();
+            Token::HtmlTagOpen(tag, attrs) => {
+                let tag = tag.to_string();
+                let attrs = get_html_attrs(attrs);
 
-                let mut text = parse_nowiki(
+                let mut text = parse_raw_block(
                     tokenizer,
                     error_consumer,
                     Text::new(),
                     text_formatting,
-                    &Token::MathClose,
+                    &Token::HtmlTagClose(tag.clone().into()),
                 );
-                text.trim_self();
 
-                let attrs = get_html_attrs(&attrs);
-                let block = attrs.get("display") == Some(&"block".to_string());
-                let text_piece = TextPiece::Math {
-                    block,
-                    text: text.to_string(),
-                };
-                prefix.pieces.push(text_piece);
-            }
-            Token::CodeOpen(attrs) => {
-                let attrs = attrs.to_string();
+                match tag.as_str() {
+                    "nowiki" | "pre" => {
+                        prefix.extend_with_text(text);
+                    }
+                    "math" => {
+                        text.trim_self();
 
-                let mut text = parse_nowiki(
-                    tokenizer,
-                    error_consumer,
-                    Text::new(),
-                    text_formatting,
-                    &Token::CodeClose,
-                );
-                text.trim_self();
+                        let block = attrs.get("display") == Some(&"block".to_string());
+                        let text_piece = TextPiece::Math {
+                            block,
+                            text: text.to_string(),
+                        };
+                        prefix.pieces.push(text_piece);
+                    }
+                    "code" | "syntaxhighlight" => {
+                        text.trim_self();
 
-                let attrs = get_html_attrs(&attrs);
-                let language = attrs.get("language").or_else(|| attrs.get("lang")).cloned();
-                let text_piece = TextPiece::Code {
-                    language,
-                    text: text.to_string(),
-                };
-                prefix.pieces.push(text_piece);
+                        let language = attrs.get("language").or_else(|| attrs.get("lang")).cloned();
+                        let text_piece = TextPiece::Code {
+                            language,
+                            text: text.to_string(),
+                        };
+                        prefix.pieces.push(text_piece);
+                    }
+                    _ => unreachable!("html tag not implemented by parser"),
+                }
             }
             Token::DoubleCloseBrace => {
                 error_consumer(
                     ParserErrorKind::UnmatchedDoubleCloseBrace.into_parser_error(*text_position),
                 );
-                prefix.extend_with_formatted_text(*text_formatting, token.to_str());
+                prefix.extend_with_formatted_text(*text_formatting, &token.to_str());
                 tokenizer.next();
             }
             Token::DoubleCloseBracket => {
                 error_consumer(
                     ParserErrorKind::UnmatchedDoubleCloseBracket.into_parser_error(*text_position),
                 );
-                prefix.extend_with_formatted_text(*text_formatting, token.to_str());
+                prefix.extend_with_formatted_text(*text_formatting, &token.to_str());
                 tokenizer.next();
             }
-            Token::NoWikiClose | Token::MathClose | Token::CodeClose => {
+            Token::HtmlTagClose(_tag) => {
                 error_consumer(
-                    ParserErrorKind::UnmatchedNoWikiClose.into_parser_error(*text_position),
+                    ParserErrorKind::UnmatchedHtmlBlockClose.into_parser_error(*text_position),
                 );
-                prefix.extend_with_formatted_text(*text_formatting, token.to_str());
+                prefix.extend_with_formatted_text(*text_formatting, &token.to_str());
                 tokenizer.next();
             }
             Token::Apostrophe => {
@@ -420,7 +414,7 @@ fn parse_text_until(
     prefix
 }
 
-fn parse_nowiki(
+fn parse_raw_block(
     tokenizer: &mut MultipeekTokenizer,
     error_consumer: &mut impl FnMut(ParserError),
     mut text: Text,
@@ -443,12 +437,12 @@ fn parse_nowiki(
         match token {
             Token::Eof => {
                 error_consumer(
-                    ParserErrorKind::UnmatchedNoWikiOpen.into_parser_error(*text_position),
+                    ParserErrorKind::UnmatchedHtmlBlockOpen.into_parser_error(*text_position),
                 );
                 break;
             }
             token => {
-                text.extend_with_formatted_text(*text_formatting, token.to_str());
+                text.extend_with_formatted_text(*text_formatting, &token.to_str());
                 tokenizer.next();
             }
         }
@@ -490,7 +484,7 @@ fn parse_potential_headline(
         match token {
             Token::Newline | Token::Eof | Token::Equals => break,
             token @ (Token::Text(_) | Token::Apostrophe) => {
-                label.push_str(token.to_str());
+                label.push_str(&token.to_str());
             }
             _ => return None,
         }
@@ -588,13 +582,9 @@ fn parse_double_brace_expression(
             | Token::Equals
             | Token::DoubleOpenBrace
             | Token::DoubleOpenBracket
-            | Token::NoWikiOpen
-            | Token::MathOpen(_)
-            | Token::CodeOpen(_)
             | Token::DoubleCloseBracket
-            | Token::NoWikiClose
-            | Token::MathClose
-            | Token::CodeClose
+            | Token::HtmlTagOpen(_, _)
+            | Token::HtmlTagClose(_)
             | Token::Apostrophe
             | Token::Newline
             | Token::Colon
@@ -666,7 +656,7 @@ fn parse_tag(
                     }
                     .into_parser_error(*text_position),
                 );
-                tag.extend_with_formatted_text(text_formatting, token.to_str());
+                tag.extend_with_formatted_text(text_formatting, &token.to_str());
                 tokenizer.next();
             }
             Token::Eof => {
@@ -722,13 +712,9 @@ fn parse_attribute(
             }
             Token::DoubleOpenBrace
             | Token::DoubleOpenBracket
-            | Token::NoWikiOpen
-            | Token::MathOpen(_)
-            | Token::CodeOpen(_)
+            | Token::HtmlTagOpen(_, _)
+            | Token::HtmlTagClose(_)
             | Token::DoubleCloseBrace
-            | Token::NoWikiClose
-            | Token::MathClose
-            | Token::CodeClose
             | Token::VerticalBar
             | Token::DoubleVerticalBar
             | Token::Apostrophe
@@ -755,7 +741,7 @@ fn parse_attribute(
                     }
                     .into_parser_error(*text_position),
                 );
-                name.as_mut().unwrap().push_str(token.to_str());
+                name.as_mut().unwrap().push_str(&token.to_str());
                 tokenizer.next();
             }
             Token::Eof => {
@@ -836,12 +822,8 @@ fn parse_internal_link(
         | Token::DoubleOpenBrace
         | Token::OpenBraceWithBar
         | Token::CloseBraceWithBar
-        | Token::NoWikiOpen
-        | Token::NoWikiClose
-        | Token::MathOpen(_)
-        | Token::CodeOpen(_)
-        | Token::MathClose
-        | Token::CodeClose) => {
+        | Token::HtmlTagOpen(_, _)
+        | Token::HtmlTagClose(_)) => {
             unreachable!("Not a stop token above: {token:?}");
         }
         Token::DoubleCloseBracket
@@ -860,7 +842,7 @@ fn parse_internal_link(
                 ParserErrorKind::UnmatchedDoubleOpenBracket.into_parser_error(*text_position),
             );
             if token != &Token::Eof {
-                text.extend_with_formatted_text(*text_formatting, token.to_str());
+                text.extend_with_formatted_text(*text_formatting, &token.to_str());
             }
             tokenizer.next();
         }
@@ -871,7 +853,7 @@ fn parse_internal_link(
                 }
                 .into_parser_error(*text_position),
             );
-            text.extend_with_formatted_text(*text_formatting, token.to_str());
+            text.extend_with_formatted_text(*text_formatting, &token.to_str());
             tokenizer.next();
         }
     }
@@ -888,7 +870,7 @@ fn parse_internal_link(
             let (token, text_position) = tokenizer.peek(0);
             match token {
                 token @ (Token::Equals | Token::Text(_)) => {
-                    label.extend_with_formatted_text(*text_formatting, token.to_str());
+                    label.extend_with_formatted_text(*text_formatting, &token.to_str());
                     tokenizer.next();
                 }
                 Token::VerticalBar | Token::DoubleVerticalBar => {
@@ -917,12 +899,8 @@ fn parse_internal_link(
                 }
                 Token::DoubleOpenBrace
                 | Token::DoubleOpenBracket
-                | Token::NoWikiOpen
-                | Token::NoWikiClose
-                | Token::MathOpen(_)
-                | Token::CodeOpen(_)
-                | Token::MathClose
-                | Token::CodeClose
+                | Token::HtmlTagOpen(_, _)
+                | Token::HtmlTagClose(_)
                 | Token::Colon
                 | Token::Semicolon
                 | Token::Star
@@ -943,7 +921,7 @@ fn parse_internal_link(
                         }
                         .into_parser_error(*text_position),
                     );
-                    label.extend_with_formatted_text(*text_formatting, token.to_str());
+                    label.extend_with_formatted_text(*text_formatting, &token.to_str());
                     tokenizer.next();
                 }
                 Token::Eof => {
@@ -988,7 +966,7 @@ fn parse_internal_link(
                             }
                             .into_parser_error(*text_position),
                         );
-                        label.extend_with_formatted_text(*text_formatting, token.to_str());
+                        label.extend_with_formatted_text(*text_formatting, &token.to_str());
                         tokenizer.next();
                     }
                     Token::Newline | Token::Eof => {
@@ -1022,7 +1000,7 @@ fn parse_internal_link(
         let (token, text_position) = tokenizer.peek(0);
         match token {
             token @ Token::DoubleCloseBracket => {
-                text.extend_with_formatted_text(*text_formatting, token.to_str());
+                text.extend_with_formatted_text(*text_formatting, &token.to_str());
                 tokenizer.next();
             }
             _ => {

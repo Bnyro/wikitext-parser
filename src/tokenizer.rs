@@ -4,14 +4,7 @@ use std::collections::VecDeque;
 use std::fmt;
 use std::fmt::Display;
 
-static NOWIKI_OPEN: &str = "<nowiki>";
-static NOWIKI_CLOSE: &str = "</nowiki>";
-static MATH_OPEN: &str = "<math";
-static MATH_CLOSE: &str = "</math>";
-static CODE_OPEN: &str = "<code";
-static CODE_CLOSE: &str = "</code>";
-static SYNTAX_HIGHLIGHT_OPEN: &str = "<syntaxhighlight";
-static SYNTAX_HIGHLIGHT_CLOSE: &str = "</syntaxhighlight>";
+static HTML_TAGS: &[&str] = &["nowiki", "math", "code", "syntaxhighlight", "pre"];
 
 #[derive(Debug, Clone, Eq, PartialEq)]
 pub enum Token<'a> {
@@ -27,12 +20,8 @@ pub enum Token<'a> {
     BarWithPlus,
     Exclamation,
     DoubleExclamation,
-    CodeOpen(Cow<'a, str>),
-    CodeClose,
-    MathOpen(Cow<'a, str>),
-    MathClose,
-    NoWikiOpen,
-    NoWikiClose,
+    HtmlTagOpen(Cow<'a, str>, Cow<'a, str>),
+    HtmlTagClose(Cow<'a, str>),
     VerticalBar,
     DoubleVerticalBar,
     Apostrophe,
@@ -192,46 +181,44 @@ impl<'input> Tokenizer<'input> {
             Some((Token::BarWithDash, 2))
         } else if input.starts_with("|+") && !input.starts_with("|+|") {
             Some((Token::BarWithPlus, 2))
-        } else if input.starts_with(NOWIKI_OPEN) {
-            Some((Token::NoWikiOpen, NOWIKI_OPEN.len()))
-        } else if input.starts_with(NOWIKI_CLOSE) {
-            Some((Token::NoWikiClose, NOWIKI_CLOSE.len()))
-        } else if input.starts_with(MATH_OPEN) {
-            if let Some(end_index) = input.find(">") {
-                Some((
-                    Token::MathOpen(input[MATH_OPEN.len()..end_index].into()),
-                    end_index + 1,
-                ))
-            } else {
-                Some((Token::Text(MATH_OPEN.into()), MATH_OPEN.len()))
+        } else if input.starts_with("</") {
+            for html_tag in HTML_TAGS {
+                let full_end_tag = format!("</{html_tag}>");
+                if input.starts_with(&full_end_tag) {
+                    return Some((
+                        Token::HtmlTagClose(html_tag.to_string().into()),
+                        full_end_tag.len(),
+                    ));
+                }
             }
-        } else if input.starts_with(MATH_CLOSE) {
-            Some((Token::MathClose, MATH_CLOSE.len()))
-        } else if input.starts_with(CODE_OPEN) {
-            if let Some(end_index) = input.find(">") {
-                Some((
-                    Token::CodeOpen(input[CODE_OPEN.len()..end_index].into()),
-                    end_index + 1,
-                ))
-            } else {
-                Some((Token::Text(CODE_OPEN.into()), CODE_OPEN.len()))
+
+            None
+        } else if input.starts_with("<") {
+            for html_tag in HTML_TAGS {
+                let full_start_tag = format!("<{html_tag}");
+                if !input.starts_with(&full_start_tag) {
+                    continue;
+                }
+
+                if let Some(end_index) = input.find(">") {
+                    let attrs = &input[full_start_tag.len()..end_index];
+
+                    // attributes must start with a blank, e.g. <code lang="c">
+                    // otherwise, it's likely not the html element we're looking for
+                    if !(attrs.is_empty() || attrs.starts_with(" ")) {
+                        return None;
+                    }
+
+                    return Some((
+                        Token::HtmlTagOpen(html_tag.to_string().into(), attrs.into()),
+                        end_index + 1,
+                    ));
+                };
+
+                break;
             }
-        } else if input.starts_with(CODE_CLOSE) {
-            Some((Token::CodeClose, CODE_CLOSE.len()))
-        } else if input.starts_with(SYNTAX_HIGHLIGHT_OPEN) {
-            if let Some(end_index) = input.find(">") {
-                Some((
-                    Token::CodeOpen(input[SYNTAX_HIGHLIGHT_OPEN.len()..end_index].into()),
-                    end_index + 1,
-                ))
-            } else {
-                Some((
-                    Token::Text(SYNTAX_HIGHLIGHT_OPEN.into()),
-                    SYNTAX_HIGHLIGHT_OPEN.len(),
-                ))
-            }
-        } else if input.starts_with(SYNTAX_HIGHLIGHT_CLOSE) {
-            Some((Token::CodeClose, SYNTAX_HIGHLIGHT_CLOSE.len()))
+
+            None
         } else if input.starts_with('=') {
             Some((Token::Equals, 1))
         } else if input.starts_with("!!") {
@@ -337,35 +324,32 @@ impl<'token> Display for Token<'token> {
 }
 
 impl Token<'_> {
-    pub fn to_str(&self) -> &str {
+    pub fn to_str(&self) -> String {
         match self {
-            Token::Text(text) => text,
-            Token::Equals => "=",
-            Token::DoubleOpenBrace => "{{",
-            Token::DoubleCloseBrace => "}}",
-            Token::DoubleOpenBracket => "[[",
-            Token::DoubleCloseBracket => "]]",
-            Token::OpenBraceWithBar => "{|",
-            Token::CloseBraceWithBar => "|}",
-            Token::BarWithDash => "|-",
-            Token::BarWithPlus => "|+",
-            Token::Exclamation => "!",
-            Token::DoubleExclamation => "!!",
-            Token::NoWikiOpen => NOWIKI_OPEN,
-            Token::NoWikiClose => NOWIKI_CLOSE,
-            Token::MathOpen(_attrs) => "<math>",
-            Token::MathClose => "</math>",
-            Token::CodeOpen(_attrs) => "<code>",
-            Token::CodeClose => "</code>",
-            Token::VerticalBar => "|",
-            Token::DoubleVerticalBar => "||",
-            Token::Apostrophe => "'",
-            Token::Newline => "\n",
-            Token::Colon => ":",
-            Token::Semicolon => ";",
-            Token::Star => "*",
-            Token::Sharp => "#",
-            Token::Eof => "<EOF>",
+            Token::Text(text) => text.to_string(),
+            Token::Equals => "=".into(),
+            Token::DoubleOpenBrace => "{{".into(),
+            Token::DoubleCloseBrace => "}}".into(),
+            Token::DoubleOpenBracket => "[[".into(),
+            Token::DoubleCloseBracket => "]]".into(),
+            Token::OpenBraceWithBar => "{|".into(),
+            Token::CloseBraceWithBar => "|}".into(),
+            Token::BarWithDash => "|-".into(),
+            Token::BarWithPlus => "|+".into(),
+            Token::Exclamation => "!".into(),
+            Token::DoubleExclamation => "!!".into(),
+            Token::HtmlTagOpen(tag, attrs) => format!("<{tag} {attrs}>"),
+
+            Token::HtmlTagClose(tag) => format!("<{tag}/>"),
+            Token::VerticalBar => "|".into(),
+            Token::DoubleVerticalBar => "||".into(),
+            Token::Apostrophe => "'".into(),
+            Token::Newline => "\n".into(),
+            Token::Colon => ":".into(),
+            Token::Semicolon => ";".into(),
+            Token::Star => "*".into(),
+            Token::Sharp => "#".into(),
+            Token::Eof => "<EOF>".into(),
         }
     }
 }
@@ -406,11 +390,11 @@ mod tests {
             tokens.as_slice(),
             [
                 Token::Text("Hello ".into()),
-                Token::MathOpen(" display=block".into()),
+                Token::HtmlTagOpen("math".into(), " display=block".into()),
                 Token::Text("\\a_3 ".into()),
                 Token::Star,
                 Token::Text(" 7 + a^4".into()),
-                Token::MathClose,
+                Token::HtmlTagClose("math".into()),
                 Token::Text(" World".into()),
                 Token::Eof
             ]

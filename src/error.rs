@@ -50,11 +50,11 @@ pub enum ParserErrorKind {
     /// Found a `{|` that does not match any closed one.
     UnmatchedOpenBraceWithBar,
 
-    /// Found a `</nowiki>` that does not match any `<nowiki>`.
-    UnmatchedNoWikiClose,
+    /// Found a `</tag>` that does not match any `<tag>`.
+    UnmatchedHtmlBlockClose,
 
-    /// Found a `<nowiki>` that does not match any `</nowiki>`.
-    UnmatchedNoWikiOpen,
+    /// Found a `<tag>` that does not match any `</tag>`.
+    UnmatchedHtmlBlockOpen,
 
     /// A tag contains a token that does not belong there.
     UnexpectedTokenInTag {
@@ -137,10 +137,10 @@ impl Display for ParserErrorKind {
             ParserErrorKind::UnmatchedOpenBraceWithBar => {
                 write!(f, "found an unmatched brace with bar {{|")
             }
-            ParserErrorKind::UnmatchedNoWikiClose => {
+            ParserErrorKind::UnmatchedHtmlBlockClose => {
                 write!(f, "found an unmatched nowiki close tag </nowiki>")
             }
-            ParserErrorKind::UnmatchedNoWikiOpen => {
+            ParserErrorKind::UnmatchedHtmlBlockOpen => {
                 write!(f, "found an unmatched nowiki open tag <nowiki>")
             }
             ParserErrorKind::UnexpectedTokenInTag { token } => {

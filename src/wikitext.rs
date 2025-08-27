@@ -227,6 +227,13 @@ impl Text {
         self.pieces.is_empty()
     }
 
+    /// Extend the current last text piece with the given [`Text`](TextPiece::Text)
+    pub fn extend_with_text(&mut self, text: Text) {
+        for piece in text.pieces {
+            self.pieces.push(piece);
+        }
+    }
+
     /// Extend the current last text piece with the given string,
     /// or append a new text piece created from the given string if there is no text piece
     /// or the last text piece is not of variant [`Text`](TextPiece::Text) or has different formatting.

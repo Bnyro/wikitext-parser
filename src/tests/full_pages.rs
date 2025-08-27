@@ -66,6 +66,7 @@ fn test_wiktionary_a() {
         "a".to_string(),
         &mut Box::new(|error| errors.push(error)),
     );
+    dbg!(&errors);
     assert!(errors.is_empty());
     /*parsed.print_headlines();
     *for double_brace_expression in parsed.list_double_brace_expressions() {
