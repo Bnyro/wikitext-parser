@@ -537,3 +537,36 @@ fn test_external_link() {
         }
     );
 }
+
+#[test]
+fn test_parse_comment() {
+    let input = r#"before <!-- comment --> after"#;
+    let mut errors = Vec::new();
+    let parsed = parse_wikitext(
+        input,
+        Default::default(),
+        &mut Box::new(|error| errors.push(error)),
+    );
+    assert_eq!(
+        parsed,
+        Wikitext {
+            root_section: Section {
+                headline: Headline {
+                    label: "".to_string(),
+                    level: 1,
+                },
+                paragraphs: vec![Paragraph {
+                    lines: vec![Line::Normal {
+                        text: Text {
+                            pieces: vec![TextPiece::Text {
+                                formatting: TextFormatting::Normal,
+                                text: "before  after".to_string()
+                            },],
+                        },
+                    },],
+                },],
+                subsections: vec![],
+            },
+        }
+    );
+}

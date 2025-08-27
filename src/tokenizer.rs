@@ -16,6 +16,8 @@ pub enum Token<'a> {
     DoubleCloseBrace,
     DoubleOpenBracket,
     DoubleCloseBracket,
+    OpenComment,
+    CloseComment,
     OpenBraceWithBar,
     CloseBraceWithBar,
     BarWithDash,
@@ -187,6 +189,10 @@ impl<'input> Tokenizer<'input> {
             Some((Token::BarWithDash, 2))
         } else if input.starts_with("|+") && !input.starts_with("|+|") {
             Some((Token::BarWithPlus, 2))
+        } else if input.starts_with("<!--") {
+            Some((Token::OpenComment, 4))
+        } else if input.starts_with("-->") {
+            Some((Token::CloseComment, 3))
         } else if input.starts_with("</") {
             for html_tag in HTML_TAGS {
                 let full_end_tag = format!("</{html_tag}>");
@@ -357,6 +363,8 @@ impl Token<'_> {
             Token::Eof => "<EOF>".into(),
             Token::OpenBracket => "[".into(),
             Token::CloseBracket => "]".into(),
+            Token::OpenComment => "<!--".into(),
+            Token::CloseComment => "-->".into(),
         }
     }
 }

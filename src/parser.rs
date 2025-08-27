@@ -49,7 +49,7 @@ pub fn parse_wikitext(
             continue;
         }
 
-        let (token, pos) = tokenizer.peek(0);
+        let (token, _pos) = tokenizer.peek(0);
 
         if token == &Token::Equals {
             if let Some(headline) = parse_potential_headline(&mut tokenizer, &mut error_consumer) {
@@ -307,6 +307,7 @@ fn parse_text_until(
             | Token::Newline
             | Token::OpenBraceWithBar
             | Token::CloseBraceWithBar
+            | Token::CloseComment
             | Token::BarWithDash
             | Token::BarWithPlus
             | Token::Exclamation
@@ -326,6 +327,12 @@ fn parse_text_until(
             }
             Token::OpenBracket => {
                 prefix = parse_external_link(tokenizer, error_consumer, prefix, text_formatting);
+            }
+            Token::OpenComment => {
+                // seek to the end of the comment
+                while tokenizer.next().0 != Token::CloseComment {
+                    continue;
+                }
             }
             Token::HtmlTagOpen(tag, attrs) => {
                 let tag = tag.to_string();
@@ -596,6 +603,8 @@ fn parse_double_brace_expression(
             | Token::CloseBracket
             | Token::HtmlTagOpen(_, _)
             | Token::HtmlTagClose(_)
+            | Token::OpenComment
+            | Token::CloseComment
             | Token::Apostrophe
             | Token::Newline
             | Token::Colon
@@ -725,6 +734,8 @@ fn parse_attribute(
             | Token::DoubleOpenBracket
             | Token::HtmlTagOpen(_, _)
             | Token::HtmlTagClose(_)
+            | Token::OpenComment
+            | Token::CloseComment
             | Token::DoubleCloseBrace
             | Token::OpenBracket
             | Token::CloseBracket
@@ -836,6 +847,8 @@ fn parse_internal_link(
         | Token::DoubleOpenBrace
         | Token::OpenBraceWithBar
         | Token::CloseBraceWithBar
+        | Token::OpenComment
+        | Token::CloseComment
         | Token::CloseBracket
         | Token::HtmlTagOpen(_, _)
         | Token::HtmlTagClose(_)) => {
@@ -917,6 +930,8 @@ fn parse_internal_link(
                 | Token::OpenBracket
                 | Token::HtmlTagOpen(_, _)
                 | Token::HtmlTagClose(_)
+                | Token::OpenComment
+                | Token::CloseComment
                 | Token::Colon
                 | Token::Semicolon
                 | Token::Star
