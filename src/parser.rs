@@ -49,9 +49,9 @@ pub fn parse_wikitext(
             continue;
         }
 
-        let (token, _) = tokenizer.peek(0);
+        let (token, pos) = tokenizer.peek(0);
 
-        if matches!(token, Token::Equals) {
+        if token == &Token::Equals {
             if let Some(headline) = parse_potential_headline(&mut tokenizer, &mut error_consumer) {
                 level_stack.append_headline(headline);
                 continue;
@@ -493,10 +493,9 @@ fn parse_potential_headline(
 
         match token {
             Token::Newline | Token::Eof | Token::Equals => break,
-            token @ (Token::Text(_) | Token::Apostrophe) => {
+            token => {
                 label.push_str(&token.to_str());
             }
-            _ => return None,
         }
 
         text_limit += 1;
