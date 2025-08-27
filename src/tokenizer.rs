@@ -1,6 +1,4 @@
 use crate::error::ParserErrorKind;
-use lazy_static::lazy_static;
-use regex::Regex;
 use std::borrow::Cow;
 use std::collections::VecDeque;
 use std::fmt;
@@ -14,14 +12,6 @@ static CODE_OPEN: &str = "<code";
 static CODE_CLOSE: &str = "</code>";
 static SYNTAX_HIGHLIGHT_OPEN: &str = "<syntaxhighlight";
 static SYNTAX_HIGHLIGHT_CLOSE: &str = "</syntaxhighlight>";
-
-lazy_static! {
-    static ref SPECIAL_TOKEN_START_REGEX: Regex = Regex::new(&format!(
-        r#"(\{{\{{|\}}\}}|\[\[|\]\]|=|\||'|\|-|\|\+|\{{\||\|\}}|!|\n|:|;|\*|#|{}|{}|{}|{}|{}|{}|{}|{})"#,
-        NOWIKI_OPEN, NOWIKI_CLOSE, MATH_OPEN, MATH_CLOSE, CODE_OPEN, CODE_CLOSE, SYNTAX_HIGHLIGHT_OPEN, SYNTAX_HIGHLIGHT_CLOSE
-    ))
-    .unwrap();
-}
 
 #[derive(Debug, Clone, Eq, PartialEq)]
 pub enum Token<'a> {
@@ -152,113 +142,120 @@ impl<'input> Tokenizer<'input> {
     where
         'input: 'token + 'this,
     {
-        let input = self.input.remaining_input();
-        if input.is_empty() {
-            Token::Eof
-        } else if input.starts_with(r"{{") {
-            self.input.advance_until(2);
-            Token::DoubleOpenBrace
+        let mut text_token_content = String::new();
+        loop {
+            let input = self.input.remaining_input();
+
+            if input.is_empty() {
+                if !text_token_content.is_empty() {
+                    return Token::Text(text_token_content.into());
+                }
+
+                return Token::Eof;
+            } else if let Some((token, length)) = self.special_token(input) {
+                if !text_token_content.is_empty() {
+                    return Token::Text(text_token_content.into());
+                } else {
+                    self.input.advance_until(length);
+                    return token;
+                }
+            } else if let Some(c) = input.chars().nth(0) {
+                self.input.advance_one();
+                text_token_content.push(c);
+            }
+        }
+    }
+
+    /// Try to match a special token that's not raw text.
+    ///
+    /// Returns the token and its textual length, if found.
+    pub fn special_token<'token, 'this>(
+        &'this self,
+        input: &'token str,
+    ) -> Option<(Token<'token>, usize)>
+    where
+        'input: 'token + 'this,
+    {
+        if input.starts_with(r"{{") {
+            Some((Token::DoubleOpenBrace, 2))
         } else if input.starts_with(r"}}") {
-            self.input.advance_until(2);
-            Token::DoubleCloseBrace
+            Some((Token::DoubleCloseBrace, 2))
         } else if input.starts_with("[[") {
-            self.input.advance_until(2);
-            Token::DoubleOpenBracket
+            Some((Token::DoubleOpenBracket, 2))
         } else if input.starts_with("]]") {
-            self.input.advance_until(2);
-            Token::DoubleCloseBracket
+            Some((Token::DoubleCloseBracket, 2))
         } else if input.starts_with("{|") {
-            self.input.advance_until(2);
-            Token::OpenBraceWithBar
+            Some((Token::OpenBraceWithBar, 2))
         } else if input.starts_with("|}") && !input.starts_with("|}}") {
-            self.input.advance_until(2);
-            Token::CloseBraceWithBar
+            Some((Token::CloseBraceWithBar, 2))
         } else if input.starts_with("|-") && !input.starts_with("|-|") {
-            self.input.advance_until(2);
-            Token::BarWithDash
+            Some((Token::BarWithDash, 2))
         } else if input.starts_with("|+") && !input.starts_with("|+|") {
-            self.input.advance_until(2);
-            Token::BarWithPlus
+            Some((Token::BarWithPlus, 2))
         } else if input.starts_with(NOWIKI_OPEN) {
-            self.input.advance_until(NOWIKI_OPEN.len());
-            Token::NoWikiOpen
+            Some((Token::NoWikiOpen, NOWIKI_OPEN.len()))
         } else if input.starts_with(NOWIKI_CLOSE) {
-            self.input.advance_until(NOWIKI_CLOSE.len());
-            Token::NoWikiClose
+            Some((Token::NoWikiClose, NOWIKI_CLOSE.len()))
         } else if input.starts_with(MATH_OPEN) {
             if let Some(end_index) = input.find(">") {
-                self.input.advance_until(end_index + 1);
-                Token::MathOpen(input[MATH_OPEN.len()..end_index].into())
+                Some((
+                    Token::MathOpen(input[MATH_OPEN.len()..end_index].into()),
+                    end_index + 1,
+                ))
             } else {
-                self.input.advance_until(MATH_OPEN.len());
-                Token::Text(MATH_OPEN.into())
+                Some((Token::Text(MATH_OPEN.into()), MATH_OPEN.len()))
             }
         } else if input.starts_with(MATH_CLOSE) {
-            self.input.advance_until(MATH_CLOSE.len());
-            Token::MathClose
+            Some((Token::MathClose, MATH_CLOSE.len()))
         } else if input.starts_with(CODE_OPEN) {
             if let Some(end_index) = input.find(">") {
-                self.input.advance_until(end_index + 1);
-                Token::CodeOpen(input[CODE_OPEN.len()..end_index].into())
+                Some((
+                    Token::CodeOpen(input[CODE_OPEN.len()..end_index].into()),
+                    end_index + 1,
+                ))
             } else {
-                self.input.advance_until(CODE_OPEN.len());
-                Token::Text(CODE_OPEN.into())
+                Some((Token::Text(CODE_OPEN.into()), CODE_OPEN.len()))
             }
         } else if input.starts_with(CODE_CLOSE) {
-            self.input.advance_until(CODE_CLOSE.len());
-            Token::CodeClose
+            Some((Token::CodeClose, CODE_CLOSE.len()))
         } else if input.starts_with(SYNTAX_HIGHLIGHT_OPEN) {
             if let Some(end_index) = input.find(">") {
-                self.input.advance_until(end_index + 1);
-                Token::CodeOpen(input[SYNTAX_HIGHLIGHT_OPEN.len()..end_index].into())
+                Some((
+                    Token::CodeOpen(input[SYNTAX_HIGHLIGHT_OPEN.len()..end_index].into()),
+                    end_index + 1,
+                ))
             } else {
-                self.input.advance_until(SYNTAX_HIGHLIGHT_OPEN.len());
-                Token::Text(SYNTAX_HIGHLIGHT_OPEN.into())
+                Some((
+                    Token::Text(SYNTAX_HIGHLIGHT_OPEN.into()),
+                    SYNTAX_HIGHLIGHT_OPEN.len(),
+                ))
             }
         } else if input.starts_with(SYNTAX_HIGHLIGHT_CLOSE) {
-            self.input.advance_until(SYNTAX_HIGHLIGHT_CLOSE.len());
-            Token::CodeClose
+            Some((Token::CodeClose, SYNTAX_HIGHLIGHT_CLOSE.len()))
         } else if input.starts_with('=') {
-            self.input.advance_one();
-            Token::Equals
+            Some((Token::Equals, 1))
         } else if input.starts_with("!!") {
-            self.input.advance_until(2);
-            Token::DoubleExclamation
+            Some((Token::DoubleExclamation, 2))
         } else if input.starts_with('!') {
-            self.input.advance_one();
-            Token::Exclamation
+            Some((Token::Exclamation, 1))
         } else if input.starts_with("||") {
-            self.input.advance_until(2);
-            Token::DoubleVerticalBar
+            Some((Token::DoubleVerticalBar, 2))
         } else if input.starts_with('|') {
-            self.input.advance_one();
-            Token::VerticalBar
+            Some((Token::VerticalBar, 1))
         } else if input.starts_with('\'') {
-            self.input.advance_one();
-            Token::Apostrophe
+            Some((Token::Apostrophe, 1))
         } else if input.starts_with('\n') {
-            self.input.advance_one();
-            Token::Newline
+            Some((Token::Newline, 1))
         } else if input.starts_with(':') {
-            self.input.advance_one();
-            Token::Colon
+            Some((Token::Colon, 1))
         } else if input.starts_with(';') {
-            self.input.advance_one();
-            Token::Semicolon
+            Some((Token::Semicolon, 1))
         } else if input.starts_with('*') {
-            self.input.advance_one();
-            Token::Star
+            Some((Token::Star, 1))
         } else if input.starts_with('#') {
-            self.input.advance_one();
-            Token::Sharp
-        } else if let Some(regex_match) = SPECIAL_TOKEN_START_REGEX.find(input) {
-            let result = Token::Text(input[..regex_match.start()].into());
-            self.input.advance_until(regex_match.start());
-            result
+            Some((Token::Sharp, 1))
         } else {
-            let result = Token::Text(self.input.remaining_input().into());
-            self.input.advance_until(input.len());
-            result
+            None
         }
     }
 
