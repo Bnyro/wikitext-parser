@@ -19,7 +19,7 @@ static DO_PARSER_DEBUG_PRINTS: bool = false;
 static DO_PARSER_DEBUG_PRINTS: bool = true;
 
 lazy_static! {
-    static ref HTML_ATTR_REGEX: Regex = Regex::new(r#"(\w+)=(".*"|.*)"#).unwrap();
+    static ref HTML_ATTR_REGEX: Regex = Regex::new(r#"([\w-]+)=(".*"|.*)"#).unwrap();
 }
 
 /// Parse textual wikitext into a semantic representation.
@@ -1129,5 +1129,5 @@ fn parse_external_link(
 
 #[test]
 fn test_css_attr_regex() {
-    assert!(HTML_ATTR_REGEX.is_match(r#"align="center""#))
+    assert!(HTML_ATTR_REGEX.is_match(r#"align-items="center""#))
 }
