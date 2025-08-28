@@ -335,10 +335,10 @@ impl Display for Token<'_> {
     }
 }
 
-impl Token<'_> {
-    pub fn to_str(&self) -> String {
+impl<'token> Token<'token> {
+    pub fn to_str(&self) -> Cow<'token, str> {
         match self {
-            Token::Text(text) => text.to_string(),
+            Token::Text(text) => text.to_string().into(),
             Token::Equals => "=".into(),
             Token::DoubleOpenBrace => "{{".into(),
             Token::DoubleCloseBrace => "}}".into(),
@@ -350,8 +350,8 @@ impl Token<'_> {
             Token::BarWithPlus => "|+".into(),
             Token::Exclamation => "!".into(),
             Token::DoubleExclamation => "!!".into(),
-            Token::HtmlTagOpen(tag, attrs) => format!("<{tag} {attrs}>"),
-            Token::HtmlTagClose(tag) => format!("<{tag}/>"),
+            Token::HtmlTagOpen(tag, attrs) => format!("<{tag} {attrs}>").into(),
+            Token::HtmlTagClose(tag) => format!("<{tag}/>").into(),
             Token::VerticalBar => "|".into(),
             Token::DoubleVerticalBar => "||".into(),
             Token::Apostrophe => "'".into(),
