@@ -294,7 +294,7 @@ impl<'tokenizer> MultipeekTokenizer<'tokenizer> {
         }
     }
 
-    pub fn peek(&mut self, distance: usize) -> &(Token, TextPosition) {
+    pub fn peek(&mut self, distance: usize) -> &(Token<'_>, TextPosition) {
         while self.peek.len() < distance + 1 {
             let text_position = self.tokenizer.input.position;
             self.peek.push_back((self.tokenizer.next(), text_position));
@@ -305,7 +305,7 @@ impl<'tokenizer> MultipeekTokenizer<'tokenizer> {
     /// Peeks a position inside the current peek buffer.
     /// If the position and no position after it was not yet peeked, returns `None`.
     /// This is useful because it does not require a mutable reference to self.
-    pub fn repeek(&self, distance: usize) -> Option<&(Token, TextPosition)> {
+    pub fn repeek(&self, distance: usize) -> Option<&(Token<'_>, TextPosition)> {
         self.peek.get(distance)
     }
 
