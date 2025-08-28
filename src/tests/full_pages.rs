@@ -530,3 +530,28 @@ fn test_wiktionary_te() {
         println!("{}", plain_text);
     }*/
 }
+
+#[test]
+fn test_wikipedia_wiki() {
+    let input = include_str!("pages/wikipedia_wiki.txt");
+    let mut errors = Vec::new();
+    let parsed = parse_wikitext(
+        input,
+        "table".to_string(),
+        &mut Box::new(|error| errors.push(error)),
+    );
+    match &parsed.root_section.paragraphs[0].lines[0] {
+        crate::Line::Table {
+            header_rows,
+            content_rows,
+        } => {
+            assert_eq!(header_rows.len(), 1);
+            assert_eq!(header_rows[0].len(), 3);
+
+            assert_eq!(content_rows.len(), 1);
+            assert_eq!(content_rows[0].len(), 3);
+        }
+        _ => panic!("table not recognized"),
+    }
+    assert!(errors.is_empty());
+}

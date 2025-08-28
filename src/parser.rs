@@ -126,13 +126,13 @@ enum TableRowType {
     Content,
 }
 
-fn collect_table_cell(
+fn parse_table_cell(
     tokenizer: &mut MultipeekTokenizer,
     error_consumer: &mut impl FnMut(ParserError),
 ) -> Option<TableCell> {
     let mut cell = TableCell::default();
 
-    loop {
+    'outer: loop {
         let text = parse_text_until(
             tokenizer,
             error_consumer,
@@ -147,37 +147,51 @@ fn collect_table_cell(
                         | Token::DoubleExclamation
                         | Token::CloseBraceWithBar
                         | Token::BarWithDash
+                        | Token::Eof
                 )
             },
         );
 
+        // if a html attr is found: continue with the outer loop, e.g. rowspan=2|content
+        // if no html attr is found: skip the closure and pus
         if tokenizer.peek(0).0 == Token::VerticalBar {
-            if let Some(html_attr) = HTML_ATTR_REGEX.captures(text.to_string().trim()) {
-                tokenizer.next();
+            'parse_html_attr: {
+                let text = text.to_string();
+                let Some(html_attr) = HTML_ATTR_REGEX.captures(text.trim()) else {
+                    break 'parse_html_attr;
+                };
+                let (Some(key), Some(value)) = (html_attr.get(1), html_attr.get(2)) else {
+                    break 'parse_html_attr;
+                };
 
-                if let (Some(key), Some(value)) = (html_attr.get(1), html_attr.get(2)) {
-                    let Ok(value) = value.as_str().replace('"', "").parse::<i32>() else {
-                        continue;
-                    };
+                // html attrs have to be at the start of the table expression, otherwise it's likely
+                // real content containing a html tag (which we don't want to match here)
+                if key.start() > 2 {
+                    break 'parse_html_attr;
+                }
+
+                // parse rowspan and colspan attributes to set the cell's size
+                if let Ok(value) = value.as_str().replace('"', "").parse::<i32>() {
                     if key.as_str().eq_ignore_ascii_case("rowspan") {
                         cell.rowspan = value;
                     } else if key.as_str().eq_ignore_ascii_case("colspan") {
                         cell.colspan = value;
                     }
-                }
+                };
 
-                continue;
+                // current token was html attribute -> continue with next token
+                tokenizer.next();
+                continue 'outer;
             }
         }
 
+        // no html attribute -> current iteration contains table content
         for piece in text.pieces {
             cell.text.pieces.push(piece);
         }
-        break;
+        cell.text.trim_self();
+        return Some(cell);
     }
-
-    cell.text.trim_self();
-    Some(cell)
 }
 
 fn parse_table(
@@ -225,14 +239,14 @@ fn parse_table(
             Token::Exclamation | Token::DoubleExclamation => {
                 current_type = TableRowType::Header;
 
-                if let Some(cell) = collect_table_cell(tokenizer, error_consumer) {
+                if let Some(cell) = parse_table_cell(tokenizer, error_consumer) {
                     current_row.push(cell);
                 }
             }
             Token::VerticalBar | Token::DoubleVerticalBar => {
                 current_type = TableRowType::Content;
 
-                if let Some(cell) = collect_table_cell(tokenizer, error_consumer) {
+                if let Some(cell) = parse_table_cell(tokenizer, error_consumer) {
                     current_row.push(cell);
                 }
             }
@@ -442,7 +456,7 @@ fn parse_raw_block(
 
     loop {
         if DO_PARSER_DEBUG_PRINTS {
-            println!("parse_nowiki token: {:?}", tokenizer.peek(0));
+            println!("parse_raw_block token: {:?}", tokenizer.peek(0));
         }
         let (token, text_position) = tokenizer.peek(0);
 
