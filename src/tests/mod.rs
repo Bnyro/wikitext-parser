@@ -195,6 +195,20 @@ fn test_headlines() {
             Headline::new("2006–2009: Early years", 3)
         ]
     );
+
+    let input = "== first ==<!-- comment --> \n=== second === <!-- comment --> invalid chars";
+    let mut errors = Vec::new();
+    let parsed = parse_wikitext(
+        input,
+        "title".to_string(),
+        &mut Box::new(|error| errors.push(error)),
+    );
+    assert!(errors.is_empty());
+    let headlines = parsed.list_headlines();
+    assert_eq!(
+        headlines,
+        vec![Headline::new("title", 1), Headline::new("first", 2),]
+    );
 }
 
 #[test]

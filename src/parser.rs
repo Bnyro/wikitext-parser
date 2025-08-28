@@ -513,53 +513,60 @@ fn parse_potential_headline(
         .take_while(|i| tokenizer.repeek(*i).unwrap().0 == Token::Equals)
         .count();
 
-    if prefix_length == suffix_length {
-        let whitespace_after_headline =
-            match &tokenizer.repeek(text_limit + suffix_length).unwrap().0 {
-                Token::Text(text) => {
-                    debug_assert!(text.chars().all(|c| c != '\n'));
-                    if text.chars().all(|c| c.is_ascii_whitespace()) {
-                        if matches!(
-                            tokenizer.repeek(text_limit + suffix_length + 1).unwrap().0,
-                            Token::Newline | Token::Eof
-                        ) {
-                            Some(2)
-                        } else {
-                            None
-                        }
-                    } else {
-                        None
-                    }
-                }
-                Token::Newline | Token::Eof => Some(1),
-                _ => None,
-            };
-
-        if let Some(whitespace_after_headline) = whitespace_after_headline {
-            let label = label.trim().to_string();
-            for _ in 0..text_limit + suffix_length + whitespace_after_headline {
-                tokenizer.next();
-            }
-
-            if prefix_length == 1 {
-                error_consumer(
-                    ParserErrorKind::SecondRootSection {
-                        label: label.clone(),
-                    }
-                    .into_parser_error(text_position),
-                );
-            }
-
-            Some(Headline {
-                label,
-                level: prefix_length.try_into().unwrap(),
-            })
-        } else {
-            None
-        }
-    } else {
-        None
+    if prefix_length != suffix_length {
+        return None;
     }
+
+    // seek until there's a new line (i.e. end of the heading's line)
+    // comments after the headline are allowed, only other tokens aren't
+    let mut is_in_comment = false;
+    let mut whitespace_length = 0;
+    loop {
+        match &tokenizer
+            .peek(text_limit + suffix_length + whitespace_length)
+            .0
+        {
+            Token::Newline | Token::Eof => {
+                break;
+            }
+            Token::OpenComment => {
+                is_in_comment = true;
+            }
+            Token::CloseComment => {
+                is_in_comment = false;
+            }
+            Token::Text(text) => {
+                if !is_in_comment && text.chars().any(|c| !c.is_ascii_whitespace()) {
+                    return None;
+                };
+            }
+            _ => {
+                if !is_in_comment {
+                    return None;
+                }
+            }
+        }
+
+        whitespace_length += 1;
+    }
+    for _ in 0..text_limit + suffix_length + whitespace_length {
+        tokenizer.next();
+    }
+
+    let label = label.trim().to_string();
+    if prefix_length == 1 {
+        error_consumer(
+            ParserErrorKind::SecondRootSection {
+                label: label.clone(),
+            }
+            .into_parser_error(text_position),
+        );
+    }
+
+    Some(Headline {
+        label,
+        level: prefix_length.try_into().unwrap(),
+    })
 }
 
 fn parse_double_brace_expression(
