@@ -78,23 +78,7 @@ impl Section {
         self.paragraphs
             .iter()
             .flat_map(|paragraph| paragraph.lines.iter())
-            .flat_map(|line| match line {
-                Line::Normal { text } => text.pieces.iter().collect::<Vec<_>>(),
-                Line::List { text, .. } => text.pieces.iter().collect::<Vec<_>>(),
-                Line::Table {
-                    header_rows,
-                    content_rows,
-                } => {
-                    let header_pieces = header_rows
-                        .iter()
-                        .flat_map(|row| row.iter().flat_map(|r| r.text.pieces.iter()));
-                    let content_pieces = content_rows
-                        .iter()
-                        .flat_map(|row| row.iter().flat_map(|r| r.text.pieces.iter()));
-
-                    header_pieces.chain(content_pieces).collect()
-                }
-            })
+            .flat_map(|line| line.iter_text_pieces())
     }
 
     /// List the double brace expressions of the text.
@@ -172,6 +156,52 @@ impl Default for TableCell {
     }
 }
 
+/// The type of a list.
+#[derive(Debug, Clone, Eq, PartialEq)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+pub enum ListType {
+    /// Numbered
+    Ordered,
+    /// Items are in no specific order.
+    Unordered,
+    /// List containing multiple other lists. Shouldn't be extra-formatted.
+    ContainerList,
+    /// The first list item is the label/title, the following items are the definition.
+    Definition(Text),
+}
+
+/// The entry point into a list.
+#[derive(Debug, Clone, Eq, PartialEq)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+pub struct ListHead {
+    pub list_type: ListType,
+    pub items: Vec<ListItem>,
+}
+
+/// The type of a list item.
+#[derive(Debug, Clone, Eq, PartialEq)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+pub enum ListItem {
+    /// Normal text content.
+    Text(Text),
+    /// A nested list.
+    List(ListHead),
+}
+
+impl ListItem {
+    pub fn iter_text_pieces(&self) -> impl Iterator<Item = &'_ TextPiece> {
+        match self {
+            ListItem::Text(text) => text.pieces.iter().collect::<Vec<_>>(),
+            ListItem::List(list_head) => list_head
+                .items
+                .iter()
+                .flat_map(|item| item.iter_text_pieces())
+                .collect::<Vec<_>>(),
+        }
+        .into_iter()
+    }
+}
+
 /// A line of a paragraph.
 #[derive(Debug, Clone, Eq, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
@@ -183,10 +213,8 @@ pub enum Line {
     },
     /// A list containing multiple list items.
     List {
-        /// The prefix string of the list.
-        list_prefix: String,
-        /// The actual content of the list.
-        text: Text,
+        /// The entrypoint to the list.
+        list: ListHead,
     },
     /// A table element.
     Table {
@@ -205,6 +233,32 @@ impl Line {
             Line::List { .. } => false,
             Line::Table { .. } => false,
         }
+    }
+
+    /// Iterates over the text pieces of the line's contents.
+    pub fn iter_text_pieces(&self) -> impl Iterator<Item = &'_ TextPiece> {
+        match self {
+            Line::Normal { text } => text.pieces.iter().collect::<Vec<_>>(),
+            Line::List { list } => list
+                .items
+                .iter()
+                .flat_map(|item| item.iter_text_pieces())
+                .collect::<Vec<_>>(),
+            Line::Table {
+                header_rows,
+                content_rows,
+            } => {
+                let header_pieces = header_rows
+                    .iter()
+                    .flat_map(|row| row.iter().flat_map(|r| r.text.pieces.iter()));
+                let content_pieces = content_rows
+                    .iter()
+                    .flat_map(|row| row.iter().flat_map(|r| r.text.pieces.iter()));
+
+                header_pieces.chain(content_pieces).collect()
+            }
+        }
+        .into_iter()
     }
 }
 
@@ -275,7 +329,6 @@ impl Text {
                 TextPiece::DoubleBraceExpression { .. }
                 | TextPiece::InternalLink { .. }
                 | TextPiece::ExternalLink { .. }
-                | TextPiece::ListItem { .. }
                 | TextPiece::Math { .. }
                 | TextPiece::Code { .. } => break,
             }
@@ -300,10 +353,6 @@ impl Text {
                 | TextPiece::ExternalLink { .. }
                 | TextPiece::Math { .. }
                 | TextPiece::Code { .. } => break,
-                TextPiece::ListItem { text, .. } => {
-                    text.trim_self_end();
-                    break;
-                }
             }
             limit -= 1;
         }
@@ -344,13 +393,6 @@ pub enum TextPiece {
         target: Text,
         /// The label of the link.
         label: Option<Text>,
-    },
-    /// A list item.
-    ListItem {
-        /// The prefix deciding the level and numbering of the list.
-        list_prefix: String,
-        /// The text of the list item.
-        text: Text,
     },
     /// A raw LaTeX math string.
     Math {
@@ -482,9 +524,6 @@ impl Display for TextPiece {
                     write!(fmt, " {label}")?;
                 }
                 write!(fmt, "]")
-            }
-            TextPiece::ListItem { list_prefix, text } => {
-                write!(fmt, "{list_prefix} {text}")
             }
             TextPiece::Math { block: _, text } => {
                 write!(fmt, "<math>{text}</math>")

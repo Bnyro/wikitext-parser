@@ -2,7 +2,8 @@ use crate::error::ParserErrorKind;
 use crate::level_stack::LevelStack;
 use crate::tokenizer::{MultipeekTokenizer, Token, Tokenizer};
 use crate::wikitext::{
-    Attribute, Headline, Line, TableCell, Text, TextFormatting, TextPiece, Wikitext,
+    Attribute, Headline, Line, ListHead, ListItem, ListType, TableCell, Text, TextFormatting,
+    TextPiece, Wikitext,
 };
 use crate::ParserError;
 use lazy_static::lazy_static;
@@ -74,35 +75,15 @@ fn parse_line(
 ) -> Line {
     debug_assert_eq!(parse_potential_headline(tokenizer, error_consumer), None);
 
-    let mut list_prefix = String::new();
-
-    // parse list_prefix
-    while let token @ (Token::Colon | Token::Semicolon | Token::Star | Token::Sharp) =
-        &tokenizer.peek(0).0
-    {
-        list_prefix.push_str(&token.to_str());
-        tokenizer.next();
-    }
-
     // parse remaining text
+
     if tokenizer.peek(0).0 == Token::OpenBraceWithBar {
         parse_table(tokenizer, error_consumer)
-    } else if !list_prefix.is_empty() {
-        let mut text_formatting = TextFormatting::Normal;
-        let text = parse_text_until(
-            tokenizer,
-            error_consumer,
-            Text::new(),
-            &mut text_formatting,
-            &|token: &Token<'_>| {
-                matches!(token, Token::Newline | Token::Eof | Token::OpenBraceWithBar)
-            },
-        );
-        let (_, text_position) = tokenizer.next();
-        if text_formatting != TextFormatting::Normal {
-            debug!("Line contains unclosed text formatting expression at {text_position:?}");
-        }
-        Line::List { list_prefix, text }
+    } else if matches!(
+        tokenizer.peek(0).0,
+        Token::Colon | Token::Semicolon | Token::Star | Token::Sharp
+    ) {
+        parse_list(tokenizer, error_consumer)
     } else {
         let mut text_formatting = TextFormatting::Normal;
         let text = parse_text_until(
@@ -191,6 +172,177 @@ fn parse_table_cell(
         }
         cell.text.trim_self();
         return Some(cell);
+    }
+}
+
+fn parse_list(
+    tokenizer: &mut MultipeekTokenizer,
+    error_consumer: &mut impl FnMut(ParserError),
+) -> Line {
+    let mut items = vec![];
+    loop {
+        let mut list_prefix = vec![];
+        // parse list_prefix
+        while let Token::Colon | Token::Semicolon | Token::Star | Token::Sharp =
+            &tokenizer.peek(0).0
+        {
+            let token = tokenizer.next().0;
+            list_prefix.push(token);
+        }
+        if list_prefix.is_empty() {
+            break;
+        }
+
+        let mut text_formatting = TextFormatting::Normal;
+        let text = parse_text_until(
+            tokenizer,
+            error_consumer,
+            Text::new(),
+            &mut text_formatting,
+            &|token: &Token<'_>| {
+                matches!(token, Token::Newline | Token::Eof | Token::OpenBraceWithBar)
+            },
+        );
+        let (_, text_position) = tokenizer.next();
+        if text_formatting != TextFormatting::Normal {
+            debug!("Line contains unclosed text formatting expression at {text_position:?}");
+        }
+
+        items.push((list_prefix, text))
+    }
+
+    let list = build_list_structure(&items);
+    Line::List { list }
+}
+
+/// Build a tree structure from nested lists, e.g.
+///
+/// ```wikitext
+/// ; Mixed definition lists
+/// ; item 1 : definition
+/// :; sub-item 1 plus term
+/// :: two colons plus definition
+/// :; sub-item 2 : colon plus definition
+/// ; item 2
+/// : back to the main list
+/// ```
+///
+/// see <https://www.mediawiki.org/wiki/Help:Lists>
+fn build_list_items(items: &[(Vec<&Token>, &Text)]) -> Vec<ListItem> {
+    let mut items = items.to_vec();
+    let mut list_items = vec![];
+
+    while !items.is_empty() {
+        let (sublist_start_prefix, text) = items[0].clone();
+        if sublist_start_prefix.is_empty() {
+            list_items.push(ListItem::Text((*text).clone()));
+            items.remove(0);
+            continue;
+        }
+
+        let mut sublist_items = vec![];
+        let is_definition = sublist_start_prefix[0] == &Token::Semicolon;
+        while !items.is_empty() {
+            let (cur_prefix, next_text) = &items[0];
+            if cur_prefix.is_empty() {
+                break;
+            }
+
+            if sublist_items.is_empty() {
+                if is_definition && !matches!(cur_prefix[0], Token::Semicolon | Token::Colon) {
+                    break;
+                }
+
+                if !is_definition && cur_prefix[0] != sublist_start_prefix[0] {
+                    break;
+                }
+            }
+
+            sublist_items.push((
+                cur_prefix.iter().map(|token| (*token).clone()).collect(),
+                (*next_text).clone(),
+            ));
+            items.remove(0);
+        }
+        list_items.push(ListItem::List(build_list_structure(&sublist_items)));
+    }
+
+    list_items
+}
+
+fn build_list_structure(items: &[(Vec<Token>, Text)]) -> ListHead {
+    if let Some((prefix, _text)) = items.first() {
+        let root_prefix = &prefix[0];
+
+        match root_prefix {
+            Token::Star => ListHead {
+                list_type: ListType::Unordered,
+                items: build_list_items(
+                    &items
+                        .iter()
+                        .map(|(prefix, text)| (prefix.iter().skip(1).collect::<Vec<_>>(), text))
+                        .collect::<Vec<_>>(),
+                ),
+            },
+            Token::Sharp => ListHead {
+                list_type: ListType::Ordered,
+                items: build_list_items(
+                    &items
+                        .iter()
+                        .map(|(prefix, text)| (prefix.iter().skip(1).collect::<Vec<_>>(), text))
+                        .collect::<Vec<_>>(),
+                ),
+            },
+            Token::Semicolon | Token::Colon => {
+                let mut definitions = vec![];
+                let mut definition = Text::new();
+                let mut definition_values: Vec<(Vec<Token>, Text)> = vec![];
+
+                // ensure that the previous definition list is always closed
+                // by adding an empty one to the end (that'll be skipped)
+                let mut items = items.to_vec();
+                items.push(((vec![Token::Semicolon]), Text::new()));
+
+                for item @ (prefix, text) in &items {
+                    let root_prefix = &prefix[0];
+
+                    if root_prefix == &Token::Semicolon {
+                        if !definition_values.is_empty() {
+                            definitions.push(ListHead {
+                                list_type: ListType::Definition(definition),
+                                items: build_list_items(
+                                    &definition_values
+                                        .iter()
+                                        .map(|(prefix, text)| {
+                                            (prefix.iter().skip(1).collect::<Vec<_>>(), text)
+                                        })
+                                        .collect::<Vec<_>>(),
+                                ),
+                            });
+                        }
+
+                        definition = text.clone();
+                        definition_values = vec![];
+                    } else {
+                        definition_values.push(item.clone());
+                    }
+                }
+
+                ListHead {
+                    list_type: ListType::ContainerList,
+                    items: definitions
+                        .iter()
+                        .map(|def| ListItem::List(def.clone()))
+                        .collect(),
+                }
+            }
+            _ => unreachable!(),
+        }
+    } else {
+        ListHead {
+            list_type: ListType::Unordered,
+            items: vec![],
+        }
     }
 }
 

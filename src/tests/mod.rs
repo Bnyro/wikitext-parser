@@ -1,4 +1,4 @@
-use crate::wikitext::{Headline, Line, Paragraph};
+use crate::wikitext::{Headline, Line, ListHead, ListItem, ListType, Paragraph};
 use crate::{
     parse_wikitext, ParserErrorKind, Section, TableCell, Text, TextFormatting, TextPiece,
     TextPosition, Wikitext,
@@ -581,6 +581,69 @@ fn test_parse_comment() {
                 },],
                 subsections: vec![],
             },
+        }
+    );
+}
+
+#[test]
+fn test_parse_list() {
+    let input = "#;Title 1\n#:Item A\n#;Title 2\n#:Item B";
+    let mut errors = Vec::new();
+    let parsed = parse_wikitext(
+        input,
+        Default::default(),
+        &mut Box::new(|error| errors.push(error)),
+    );
+    assert_eq!(
+        parsed,
+        Wikitext {
+            root_section: Section {
+                headline: Headline {
+                    label: "".to_string(),
+                    level: 1
+                },
+                paragraphs: vec![Paragraph {
+                    lines: vec![Line::List {
+                        list: ListHead {
+                            list_type: ListType::Ordered,
+                            items: vec![ListItem::List(ListHead {
+                                list_type: ListType::ContainerList,
+                                items: vec![
+                                    ListItem::List(ListHead {
+                                        list_type: ListType::Definition(Text {
+                                            pieces: vec![TextPiece::Text {
+                                                formatting: TextFormatting::Normal,
+                                                text: "Title 1".to_string()
+                                            }]
+                                        }),
+                                        items: vec![ListItem::Text(Text {
+                                            pieces: vec![TextPiece::Text {
+                                                formatting: TextFormatting::Normal,
+                                                text: "Item A".to_string()
+                                            }]
+                                        })]
+                                    }),
+                                    ListItem::List(ListHead {
+                                        list_type: ListType::Definition(Text {
+                                            pieces: vec![TextPiece::Text {
+                                                formatting: TextFormatting::Normal,
+                                                text: "Title 2".to_string()
+                                            }]
+                                        }),
+                                        items: vec![ListItem::Text(Text {
+                                            pieces: vec![TextPiece::Text {
+                                                formatting: TextFormatting::Normal,
+                                                text: "Item B".to_string()
+                                            }]
+                                        })]
+                                    })
+                                ]
+                            })]
+                        }
+                    }]
+                }],
+                subsections: vec![]
+            }
         }
     );
 }
