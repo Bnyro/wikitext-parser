@@ -555,3 +555,16 @@ fn test_wikipedia_wiki() {
     }
     assert!(errors.is_empty());
 }
+
+#[test]
+fn test_wikipedia_html_timeline() {
+    let input = include_str!("pages/html_timeline.txt");
+    let mut errors = Vec::new();
+    let _parsed = parse_wikitext(
+        input,
+        "timeline".to_string(),
+        &mut Box::new(|error| errors.push(error)),
+    );
+
+    assert!(errors.is_empty());
+}

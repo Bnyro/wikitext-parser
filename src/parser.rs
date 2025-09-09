@@ -211,6 +211,10 @@ fn parse_list(
         items.push((list_prefix, text))
     }
 
+    let items = items
+        .iter()
+        .map(|(prefix, text)| (prefix.iter().collect::<Vec<_>>(), text))
+        .collect::<Vec<_>>();
     let list = build_list_structure(&items);
     Line::List { list }
 }
@@ -258,10 +262,7 @@ fn build_list_items(items: &[(Vec<&Token>, &Text)]) -> Vec<ListItem> {
                 }
             }
 
-            sublist_items.push((
-                cur_prefix.iter().map(|token| (*token).clone()).collect(),
-                (*next_text).clone(),
-            ));
+            sublist_items.push((cur_prefix.to_vec(), (*next_text)));
             items.remove(0);
         }
         list_items.push(ListItem::List(build_list_structure(&sublist_items)));
@@ -270,7 +271,7 @@ fn build_list_items(items: &[(Vec<&Token>, &Text)]) -> Vec<ListItem> {
     list_items
 }
 
-fn build_list_structure(items: &[(Vec<Token>, Text)]) -> ListHead {
+fn build_list_structure(items: &[(Vec<&Token>, &Text)]) -> ListHead {
     if let Some((prefix, _text)) = items.first() {
         let root_prefix = &prefix[0];
 
@@ -280,7 +281,7 @@ fn build_list_structure(items: &[(Vec<Token>, Text)]) -> ListHead {
                 items: build_list_items(
                     &items
                         .iter()
-                        .map(|(prefix, text)| (prefix.iter().skip(1).collect::<Vec<_>>(), text))
+                        .map(|(prefix, text)| (prefix[1..].to_vec(), *text))
                         .collect::<Vec<_>>(),
                 ),
             },
@@ -289,42 +290,41 @@ fn build_list_structure(items: &[(Vec<Token>, Text)]) -> ListHead {
                 items: build_list_items(
                     &items
                         .iter()
-                        .map(|(prefix, text)| (prefix.iter().skip(1).collect::<Vec<_>>(), text))
+                        .map(|(prefix, text)| (prefix[1..].to_vec(), *text))
                         .collect::<Vec<_>>(),
                 ),
             },
-            Token::Semicolon | Token::Colon => {
+            Token::Semicolon => {
                 let mut definitions = vec![];
                 let mut definition = Text::new();
-                let mut definition_values: Vec<(Vec<Token>, Text)> = vec![];
+                let mut definition_values: Vec<(Vec<&Token>, &Text)> = vec![];
 
                 // ensure that the previous definition list is always closed
                 // by adding an empty one to the end (that'll be skipped)
                 let mut items = items.to_vec();
-                items.push(((vec![Token::Semicolon]), Text::new()));
+                let empty_text = &Text::new();
+                items.push(((vec![&Token::Semicolon]), empty_text));
 
                 for item @ (prefix, text) in &items {
                     let root_prefix = &prefix[0];
 
-                    if root_prefix == &Token::Semicolon {
+                    if root_prefix == &&Token::Semicolon {
                         if !definition_values.is_empty() {
                             definitions.push(ListHead {
                                 list_type: ListType::Definition(definition),
                                 items: build_list_items(
                                     &definition_values
                                         .iter()
-                                        .map(|(prefix, text)| {
-                                            (prefix.iter().skip(1).collect::<Vec<_>>(), text)
-                                        })
+                                        .map(|(prefix, text)| (prefix[1..].to_vec(), *text))
                                         .collect::<Vec<_>>(),
                                 ),
                             });
                         }
 
-                        definition = text.clone();
+                        definition = (*text).clone();
                         definition_values = vec![];
                     } else {
-                        definition_values.push(item.clone());
+                        definition_values.push((*item).clone());
                     }
                 }
 
@@ -336,6 +336,15 @@ fn build_list_structure(items: &[(Vec<Token>, Text)]) -> ListHead {
                         .collect(),
                 }
             }
+            Token::Colon => ListHead {
+                list_type: ListType::ContainerList,
+                items: build_list_items(
+                    &items
+                        .iter()
+                        .map(|(prefix, text)| (prefix[1..].to_vec(), *text))
+                        .collect::<Vec<_>>(),
+                ),
+            },
             _ => unreachable!(),
         }
     } else {

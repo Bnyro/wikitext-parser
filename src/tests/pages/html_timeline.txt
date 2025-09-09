@@ -1,0 +1,7 @@
+=== HTML version timeline ===
+==== HTML 2 ====
+:; November 24, 1995: HTML 2.0 was published as {{IETF RFC|1866}}. Supplemental [[Request for Comments|RFCs]] added capabilities:
+::* November 25, 1995: {{IETF RFC|1867}} (form-based file upload)
+::* May 1996: {{IETF RFC|1942}} (tables)
+::* August 1996: {{IETF RFC|1980}} (client-side image maps)
+::* January 1997: {{IETF RFC|2070}} ([[internationalization and localization|internationalization]])
