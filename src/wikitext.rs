@@ -174,7 +174,9 @@ pub enum ListType {
 #[derive(Debug, Clone, Eq, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct ListHead {
+    /// The type of the list.
     pub list_type: ListType,
+    /// The content of the list.
     pub items: Vec<ListItem>,
 }
 
@@ -189,6 +191,7 @@ pub enum ListItem {
 }
 
 impl ListItem {
+    /// Iterates over the text pieces of the list item's contents.
     pub fn iter_text_pieces(&self) -> impl Iterator<Item = &'_ TextPiece> {
         match self {
             ListItem::Text(text) => text.pieces.iter().collect::<Vec<_>>(),

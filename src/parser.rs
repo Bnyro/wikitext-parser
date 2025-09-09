@@ -193,16 +193,41 @@ fn parse_list(
             break;
         }
 
+        let is_definition_list = list_prefix[list_prefix.len() - 1] == Token::Semicolon;
         let mut text_formatting = TextFormatting::Normal;
-        let text = parse_text_until(
+        let mut text = parse_text_until(
             tokenizer,
             error_consumer,
             Text::new(),
             &mut text_formatting,
             &|token: &Token<'_>| {
+                // only seek until ':' in definitions, e.g. "; term : description"
                 matches!(token, Token::Newline | Token::Eof | Token::OpenBraceWithBar)
+                    || (is_definition_list && token == &Token::Colon)
             },
         );
+
+        // continue parsing the list item's description
+        if is_definition_list && tokenizer.peek(0).0 == Token::Colon {
+            // backup the definition term early to be able to overwrite it with the description
+            items.push((list_prefix.clone(), text));
+
+            // replace ';' with ':' to indicate the start of a definition description
+            list_prefix.pop();
+            list_prefix.push(Token::Colon);
+            tokenizer.next();
+
+            text = parse_text_until(
+                tokenizer,
+                error_consumer,
+                Text::new(),
+                &mut text_formatting,
+                &|token: &Token<'_>| {
+                    matches!(token, Token::Newline | Token::Eof | Token::OpenBraceWithBar)
+                },
+            );
+        }
+
         let (_, text_position) = tokenizer.next();
         if text_formatting != TextFormatting::Normal {
             debug!("Line contains unclosed text formatting expression at {text_position:?}");

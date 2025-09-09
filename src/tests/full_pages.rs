@@ -565,6 +565,7 @@ fn test_wikipedia_html_timeline() {
         "timeline".to_string(),
         &mut Box::new(|error| errors.push(error)),
     );
+    dbg!(_parsed);
 
     assert!(errors.is_empty());
 }
