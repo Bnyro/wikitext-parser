@@ -538,11 +538,12 @@ fn parse_text_until(
                 let tag = tag.to_string();
                 let attrs = get_html_attrs(attrs);
 
+                // raw blocks don't use the text formatting that was declared outside
                 let mut text = parse_raw_block(
                     tokenizer,
                     error_consumer,
                     Text::new(),
-                    text_formatting,
+                    &TextFormatting::Normal,
                     &Token::HtmlTagClose(tag.clone().into()),
                 );
 

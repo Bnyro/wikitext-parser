@@ -647,3 +647,38 @@ fn test_parse_list() {
         }
     );
 }
+
+#[test]
+fn test_parse_formatted_html_block() {
+    let input = r#"'''<code>file</code>'''"#;
+    let mut errors = Vec::new();
+    let parsed = parse_wikitext(
+        input,
+        Default::default(),
+        &mut Box::new(|error| errors.push(error)),
+    );
+
+    assert_eq!(
+        parsed,
+        Wikitext {
+            root_section: Section {
+                headline: Headline {
+                    label: "".to_string(),
+                    level: 1,
+                },
+                paragraphs: vec![Paragraph {
+                    lines: vec![Line::Normal {
+                        text: Text {
+                            pieces: vec![TextPiece::Code {
+                                language: None,
+                                text: "file".to_string(),
+                            },],
+                        },
+                    },],
+                },],
+                subsections: vec![],
+            },
+        }
+    );
+    assert!(errors.is_empty());
+}
