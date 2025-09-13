@@ -10,7 +10,6 @@ use lazy_static::lazy_static;
 use log::debug;
 use regex::Regex;
 use std::collections::HashMap;
-use std::mem;
 
 pub const MAX_SECTION_DEPTH: usize = 6;
 
@@ -538,14 +537,16 @@ fn parse_text_until(
                 let tag = tag.to_string();
                 let attrs = get_html_attrs(attrs);
 
+                tokenizer.next();
                 // raw blocks don't use the text formatting that was declared outside
                 let mut text = parse_raw_block(
                     tokenizer,
                     error_consumer,
                     Text::new(),
                     &TextFormatting::Normal,
-                    &Token::HtmlTagClose(tag.clone().into()),
+                    &|token| token == &Token::HtmlTagClose(tag.clone().into()),
                 );
+                tokenizer.next();
 
                 match tag.as_str() {
                     "nowiki" | "pre" => {
@@ -637,18 +638,15 @@ fn parse_raw_block(
     error_consumer: &mut impl FnMut(ParserError),
     mut text: Text,
     text_formatting: &TextFormatting,
-    end_token: &Token,
+    terminator: &impl Fn(&Token<'_>) -> bool,
 ) -> Text {
-    tokenizer.next();
-
     loop {
         if DO_PARSER_DEBUG_PRINTS {
             println!("parse_raw_block token: {:?}", tokenizer.peek(0));
         }
         let (token, text_position) = tokenizer.peek(0);
 
-        if token == end_token {
-            tokenizer.next();
+        if terminator(token) {
             break;
         }
 
@@ -1016,223 +1014,95 @@ fn parse_internal_link(
     } else {
         0
     };
-    let mut target = Text::new();
-    let mut options = Vec::new();
-    let mut label = None;
 
-    // parse target
-    target = parse_text_until(
-        tokenizer,
-        error_consumer,
-        target,
-        text_formatting,
-        &|token: &Token<'_>| {
-            matches!(
-                token,
-                Token::DoubleCloseBracket
-                    | Token::VerticalBar
-                    | Token::DoubleCloseBrace
-                    | Token::DoubleOpenBracket
-                    | Token::OpenBracket
-                    | Token::OpenBraceWithBar
-                    | Token::Newline
-                    | Token::Eof
-            )
-        },
-    );
     if DO_PARSER_DEBUG_PRINTS {
         println!("parse_link target token: {:?}", tokenizer.peek(0));
     }
+
+    // parse target link or path
+    let mut target = parse_raw_block(
+        tokenizer,
+        error_consumer,
+        Text::new(),
+        &TextFormatting::Normal,
+        &|token: &Token<'_>| {
+            matches!(
+                token,
+                Token::DoubleCloseBracket | Token::VerticalBar | Token::Newline | Token::Eof
+            )
+        },
+    );
+    target.trim_self();
+
     let (token, text_position) = tokenizer.peek(0);
-    match token {
-        token @ (Token::Text(_)
-        | Token::Colon
-        | Token::Sharp
-        | Token::Semicolon
-        | Token::Star
-        | Token::Apostrophe
-        | Token::Equals
-        | Token::DoubleOpenBrace
-        | Token::OpenBraceWithBar
-        | Token::CloseBraceWithBar
-        | Token::OpenComment
-        | Token::CloseComment
-        | Token::CloseBracket
-        | Token::HtmlTagOpen(_, _)
-        | Token::HtmlTagClose(_)) => {
-            unreachable!("Not a stop token above: {token:?}");
-        }
-        Token::DoubleCloseBracket
-        | Token::BarWithDash
-        | Token::BarWithPlus
-        | Token::Exclamation
-        | Token::DoubleExclamation => {
-            tokenizer.next();
-        }
-        Token::VerticalBar | Token::DoubleVerticalBar => {
-            tokenizer.next();
-            label = Some(Text::new());
-        }
-        token @ (Token::Newline | Token::Eof) => {
-            error_consumer(
-                ParserErrorKind::UnmatchedDoubleOpenBracket.into_parser_error(*text_position),
-            );
-            if token != &Token::Eof {
-                text.extend_with_formatted_text(*text_formatting, &token.to_str());
-            }
-            tokenizer.next();
-        }
-        token @ (Token::DoubleCloseBrace | Token::DoubleOpenBracket | Token::OpenBracket) => {
-            error_consumer(
-                ParserErrorKind::UnexpectedTokenInLink {
-                    token: token.to_string(),
-                }
-                .into_parser_error(*text_position),
-            );
-            text.extend_with_formatted_text(*text_formatting, &token.to_str());
-            tokenizer.next();
-        }
+    if let Token::Newline | Token::Eof = token {
+        error_consumer(
+            ParserErrorKind::UnmatchedDoubleOpenBracket.into_parser_error(*text_position),
+        );
     }
 
-    // parse options and label
-    let label = label.map(|mut label| {
-        let mut link_finished = false;
+    let mut options: Vec<Text> = vec![];
+    let mut label: Option<Text> = None;
 
-        // parse options
-        loop {
-            if DO_PARSER_DEBUG_PRINTS {
-                println!("parse_link options token: {:?}", tokenizer.peek(0));
-            }
-            let (token, text_position) = tokenizer.peek(0);
-            match token {
-                token @ (Token::Equals | Token::Text(_)) => {
-                    label.extend_with_formatted_text(*text_formatting, &token.to_str());
-                    tokenizer.next();
-                }
-                Token::VerticalBar | Token::DoubleVerticalBar => {
-                    let mut new_label = Text::new();
-                    mem::swap(&mut label, &mut new_label);
-                    if new_label.pieces.is_empty() {
-                        options.push(Default::default());
-                    } else {
-                        options.push(new_label);
-                    }
-                    tokenizer.next();
-                }
-                Token::DoubleCloseBracket => {
-                    tokenizer.next();
-                    link_finished = true;
-                    break;
-                }
-                Token::Apostrophe => {
-                    label = parse_text_until(
-                        tokenizer,
-                        error_consumer,
-                        label,
-                        text_formatting,
-                        &|token| !matches!(token, Token::Apostrophe),
-                    );
-                }
-                Token::DoubleOpenBrace
-                | Token::DoubleOpenBracket
-                | Token::OpenBracket
-                | Token::HtmlTagOpen(_, _)
-                | Token::HtmlTagClose(_)
-                | Token::OpenComment
-                | Token::CloseComment
-                | Token::Colon
-                | Token::Semicolon
-                | Token::Star
-                | Token::Sharp
-                | Token::OpenBraceWithBar
-                | Token::BarWithDash
-                | Token::BarWithPlus
-                | Token::Exclamation
-                | Token::DoubleExclamation
-                | Token::Newline => {
-                    break;
-                }
-                token @ (Token::DoubleCloseBrace
-                | Token::CloseBracket
-                | Token::CloseBraceWithBar) => {
-                    error_consumer(
-                        ParserErrorKind::UnexpectedTokenInLinkLabel {
-                            token: token.to_string(),
-                        }
-                        .into_parser_error(*text_position),
-                    );
-                    label.extend_with_formatted_text(*text_formatting, &token.to_str());
-                    tokenizer.next();
-                }
-                Token::Eof => {
-                    error_consumer(
-                        ParserErrorKind::UnmatchedDoubleOpenBracket
-                            .into_parser_error(*text_position),
-                    );
-                    break;
-                }
-            }
-        }
+    while tokenizer.peek(0).0 == Token::VerticalBar {
+        tokenizer.next();
 
-        if !link_finished {
-            // parse label
-            loop {
-                label = parse_text_until(
-                    tokenizer,
-                    error_consumer,
-                    label,
-                    text_formatting,
-                    &|token: &Token<'_>| {
-                        matches!(
-                            token,
-                            Token::DoubleCloseBracket
-                                | Token::VerticalBar
-                                | Token::Newline
-                                | Token::Eof
-                        )
-                    },
+        let option = parse_text_until(
+            tokenizer,
+            error_consumer,
+            Text::new(),
+            text_formatting,
+            &|token| {
+                matches!(
+                    token,
+                    Token::DoubleCloseBracket
+                        | Token::DoubleCloseBrace
+                        | Token::CloseBracket
+                        | Token::VerticalBar
+                        | Token::Eof
+                )
+            },
+        );
+
+        let (token, text_position) = tokenizer.peek(0);
+        match token {
+            Token::Eof => {
+                error_consumer(
+                    ParserErrorKind::UnmatchedDoubleOpenBracket.into_parser_error(*text_position),
                 );
-
-                let (token, text_position) = tokenizer.peek(0);
-                match token {
-                    Token::DoubleCloseBracket => {
-                        tokenizer.next();
-                        break;
-                    }
-                    token @ Token::VerticalBar => {
-                        error_consumer(
-                            ParserErrorKind::UnexpectedTokenInLinkLabel {
-                                token: token.to_string(),
-                            }
-                            .into_parser_error(*text_position),
-                        );
-                        label.extend_with_formatted_text(*text_formatting, &token.to_str());
-                        tokenizer.next();
-                    }
-                    Token::Newline | Token::Eof => {
-                        error_consumer(
-                            ParserErrorKind::UnmatchedDoubleOpenBracket
-                                .into_parser_error(*text_position),
-                        );
-                        tokenizer.next();
-                        break;
-                    }
-                    token => unreachable!("Not a stop token above: {token:?}"),
-                }
+                label = Some(option);
             }
-
-            label
-        } else {
-            label
+            Token::VerticalBar => {
+                options.push(option);
+            }
+            Token::DoubleCloseBrace | Token::CloseBracket => {
+                error_consumer(
+                    ParserErrorKind::UnexpectedTokenInLinkLabel {
+                        token: token.to_string(),
+                    }
+                    .into_parser_error(*text_position),
+                );
+                error_consumer(
+                    ParserErrorKind::UnmatchedDoubleOpenBracket.into_parser_error(*text_position),
+                );
+            }
+            Token::DoubleCloseBracket => {
+                label = Some(option);
+                break;
+            }
+            _ => unreachable!(),
         }
-    });
+    }
+    if tokenizer.peek(0).0 == Token::DoubleCloseBracket {
+        tokenizer.next();
+    }
 
     // update text
     for _ in 0..surrounding_depth {
         text.extend_with_formatted_text(*text_formatting, "[[");
     }
     text.pieces.push(TextPiece::InternalLink {
-        target,
+        target: target.to_string(),
         options,
         label,
     });
@@ -1307,7 +1177,7 @@ fn parse_external_link(
     }
 
     text.pieces.push(TextPiece::ExternalLink {
-        target: link,
+        target: link.to_string(),
         label: if !label.is_empty() { Some(label) } else { None },
     });
 

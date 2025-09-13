@@ -384,7 +384,7 @@ pub enum TextPiece {
     /// An internal link.
     InternalLink {
         /// The link target.
-        target: Text,
+        target: String,
         /// The link options.
         options: Vec<Text>,
         /// The label of the link.
@@ -393,7 +393,7 @@ pub enum TextPiece {
     /// An external link.
     ExternalLink {
         /// The link target.
-        target: Text,
+        target: String,
         /// The label of the link.
         label: Option<Text>,
     },

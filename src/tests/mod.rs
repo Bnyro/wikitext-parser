@@ -524,12 +524,8 @@ fn test_external_link() {
                     lines: vec![Line::Normal {
                         text: Text {
                             pieces: vec![TextPiece::ExternalLink {
-                                target: Text {
-                                    pieces: vec![TextPiece::Text {
-                                        formatting: TextFormatting::Normal,
-                                        text: "https://example.com".to_string()
-                                    }]
-                                },
+                                target: "https://example.com".to_string(),
+
                                 label: Some(Text {
                                     pieces: vec![
                                         TextPiece::Text {
@@ -680,5 +676,32 @@ fn test_parse_formatted_html_block() {
             },
         }
     );
+    assert!(errors.is_empty());
+}
+
+#[test]
+fn test_parse_nested_internal_links() {
+    let input = r#"[[File:Europe germanic-languages 2.PNG|thumb|
+
+    '''[[Anglic languages]]'''
+    {{legend|#FCA503|English}}
+    {{legend|#FD7B24|[[Scots language|Scots]]}}
+    '''[[Anglo-Frisian languages]]'''<br/> Anglic and
+    {{legend|#E9D803|[[Frisian languages|Frisian]] ([[West Frisian language|West]], [[North Frisian language|North]], [[Saterland Frisian language|Saterland]])}}
+    '''[[North Sea Germanic languages]]''' Anglo-Frisian and
+    {{legend|#80FF00|[[Low German|Low German/Low Saxon]]}}
+    '''[[West Germanic languages]]'''<br/> North Sea Germanic and
+    {{legend|#F0F702|[[Dutch language|Dutch]]; in Africa: [[Afrikaans]]}}
+    ...... German ([[High German|High]]):
+    {{legend|#00FF00|[[Central German|Central]]; in [[Luxembourg|Lux.]]: [[Luxembourgish]]}}
+    {{legend|#008000|[[Upper German|Upper]]}}
+    ...... [[Yiddish]]]]"#;
+    let mut errors = Vec::new();
+    let _parsed = parse_wikitext(
+        input,
+        Default::default(),
+        &mut Box::new(|error| errors.push(error)),
+    );
+    dbg!(&errors);
     assert!(errors.is_empty());
 }

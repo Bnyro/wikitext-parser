@@ -227,19 +227,7 @@ fn test_wiktionary_abyssinian() {
         "Abyssinian".to_string(),
         &mut Box::new(|error| errors.push(error)),
     );
-    assert_eq!(
-        errors,
-        vec![
-            ParserErrorKind::UnmatchedDoubleOpenBracket
-                .into_parser_error(TextPosition::new(20, 70)),
-            ParserErrorKind::UnmatchedDoubleCloseBracket
-                .into_parser_error(TextPosition::new(21, 1)),
-            ParserErrorKind::UnmatchedDoubleOpenBracket
-                .into_parser_error(TextPosition::new(69, 70)),
-            ParserErrorKind::UnmatchedDoubleCloseBracket
-                .into_parser_error(TextPosition::new(70, 1)),
-        ]
-    );
+    assert!(errors.is_empty(),);
     /*parsed.print_headlines();
     *for double_brace_expression in parsed.list_double_brace_expressions() {
             println!("{}", double_brace_expression);
@@ -389,10 +377,6 @@ fn test_wiktionary_appendix_slovak_declension_pattern_dlan() {
     assert_eq!(
         errors,
         vec![
-            ParserErrorKind::UnmatchedCloseBracket.into_parser_error(TextPosition {
-                line: 18,
-                column: 792
-            }),
             ParserErrorKind::UnmatchedDoubleOpenBracket.into_parser_error(TextPosition {
                 line: 18,
                 column: 794
@@ -456,8 +440,12 @@ fn test_wiktionary_rhymes_english_aesi() {
             }),
             ParserErrorKind::UnmatchedDoubleOpenBracket.into_parser_error(TextPosition {
                 line: 11,
-                column: 93
+                column: 90
             }),
+            ParserErrorKind::UnmatchedDoubleCloseBrace.into_parser_error(TextPosition {
+                line: 11,
+                column: 90
+            })
         ]
     );
     /*parsed.print_headlines();
