@@ -1,6 +1,7 @@
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 use std::cmp::Ordering;
+use std::collections::HashMap;
 use std::fmt;
 use std::fmt::{Display, Formatter};
 
@@ -205,6 +206,16 @@ impl ListItem {
     }
 }
 
+/// An entry in a gallery.
+#[derive(Debug, Clone, Eq, PartialEq)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+pub struct GalleryEntry {
+    /// The target link.
+    pub target: String,
+    /// The image attributes.
+    pub attributes: Vec<Attribute>,
+}
+
 /// A line of a paragraph.
 #[derive(Debug, Clone, Eq, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
@@ -226,6 +237,13 @@ pub enum Line {
         /// The content rows of the table.
         content_rows: Vec<Vec<TableCell>>,
     },
+    /// A gallery element.
+    Gallery {
+        /// The HTML attributes of the gallery.
+        attributes: HashMap<String, String>,
+        /// The images inside the gallery.
+        images: Vec<GalleryEntry>,
+    },
 }
 
 impl Line {
@@ -233,8 +251,15 @@ impl Line {
     pub fn is_empty(&self) -> bool {
         match self {
             Line::Normal { text } => text.is_empty(),
-            Line::List { .. } => false,
-            Line::Table { .. } => false,
+            Line::List { list } => list.items.is_empty(),
+            Line::Table {
+                header_rows,
+                content_rows,
+            } => header_rows.is_empty() && content_rows.is_empty(),
+            Line::Gallery {
+                attributes: _,
+                images,
+            } => images.is_empty(),
         }
     }
 
@@ -260,6 +285,18 @@ impl Line {
 
                 header_pieces.chain(content_pieces).collect()
             }
+            Line::Gallery {
+                attributes: _,
+                images,
+            } => images
+                .iter()
+                .flat_map(|image| {
+                    image
+                        .attributes
+                        .iter()
+                        .flat_map(|attr| attr.value.pieces.iter())
+                })
+                .collect(),
         }
         .into_iter()
     }

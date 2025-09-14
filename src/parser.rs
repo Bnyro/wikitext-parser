@@ -2,8 +2,8 @@ use crate::error::ParserErrorKind;
 use crate::level_stack::LevelStack;
 use crate::tokenizer::{MultipeekTokenizer, Token, Tokenizer};
 use crate::wikitext::{
-    Attribute, Headline, Line, ListHead, ListItem, ListType, TableCell, Text, TextFormatting,
-    TextPiece, Wikitext,
+    Attribute, GalleryEntry, Headline, Line, ListHead, ListItem, ListType, TableCell, Text,
+    TextFormatting, TextPiece, Wikitext,
 };
 use crate::ParserError;
 use lazy_static::lazy_static;
@@ -75,6 +75,13 @@ fn parse_line(
     debug_assert_eq!(parse_potential_headline(tokenizer, error_consumer), None);
 
     // parse remaining text
+    let token = tokenizer.peek(0).0.clone();
+    if let Token::HtmlTagOpen(tag, attrs) = token {
+        let attrs = attrs.to_string();
+        if tag == "gallery" {
+            return parse_gallery(tokenizer, error_consumer, &attrs);
+        }
+    }
 
     if tokenizer.peek(0).0 == Token::OpenBraceWithBar {
         parse_table(tokenizer, error_consumer)
@@ -572,6 +579,10 @@ fn parse_text_until(
                         };
                         prefix.pieces.push(text_piece);
                     }
+                    "gallery" => {
+                        // only supported at line level
+                        continue;
+                    }
                     _ => unreachable!("html tag not implemented by parser"),
                 }
             }
@@ -793,9 +804,12 @@ fn parse_double_brace_expression(
         }
         let (token, text_position) = tokenizer.peek(0);
         match token {
-            Token::VerticalBar => {
-                attributes.push(parse_attribute(tokenizer, error_consumer, text_formatting))
-            }
+            Token::VerticalBar => attributes.push(parse_attribute(
+                tokenizer,
+                error_consumer,
+                text_formatting,
+                &|token: &Token<'_>| matches!(token, Token::DoubleCloseBrace),
+            )),
             Token::DoubleCloseBrace => {
                 tokenizer.next();
                 break;
@@ -912,6 +926,7 @@ fn parse_attribute(
     tokenizer: &mut MultipeekTokenizer,
     error_consumer: &mut impl FnMut(ParserError),
     text_formatting: &mut TextFormatting,
+    terminator: &impl Fn(&Token<'_>) -> bool,
 ) -> Attribute {
     tokenizer.expect(&Token::VerticalBar).unwrap();
     let mut name = Some(String::new());
@@ -923,6 +938,13 @@ fn parse_attribute(
             println!("parse_attribute name token: {:?}", tokenizer.peek(0));
         }
         let (token, text_position) = tokenizer.peek(0);
+        if terminator(token) {
+            value.pieces.push(TextPiece::Text {
+                text: name.take().unwrap(),
+                formatting: *text_formatting,
+            });
+            break;
+        }
         match token {
             Token::Text(text) => {
                 name.as_mut().unwrap().push_str(text);
@@ -989,7 +1011,7 @@ fn parse_attribute(
         error_consumer,
         value,
         text_formatting,
-        &|token: &Token<'_>| matches!(token, Token::VerticalBar | Token::DoubleCloseBrace),
+        &|token: &Token<'_>| matches!(token, Token::VerticalBar) || terminator(token),
     );
 
     // whitespace is stripped from named attribute names and values, but not from unnamed attributes
@@ -1182,6 +1204,83 @@ fn parse_external_link(
     });
 
     text
+}
+
+fn parse_gallery(
+    tokenizer: &mut MultipeekTokenizer,
+    error_consumer: &mut impl FnMut(ParserError),
+    attr_text: &str,
+) -> Line {
+    debug_assert!(matches!(tokenizer.next().0, Token::HtmlTagOpen(_, _)));
+    let attrs = get_html_attrs(attr_text);
+    let mut images = vec![];
+
+    let end_tag = Token::HtmlTagClose("gallery".into());
+    while tokenizer.peek(0).0 != end_tag {
+        // seek until end of whitespace
+        loop {
+            match &tokenizer.peek(0).0 {
+                Token::Text(text) => {
+                    if text.chars().all(|c| c.is_whitespace()) {
+                        tokenizer.next();
+                    } else {
+                        break;
+                    }
+                }
+                Token::Newline => {
+                    tokenizer.next();
+                }
+                _ => {
+                    break;
+                }
+            }
+        }
+
+        // parse target link or path
+        let mut target = parse_raw_block(
+            tokenizer,
+            error_consumer,
+            Text::new(),
+            &TextFormatting::Normal,
+            &|token: &Token<'_>| {
+                matches!(token, Token::VerticalBar | Token::Newline | Token::Eof)
+                    || token == &end_tag
+            },
+        );
+        target.trim_self();
+
+        let mut attributes = vec![];
+        while tokenizer.peek(0).0 == Token::VerticalBar {
+            let attr = parse_attribute(
+                tokenizer,
+                error_consumer,
+                &mut TextFormatting::Normal,
+                &|token| matches!(token, Token::Newline) || token == &end_tag,
+            );
+            attributes.push(attr);
+        }
+
+        let (token, text_position) = tokenizer.peek(0);
+        if token == &Token::Eof {
+            error_consumer(
+                ParserErrorKind::UnmatchedHtmlBlockOpen.into_parser_error(*text_position),
+            );
+            break;
+        }
+
+        if !target.is_empty() || !attributes.is_empty() {
+            images.push(GalleryEntry {
+                target: target.to_string(),
+                attributes,
+            })
+        }
+    }
+    tokenizer.next();
+
+    Line::Gallery {
+        attributes: attrs,
+        images,
+    }
 }
 
 #[test]

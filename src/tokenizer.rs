@@ -4,7 +4,14 @@ use std::collections::VecDeque;
 use std::fmt;
 use std::fmt::Display;
 
-static HTML_TAGS: &[&str] = &["nowiki", "math", "code", "syntaxhighlight", "pre"];
+static HTML_TAGS: &[&str] = &[
+    "nowiki",
+    "math",
+    "code",
+    "syntaxhighlight",
+    "pre",
+    "gallery",
+];
 
 #[derive(Debug, Clone, Eq, PartialEq)]
 pub enum Token<'a> {

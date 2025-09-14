@@ -1,7 +1,9 @@
-use crate::wikitext::{Headline, Line, ListHead, ListItem, ListType, Paragraph};
+use std::collections::HashMap;
+
+use crate::wikitext::{GalleryEntry, Headline, Line, ListHead, ListItem, ListType, Paragraph};
 use crate::{
-    parse_wikitext, ParserErrorKind, Section, TableCell, Text, TextFormatting, TextPiece,
-    TextPosition, Wikitext,
+    parse_wikitext, Attribute, ParserErrorKind, Section, TableCell, Text, TextFormatting,
+    TextPiece, TextPosition, Wikitext,
 };
 
 mod full_pages;
@@ -703,5 +705,107 @@ fn test_parse_nested_internal_links() {
         &mut Box::new(|error| errors.push(error)),
     );
     dbg!(&errors);
+    assert!(errors.is_empty());
+}
+
+#[test]
+fn test_parse_gallery() {
+    let input = r#"<gallery attrs="foo">
+A b c.jpg|Label 1|opt1=a|opt2=b
+ D e f.jpg|Label 2|opt1=a| opt2=b
+
+</gallery>"#;
+    let mut errors = Vec::new();
+    let parsed = parse_wikitext(
+        input,
+        Default::default(),
+        &mut Box::new(|error| errors.push(error)),
+    );
+    dbg!(&parsed);
+    dbg!(&errors);
+
+    assert_eq!(
+        parsed,
+        Wikitext {
+            root_section: Section {
+                headline: Headline {
+                    label: "".to_string(),
+                    level: 1,
+                },
+                paragraphs: vec![Paragraph {
+                    lines: vec![Line::Gallery {
+                        attributes: HashMap::from([("attrs".to_string(), "foo".to_string())],),
+                        images: vec![
+                            GalleryEntry {
+                                target: "A b c.jpg".to_string(),
+                                attributes: vec![
+                                    Attribute {
+                                        name: None,
+                                        value: Text {
+                                            pieces: vec![TextPiece::Text {
+                                                formatting: TextFormatting::Normal,
+                                                text: "Label 1".to_string(),
+                                            },],
+                                        },
+                                    },
+                                    Attribute {
+                                        name: Some("opt1".to_string(),),
+                                        value: Text {
+                                            pieces: vec![TextPiece::Text {
+                                                formatting: TextFormatting::Normal,
+                                                text: "a".to_string(),
+                                            },],
+                                        },
+                                    },
+                                    Attribute {
+                                        name: Some("opt2".to_string(),),
+                                        value: Text {
+                                            pieces: vec![TextPiece::Text {
+                                                formatting: TextFormatting::Normal,
+                                                text: "b".to_string(),
+                                            },],
+                                        },
+                                    },
+                                ],
+                            },
+                            GalleryEntry {
+                                target: "D e f.jpg".to_string(),
+                                attributes: vec![
+                                    Attribute {
+                                        name: None,
+                                        value: Text {
+                                            pieces: vec![TextPiece::Text {
+                                                formatting: TextFormatting::Normal,
+                                                text: "Label 2".to_string(),
+                                            },],
+                                        },
+                                    },
+                                    Attribute {
+                                        name: Some("opt1".to_string(),),
+                                        value: Text {
+                                            pieces: vec![TextPiece::Text {
+                                                formatting: TextFormatting::Normal,
+                                                text: "a".to_string(),
+                                            },],
+                                        },
+                                    },
+                                    Attribute {
+                                        name: Some("opt2".to_string(),),
+                                        value: Text {
+                                            pieces: vec![TextPiece::Text {
+                                                formatting: TextFormatting::Normal,
+                                                text: "b".to_string(),
+                                            },],
+                                        },
+                                    },
+                                ],
+                            },
+                        ],
+                    },],
+                },],
+                subsections: vec![],
+            },
+        }
+    );
     assert!(errors.is_empty());
 }

@@ -14,6 +14,6 @@ pub use error::{ParserError, ParserErrorKind};
 pub use parser::parse_wikitext;
 pub use tokenizer::TextPosition;
 pub use wikitext::{
-    Attribute, Headline, Line, ListHead, ListItem, ListType, Paragraph, Section, TableCell, Text,
-    TextFormatting, TextPiece, Wikitext,
+    Attribute, GalleryEntry, Headline, Line, ListHead, ListItem, ListType, Paragraph, Section,
+    TableCell, Text, TextFormatting, TextPiece, Wikitext,
 };
