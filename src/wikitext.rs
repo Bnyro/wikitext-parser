@@ -430,7 +430,7 @@ pub enum TextPiece {
     /// An external link.
     ExternalLink {
         /// The link target.
-        target: String,
+        target: Text,
         /// The label of the link.
         label: Option<Text>,
     },

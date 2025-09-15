@@ -1154,6 +1154,10 @@ fn parse_external_link(
 ) -> Text {
     tokenizer.expect(&Token::OpenBracket).unwrap();
 
+    if DO_PARSER_DEBUG_PRINTS {
+        println!("parse_external_link token: {:?}", tokenizer.peek(0));
+    }
+
     let link_with_title = parse_text_until(
         tokenizer,
         error_consumer,
@@ -1181,25 +1185,34 @@ fn parse_external_link(
         }
 
         // find the full url, e.g. the first part of [https://example.com label]
-        if let Some((url_part, text_part)) = piece.to_string().split_once(" ") {
-            is_in_link = false;
+        // only consider normal text pieces, otherwise we would also split nested expressions
+        // e.g. [{{foo|bar baz}}] would otherwise falsely be split to {{foo|bar and baz}}
+        if let TextPiece::Text {
+            formatting: _,
+            text,
+        } = &piece
+        {
+            if let Some((url_part, text_part)) = text.split_once(" ") {
+                is_in_link = false;
 
-            link.pieces.push(TextPiece::Text {
-                formatting: *text_formatting,
-                text: url_part.to_string(),
-            });
+                link.pieces.push(TextPiece::Text {
+                    formatting: *text_formatting,
+                    text: url_part.to_string(),
+                });
 
-            label.pieces.push(TextPiece::Text {
-                formatting: *text_formatting,
-                text: text_part.to_string(),
-            });
-        } else {
-            link.pieces.push(piece);
+                label.pieces.push(TextPiece::Text {
+                    formatting: *text_formatting,
+                    text: text_part.to_string(),
+                });
+                continue;
+            }
         }
+
+        link.pieces.push(piece);
     }
 
     text.pieces.push(TextPiece::ExternalLink {
-        target: link.to_string(),
+        target: link,
         label: if !label.is_empty() { Some(label) } else { None },
     });
 

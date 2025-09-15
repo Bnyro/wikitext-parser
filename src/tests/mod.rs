@@ -526,7 +526,12 @@ fn test_external_link() {
                     lines: vec![Line::Normal {
                         text: Text {
                             pieces: vec![TextPiece::ExternalLink {
-                                target: "https://example.com".to_string(),
+                                target: Text {
+                                    pieces: vec![TextPiece::Text {
+                                        formatting: TextFormatting::Normal,
+                                        text: "https://example.com".into()
+                                    }]
+                                },
 
                                 label: Some(Text {
                                     pieces: vec![
@@ -808,4 +813,59 @@ A b c.jpg|Label 1|opt1=a|opt2=b
         }
     );
     assert!(errors.is_empty());
+}
+
+#[test]
+fn test_parse_template_in_external_link() {
+    let input = r#"[{{IPA|ˈdɑn.əld dʒɑn tɹɐmp}}]"#;
+    let mut errors = Vec::new();
+    let parsed = parse_wikitext(
+        input,
+        Default::default(),
+        &mut Box::new(|error| errors.push(error)),
+    );
+    dbg!(&errors);
+    dbg!(&parsed);
+
+    assert!(errors.is_empty());
+    assert_eq!(
+        parsed,
+        Wikitext {
+            root_section: Section {
+                headline: Headline {
+                    label: "".to_string(),
+                    level: 1,
+                },
+                paragraphs: vec![Paragraph {
+                    lines: vec![Line::Normal {
+                        text: Text {
+                            pieces: vec![TextPiece::ExternalLink {
+                                target: Text {
+                                    pieces: vec![TextPiece::DoubleBraceExpression {
+                                        tag: Text {
+                                            pieces: vec![TextPiece::Text {
+                                                formatting: TextFormatting::Normal,
+                                                text: "IPA".to_string(),
+                                            }],
+                                        },
+                                        attributes: vec![Attribute {
+                                            name: None,
+                                            value: Text {
+                                                pieces: vec![TextPiece::Text {
+                                                    formatting: TextFormatting::Normal,
+                                                    text: "ˈdɑn.əld dʒɑn tɹɐmp".to_string(),
+                                                },],
+                                            },
+                                        },],
+                                    },],
+                                },
+                                label: None,
+                            },],
+                        },
+                    },],
+                },],
+                subsections: vec![],
+            },
+        }
+    );
 }
