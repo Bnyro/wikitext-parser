@@ -400,6 +400,22 @@ impl Text {
     }
 }
 
+impl From<String> for Text {
+    fn from(value: String) -> Self {
+        let mut text = Self::new();
+        text.extend_with_formatted_text(TextFormatting::Normal, &value);
+        text
+    }
+}
+
+impl<'a> From<&'a str> for Text {
+    fn from(value: &'a str) -> Self {
+        let mut text = Self::new();
+        text.extend_with_formatted_text(TextFormatting::Normal, value);
+        text
+    }
+}
+
 /// A piece of text of a section of wikitext.
 #[derive(Debug, Clone, Eq, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
