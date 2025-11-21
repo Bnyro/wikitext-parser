@@ -869,3 +869,51 @@ fn test_parse_template_in_external_link() {
         }
     );
 }
+
+#[test]
+fn test_parse_ref() {
+    let input = r#"abc <ref name=":1"/> def <ref>foo</ref>"#;
+    let mut errors = Vec::new();
+    let parsed = parse_wikitext(
+        input,
+        Default::default(),
+        &mut Box::new(|error| errors.push(error)),
+    );
+    assert_eq!(
+        parsed,
+        Wikitext {
+            root_section: Section {
+                headline: Headline {
+                    label: "".to_string(),
+                    level: 1,
+                },
+                paragraphs: vec![Paragraph {
+                    lines: vec![Line::Normal {
+                        text: Text {
+                            pieces: vec![
+                                TextPiece::Text {
+                                    formatting: TextFormatting::Normal,
+                                    text: "abc ".to_string(),
+                                },
+                                TextPiece::Reference { content: None },
+                                TextPiece::Text {
+                                    formatting: TextFormatting::Normal,
+                                    text: " def ".to_string(),
+                                },
+                                TextPiece::Reference {
+                                    content: Some(Text {
+                                        pieces: vec![TextPiece::Text {
+                                            formatting: TextFormatting::Normal,
+                                            text: "foo".to_string()
+                                        }]
+                                    })
+                                },
+                            ],
+                        },
+                    },],
+                },],
+                subsections: vec![],
+            },
+        }
+    );
+}

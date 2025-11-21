@@ -370,7 +370,8 @@ impl Text {
                 | TextPiece::InternalLink { .. }
                 | TextPiece::ExternalLink { .. }
                 | TextPiece::Math { .. }
-                | TextPiece::Code { .. } => break,
+                | TextPiece::Code { .. }
+                | TextPiece::Reference { .. } => break,
             }
             offset += 1;
         }
@@ -392,7 +393,8 @@ impl Text {
                 | TextPiece::InternalLink { .. }
                 | TextPiece::ExternalLink { .. }
                 | TextPiece::Math { .. }
-                | TextPiece::Code { .. } => break,
+                | TextPiece::Code { .. }
+                | TextPiece::Reference { .. } => break,
             }
             limit -= 1;
         }
@@ -463,6 +465,11 @@ pub enum TextPiece {
         language: Option<String>,
         /// The raw code block.
         text: String,
+    },
+    /// A block containing a reference.
+    Reference {
+        /// The content of the reference, if any.
+        content: Option<Text>,
     },
 }
 
@@ -586,6 +593,13 @@ impl Display for TextPiece {
             }
             TextPiece::Code { language, text } => {
                 write!(fmt, "<code lang=\"{:?}\">{text}</code>", language)
+            }
+            TextPiece::Reference { content } => {
+                if let Some(content) = content {
+                    write!(fmt, "<ref>{content}</ref>")
+                } else {
+                    write!(fmt, "<ref />")
+                }
             }
         }
     }

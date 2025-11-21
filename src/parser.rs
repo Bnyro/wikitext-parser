@@ -492,7 +492,7 @@ fn parse_text_until(
     error_consumer: &mut impl FnMut(ParserError),
     mut prefix: Text,
     text_formatting: &mut TextFormatting,
-    terminator: &impl Fn(&Token<'_>) -> bool,
+    terminator: &dyn Fn(&Token<'_>) -> bool,
 ) -> Text {
     loop {
         if DO_PARSER_DEBUG_PRINTS {
@@ -543,8 +543,25 @@ fn parse_text_until(
             Token::HtmlTagOpen(tag, attrs) => {
                 let tag = tag.to_string();
                 let attrs = get_html_attrs(attrs);
-
                 tokenizer.next();
+
+                if tag.as_str() == "ref" {
+                    let ref_content = parse_text_until(
+                        tokenizer,
+                        error_consumer,
+                        Text::new(),
+                        &mut TextFormatting::Normal,
+                        &|token| token == &Token::HtmlTagClose(tag.clone().into()),
+                    );
+                    tokenizer.next();
+
+                    prefix.pieces.push(TextPiece::Reference {
+                        content: Some(ref_content),
+                    });
+
+                    continue;
+                }
+
                 // raw blocks don't use the text formatting that was declared outside
                 let mut text = parse_raw_block(
                     tokenizer,
@@ -585,6 +602,14 @@ fn parse_text_until(
                     }
                     _ => unreachable!("html tag not implemented by parser"),
                 }
+            }
+            Token::HtmlTagWithoutContent(tag, _attrs) => {
+                if tag == "ref" {
+                    prefix.pieces.push(TextPiece::Reference { content: None });
+                } else {
+                    // ref should be the only tokenized tag that appears without content
+                }
+                tokenizer.next();
             }
             Token::DoubleCloseBrace => {
                 error_consumer(
@@ -823,6 +848,7 @@ fn parse_double_brace_expression(
             | Token::CloseBracket
             | Token::HtmlTagOpen(_, _)
             | Token::HtmlTagClose(_)
+            | Token::HtmlTagWithoutContent(_, _)
             | Token::OpenComment
             | Token::CloseComment
             | Token::Apostrophe
@@ -962,6 +988,7 @@ fn parse_attribute(
             | Token::DoubleOpenBracket
             | Token::HtmlTagOpen(_, _)
             | Token::HtmlTagClose(_)
+            | Token::HtmlTagWithoutContent(_, _)
             | Token::OpenComment
             | Token::CloseComment
             | Token::DoubleCloseBrace

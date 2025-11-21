@@ -11,6 +11,7 @@ static HTML_TAGS: &[&str] = &[
     "syntaxhighlight",
     "pre",
     "gallery",
+    "ref",
 ];
 
 #[derive(Debug, Clone, Eq, PartialEq)]
@@ -33,6 +34,7 @@ pub enum Token<'a> {
     DoubleExclamation,
     HtmlTagOpen(Cow<'a, str>, Cow<'a, str>),
     HtmlTagClose(Cow<'a, str>),
+    HtmlTagWithoutContent(Cow<'a, str>, Cow<'a, str>),
     VerticalBar,
     DoubleVerticalBar,
     Apostrophe,
@@ -220,7 +222,14 @@ impl<'input> Tokenizer<'input> {
                 }
 
                 if let Some(end_index) = input.find(">") {
-                    let attrs = &input[full_start_tag.len()..end_index];
+                    // check if the element is of type <tag ... />, i.e. is immediately closed
+                    let has_no_content = &input[end_index - 1..=end_index] == "/>";
+
+                    let attrs = if has_no_content {
+                        &input[full_start_tag.len()..end_index - 1]
+                    } else {
+                        &input[full_start_tag.len()..end_index]
+                    };
 
                     // attributes must start with a blank, e.g. <code lang="c">
                     // otherwise, it's likely not the html element we're looking for
@@ -228,10 +237,13 @@ impl<'input> Tokenizer<'input> {
                         return None;
                     }
 
-                    return Some((
-                        Token::HtmlTagOpen(html_tag.to_string().into(), attrs.into()),
-                        end_index + 1,
-                    ));
+                    let tag_token = if has_no_content {
+                        Token::HtmlTagWithoutContent(html_tag.to_string().into(), attrs.into())
+                    } else {
+                        Token::HtmlTagOpen(html_tag.to_string().into(), attrs.into())
+                    };
+
+                    return Some((tag_token, end_index + 1));
                 };
 
                 break;
@@ -359,6 +371,7 @@ impl<'token> Token<'token> {
             Token::DoubleExclamation => "!!".into(),
             Token::HtmlTagOpen(tag, attrs) => format!("<{tag} {attrs}>").into(),
             Token::HtmlTagClose(tag) => format!("<{tag}/>").into(),
+            Token::HtmlTagWithoutContent(tag, attrs) => format!("<{tag} {attrs} />").into(),
             Token::VerticalBar => "|".into(),
             Token::DoubleVerticalBar => "||".into(),
             Token::Apostrophe => "'".into(),
