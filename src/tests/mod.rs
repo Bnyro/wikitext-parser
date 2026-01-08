@@ -138,6 +138,70 @@ fn test_complex_internal_links() {
 }
 
 #[test]
+fn test_parse_internal_link_caption_with_opening_bracket() {
+    let input = r#"[[File:Image.png|thumb|Example interval [0, pi]]
+    New paragraph."#;
+
+    let mut errors = Vec::new();
+    let parsed = parse_wikitext(
+        input,
+        Default::default(),
+        &mut Box::new(|error| errors.push(error)),
+    );
+
+    assert_eq!(
+        parsed.root_section,
+        Section {
+            headline: Headline {
+                label: "".to_string(),
+                level: 1,
+            },
+            paragraphs: vec![Paragraph {
+                lines: vec![
+                    Line::Normal {
+                        text: Text {
+                            pieces: vec![TextPiece::InternalLink {
+                                target: "File:Image.png".to_string(),
+                                options: vec![Text {
+                                    pieces: vec![TextPiece::Text {
+                                        formatting: TextFormatting::Normal,
+                                        text: "thumb".to_string(),
+                                    },],
+                                },],
+                                label: Some(Text {
+                                    pieces: vec![TextPiece::Text {
+                                        formatting: TextFormatting::Normal,
+                                        text: "0, pi".to_string(),
+                                    },],
+                                },),
+                            },],
+                        },
+                    },
+                    Line::Normal {
+                        text: Text {
+                            pieces: vec![TextPiece::Text {
+                                formatting: TextFormatting::Normal,
+                                text: "    New paragraph.".to_string(),
+                            },],
+                        },
+                    },
+                ],
+            },],
+            subsections: vec![],
+        },
+    );
+    assert_eq!(
+        errors,
+        vec![
+            ParserErrorKind::UnmatchedOpenBracket.into_parser_error(TextPosition {
+                line: 1,
+                column: 47
+            }),
+        ]
+    );
+}
+
+#[test]
 fn test_section_headers() {
     let input = "<ref name=\"ISample\"/><ref name=\"COttoni\"/>";
     let mut errors = Vec::new();

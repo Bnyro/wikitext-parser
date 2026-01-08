@@ -1190,16 +1190,35 @@ fn parse_external_link(
         error_consumer,
         Text::new(),
         text_formatting,
-        &|token: &Token<'_>| matches!(token, Token::Eof | Token::CloseBracket),
+        &|token: &Token<'_>| {
+            matches!(
+                token,
+                Token::Eof
+                    | Token::CloseBracket
+                    | Token::DoubleCloseBracket
+                    | Token::DoubleCloseBrace
+            )
+        },
     );
-    let (end_token, text_position) = tokenizer.next();
+    let (end_token, text_position) = tokenizer.peek(0);
     match end_token {
         Token::Eof => {
-            error_consumer(ParserErrorKind::UnmatchedOpenBracket.into_parser_error(text_position));
+            error_consumer(ParserErrorKind::UnmatchedOpenBracket.into_parser_error(*text_position));
         }
         Token::CloseBracket => {}
+        Token::DoubleCloseBracket | Token::DoubleCloseBrace => {
+            error_consumer(ParserErrorKind::UnmatchedOpenBracket.into_parser_error(*text_position));
+
+            // apparently not an external link, but just malformatted raw text
+            // don't consume this closing brace/backet token in order for the outer
+            // expression to consume its ending tag
+            text.extend_with_formatted_text(TextFormatting::Normal, "[");
+            text.extend_with_text(link_with_title);
+            return text;
+        }
         _ => unreachable!(),
     }
+    tokenizer.next();
 
     let mut is_in_link = true;
     let mut link = Text::new();
