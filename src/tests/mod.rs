@@ -139,6 +139,9 @@ fn test_complex_internal_links() {
 
 #[test]
 fn test_parse_internal_link_caption_with_opening_bracket() {
+    // test to ensure that the remaining content on a link parsing error is not flushed.
+    // In this example ]] is parsed as a `DoubleCloseBracket` instead of two `CloseBracket`s, so
+    // we fail to properly find the matching "]" for [0, pi here.
     let input = r#"[[File:Image.png|thumb|Example interval [0, pi]]
     New paragraph."#;
 
@@ -169,10 +172,16 @@ fn test_parse_internal_link_caption_with_opening_bracket() {
                                     },],
                                 },],
                                 label: Some(Text {
-                                    pieces: vec![TextPiece::Text {
-                                        formatting: TextFormatting::Normal,
-                                        text: "0, pi".to_string(),
-                                    },],
+                                    pieces: vec![
+                                        TextPiece::Text {
+                                            formatting: TextFormatting::Normal,
+                                            text: "Example interval [".to_string(),
+                                        },
+                                        TextPiece::Text {
+                                            formatting: TextFormatting::Normal,
+                                            text: "0, pi".to_string(),
+                                        }
+                                    ],
                                 },),
                             },],
                         },
