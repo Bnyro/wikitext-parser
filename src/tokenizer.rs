@@ -221,14 +221,20 @@ impl<'input> Tokenizer<'input> {
                     continue;
                 }
 
-                if let Some(end_index) = input.find(">") {
+                if let Some((end_char_index, _)) =
+                    input.chars().enumerate().find(|(_, c)| *c == '>')
+                {
+                    let (char_before_end_tag_byte_offset, char_before_end_tag) =
+                        input.char_indices().nth(end_char_index - 1).unwrap();
                     // check if the element is of type <tag ... />, i.e. is immediately closed
-                    let has_no_content = &input[end_index - 1..=end_index] == "/>";
+                    let has_no_content = char_before_end_tag == '/';
 
+                    let (end_tag_char_offset, _) =
+                        input.char_indices().nth(end_char_index).unwrap();
                     let attrs = if has_no_content {
-                        &input[full_start_tag.len()..end_index - 1]
+                        &input[full_start_tag.len()..char_before_end_tag_byte_offset]
                     } else {
-                        &input[full_start_tag.len()..end_index]
+                        &input[full_start_tag.len()..end_tag_char_offset]
                     };
 
                     // attributes must start with a blank, e.g. <code lang="c">
@@ -243,7 +249,7 @@ impl<'input> Tokenizer<'input> {
                         Token::HtmlTagOpen(html_tag.to_string().into(), attrs.into())
                     };
 
-                    return Some((tag_token, end_index + 1));
+                    return Some((tag_token, end_tag_char_offset + 1));
                 };
 
                 break;
@@ -433,6 +439,52 @@ mod tests {
                 Token::Text(" 7 + a^4".into()),
                 Token::HtmlTagClose("math".into()),
                 Token::Text(" World".into()),
+                Token::Eof
+            ]
+        );
+    }
+
+    #[test]
+    fn parse_cyrillic_tag_content() {
+        // in theory this is malformed because the quotation marks around the attribute value are missing,
+        // but apparently there are some wiki articles that use such malformed syntax
+        let input = r#"<ref name=шуамбк>...</ref>"#;
+        let mut tokenizer = Tokenizer::new(input);
+        let tokens = tokenizer.tokenize_all();
+        assert_eq!(
+            tokens.as_slice(),
+            [
+                Token::HtmlTagOpen("ref".into(), r#" name=шуамбк"#.into()),
+                Token::Text("...".into()),
+                Token::HtmlTagClose("ref".into()),
+                Token::Eof
+            ]
+        );
+    }
+
+    #[test]
+    fn parse_cyrillic_tag_no_content() {
+        let input = r#"<ref name="шуамбк"/>"#;
+        let mut tokenizer = Tokenizer::new(input);
+        let tokens = tokenizer.tokenize_all();
+        assert_eq!(
+            tokens.as_slice(),
+            [
+                Token::HtmlTagWithoutContent("ref".into(), r#" name="шуамбк""#.into()),
+                Token::Eof
+            ]
+        );
+    }
+
+    #[test]
+    fn parse_tag_without_content() {
+        let input = r#"<ref foo="bar"/>"#;
+        let mut tokenizer = Tokenizer::new(input);
+        let tokens = tokenizer.tokenize_all();
+        assert_eq!(
+            tokens.as_slice(),
+            [
+                Token::HtmlTagWithoutContent("ref".into(), r#" foo="bar""#.into()),
                 Token::Eof
             ]
         );
