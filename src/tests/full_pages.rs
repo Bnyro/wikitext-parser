@@ -327,7 +327,8 @@ fn test_wiktionary_media_wiki_blockedtext() {
         "MediaWiki:Blockedtext".to_string(),
         &mut Box::new(|error| errors.push(error)),
     );
-    assert!(errors.is_empty());
+    dbg!(&_parsed);
+    assert_eq!(errors, vec![]);
     /*parsed.print_headlines();
     *for double_brace_expression in parsed.list_double_brace_expressions() {
             println!("{}", double_brace_expression);
@@ -556,4 +557,18 @@ fn test_wikipedia_html_timeline() {
     dbg!(_parsed);
 
     assert!(errors.is_empty());
+}
+
+#[test]
+fn test_wikipedia_olympic_medalists() {
+    let input = include_str!("pages/olympic_medalists.txt");
+    let mut errors = Vec::new();
+    let _parsed = parse_wikitext(
+        input,
+        "Medalists".to_string(),
+        &mut Box::new(|error| errors.push(error)),
+    );
+    dbg!(_parsed);
+
+    assert!(!errors.is_empty());
 }

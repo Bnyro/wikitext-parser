@@ -120,7 +120,7 @@ fn parse_table_cell(
     let mut cell = TableCell::default();
 
     'outer: loop {
-        let text = parse_text_until(
+        let text = parse_text_until_with_force_termination(
             tokenizer,
             error_consumer,
             Text::new(),
@@ -137,6 +137,7 @@ fn parse_table_cell(
                         | Token::Eof
                 )
             },
+            &|token: &Token<'_>| matches!(token, Token::CloseBraceWithBar | Token::Eof),
         );
 
         // if a html attr is found: continue with the outer loop, e.g. rowspan=2|content
@@ -405,7 +406,6 @@ fn parse_table(
 
     loop {
         let (current_token, current_pos) = tokenizer.next();
-
         match current_token {
             Token::BarWithPlus => {
                 // seek to end of comment/caption
@@ -458,9 +458,21 @@ fn parse_table(
                 break;
             }
             Token::Eof => {
+                if !current_row.is_empty() {
+                    match current_type {
+                        TableRowType::Header => {
+                            header_rows.push(current_row);
+                        }
+                        TableRowType::Content => {
+                            content_rows.push(current_row);
+                        }
+                    }
+                }
+
                 error_consumer(
                     ParserErrorKind::UnmatchedCloseBraceWithBar.into_parser_error(current_pos),
                 );
+                break;
             }
             _token => {}
         }
@@ -490,16 +502,34 @@ fn get_html_attrs(attr_text: &str) -> HashMap<String, String> {
 fn parse_text_until(
     tokenizer: &mut MultipeekTokenizer,
     error_consumer: &mut impl FnMut(ParserError),
+    prefix: Text,
+    text_formatting: &mut TextFormatting,
+    terminator: &dyn Fn(&Token<'_>) -> bool,
+) -> Text {
+    parse_text_until_with_force_termination(
+        tokenizer,
+        error_consumer,
+        prefix,
+        text_formatting,
+        terminator,
+        &|_| false,
+    )
+}
+
+fn parse_text_until_with_force_termination(
+    tokenizer: &mut MultipeekTokenizer,
+    error_consumer: &mut impl FnMut(ParserError),
     mut prefix: Text,
     text_formatting: &mut TextFormatting,
     terminator: &dyn Fn(&Token<'_>) -> bool,
+    force_terminator: &dyn Fn(&Token<'_>) -> bool,
 ) -> Text {
     loop {
         if DO_PARSER_DEBUG_PRINTS {
             println!("parse_text_until token: {:?}", tokenizer.peek(0));
         }
         let (token, text_position) = tokenizer.peek(0);
-        if terminator(token) {
+        if terminator(token) || force_terminator(token) {
             break;
         }
 
@@ -527,6 +557,7 @@ fn parse_text_until(
                 tokenizer,
                 error_consumer,
                 text_formatting,
+                force_terminator,
             )),
             Token::DoubleOpenBracket => {
                 prefix = parse_internal_link(tokenizer, error_consumer, prefix, text_formatting);
@@ -674,7 +705,7 @@ fn parse_raw_block(
     error_consumer: &mut impl FnMut(ParserError),
     mut text: Text,
     text_formatting: &TextFormatting,
-    terminator: &impl Fn(&Token<'_>) -> bool,
+    terminator: &dyn Fn(&Token<'_>) -> bool,
 ) -> Text {
     loop {
         if DO_PARSER_DEBUG_PRINTS {
@@ -808,6 +839,7 @@ fn parse_double_brace_expression(
     tokenizer: &mut MultipeekTokenizer,
     error_consumer: &mut impl FnMut(ParserError),
     text_formatting: &mut TextFormatting,
+    terminator: &dyn Fn(&Token<'_>) -> bool,
 ) -> TextPiece {
     tokenizer.expect(&Token::DoubleOpenBrace).unwrap();
     if DO_PARSER_DEBUG_PRINTS {
@@ -828,12 +860,23 @@ fn parse_double_brace_expression(
             );
         }
         let (token, text_position) = tokenizer.peek(0);
+        if terminator(token) {
+            error_consumer(
+                ParserErrorKind::UnexpectedToken {
+                    expected: "| or }}".to_string(),
+                    actual: token.to_string(),
+                }
+                .into_parser_error(*text_position),
+            );
+            break;
+        }
+
         match token {
             Token::VerticalBar => attributes.push(parse_attribute(
                 tokenizer,
                 error_consumer,
                 text_formatting,
-                &|token: &Token<'_>| matches!(token, Token::DoubleCloseBrace),
+                &|token: &Token<'_>| matches!(token, Token::DoubleCloseBrace) || terminator(token),
             )),
             Token::DoubleCloseBrace => {
                 tokenizer.next();
@@ -871,7 +914,7 @@ fn parse_double_brace_expression(
                     }
                     .into_parser_error(*text_position),
                 );
-                tokenizer.next();
+                break;
             }
             Token::Eof => {
                 error_consumer(
@@ -952,7 +995,7 @@ fn parse_attribute(
     tokenizer: &mut MultipeekTokenizer,
     error_consumer: &mut impl FnMut(ParserError),
     text_formatting: &mut TextFormatting,
-    terminator: &impl Fn(&Token<'_>) -> bool,
+    terminator: &dyn Fn(&Token<'_>) -> bool,
 ) -> Attribute {
     tokenizer.expect(&Token::VerticalBar).unwrap();
     let mut name = Some(String::new());

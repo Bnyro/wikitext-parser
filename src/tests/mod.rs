@@ -990,3 +990,80 @@ fn test_parse_ref() {
         }
     );
 }
+
+#[test]
+fn parse_table_with_invalid_double_brace_expression() {
+    let input = r#"{|
+    | {{unclosed tag|{{label|text}}
+    |}"#;
+    let mut errors = Vec::new();
+    let parsed = parse_wikitext(
+        input,
+        Default::default(),
+        &mut Box::new(|error| errors.push(error)),
+    );
+
+    assert_eq!(
+        parsed.root_section.paragraphs,
+        vec![Paragraph {
+            lines: vec![Line::Table {
+                header_rows: vec![],
+                content_rows: vec![vec![TableCell {
+                    colspan: 1,
+                    rowspan: 1,
+                    text: Text {
+                        pieces: vec![TextPiece::DoubleBraceExpression {
+                            tag: Text {
+                                pieces: vec![TextPiece::Text {
+                                    formatting: TextFormatting::Normal,
+                                    text: "unclosed tag".to_string()
+                                }]
+                            },
+                            attributes: vec![Attribute {
+                                name: None,
+                                value: Text {
+                                    pieces: vec![
+                                        TextPiece::Text {
+                                            text: "".to_string(),
+                                            formatting: TextFormatting::Normal
+                                        },
+                                        TextPiece::DoubleBraceExpression {
+                                            tag: Text {
+                                                pieces: vec![TextPiece::Text {
+                                                    text: "label".to_string(),
+                                                    formatting: TextFormatting::Normal
+                                                }]
+                                            },
+                                            attributes: vec![Attribute {
+                                                name: None,
+                                                value: Text {
+                                                    pieces: vec![TextPiece::Text {
+                                                        formatting: TextFormatting::Normal,
+                                                        text: "text".to_string()
+                                                    }]
+                                                }
+                                            }],
+                                        },
+                                        TextPiece::Text {
+                                            formatting: TextFormatting::Normal,
+                                            text: "\n    ".to_string()
+                                        }
+                                    ]
+                                },
+                            }]
+                        },]
+                    }
+                }]]
+            },],
+        },],
+    );
+
+    assert_eq!(
+        errors,
+        vec![ParserErrorKind::UnexpectedToken {
+            expected: "| or }}".to_string(),
+            actual: "|}".to_string(),
+        }
+        .into_parser_error(TextPosition { line: 3, column: 5 }),]
+    );
+}

@@ -1,0 +1,2097 @@
+{{Short description|None}}
+{{Olympic Games infobox}}
+{{Use dmy dates|date=August 2024}}
+This article includes lists of all [[Olympic medal]]ists since 1896, organized by each Olympic sport or discipline, and also by Olympiad.
+
+==Medalist with most medals by sport==
+===Summer Olympic sports===
+Sports that will appear in the [[2028 Summer Olympics]] are listed below, except for [[Squash (sport)|squash]] and [[flag football]], making their first appearance in 2028.
+{{sticky header}}
+{| class="wikitable sortable sticky-header-multi" width="100%" style="font-size:90%; text-align:center;"
+|-
+! rowspan=2 width=17% | Discipline (link to medalists list)
+! rowspan=2 width=13% | Contested
+! colspan=2 width=10% | Number of
+! colspan=4 width=10% | Medals awarded
+! rowspan=2 width=25% | Athlete(s) with the most medals <br /> {{small|(gold–silver–bronze)}}
+! rowspan=2 width=25% | Athlete(s) with the most gold medals
+|-
+! {{small|Olympics<br />(up to conclusion of [[2024 Summer Olympics|2024]])}}
+! {{small|Medal events<br />(in&nbsp;[[2024 Summer Olympics|2024]])}}
+! align=center style="background-color:gold; width=7%;"|{{gold1}}
+! align=center style="background-color:silver; width=7%;"|{{silver2}}
+! align=center style="background-color:#cc9966; width=7%;"|{{bronze3}}
+!style="width:4em;" | Total
+|-valign="top"
+|align=left| [[Image:Archery pictogram.svg|20px]] [[List of Olympic medalists in archery|Archery]]
+| 1900–1908; 1920; since 1972
+| align=center|18
+| align=center|5
+|align=center bgcolor="#F7F6A8"| 76
+|align=center bgcolor="#DCE5E5"| 74
+|align=center bgcolor="#FFDAB9"| 66
+|align=center| 216
+|align=left|{{flagIOCathlete|[[Hubert van Innis]]|BEL}} (6–3–0)
+|align=left|{{flagIOCathlete|[[Hubert van Innis]]|BEL}} (6–3–0)
+|-valign="top"
+|align=left| [[Image:Synchronized swimming pictogram.svg|20px]] [[List of Olympic medalists in artistic swimming|Artistic swimming]]
+| Since 1984
+| align=center|11
+| align=center|2
+|align=center bgcolor="#F7F6A8"| 22
+|align=center bgcolor="#DCE5E5"| 20
+|align=center bgcolor="#FFDAB9"| 21
+|align=center| 63
+|align=left|{{flagIOCathlete|[[Svetlana Romashina]]|RUS}} (7–0–0)<br>{{flagIOCathlete|[[Huang Xuechen]]|CHN}} (0–5–2)
+|align=left|{{flagIOCathlete|[[Svetlana Romashina]]|RUS}} (7–0–0)
+|-valign="top"
+|align=left| [[Image:Athletics pictogram.svg|20px]] [[Sport of athletics|Athletics]]<br />{{small|([[List of Olympic medalists in athletics (men)|men]], [[List of Olympic medalists in athletics (women)|women]])}}
+| Since 1896
+| align=center|30
+| align=center|48
+|align=center bgcolor="#F7F6A0"| 1075
+|align=center bgcolor="#DCE5E5"| 1084
+|align=center bgcolor="#FFDAB9"| 1073
+|align=center| 3232
+|align=left|{{flagIOCathlete|[[Paavo Nurmi]]|FIN}} (9–3–0)
+|align=left|{{flagIOCathlete|[[Paavo Nurmi]]|FIN}} (9–3–0)<br />{{flagIOCathlete|[[Carl Lewis]]|USA}} (9–1–0)
+|-valign="top"
+|align=left| [[Image:Badminton pictogram.svg|20px]] [[List of Olympic medalists in badminton|Badminton]]
+| Since 1992
+| align=center|9
+| align=center|5
+|align=center bgcolor="#F7F6A8"| 44
+|align=center bgcolor="#DCE5E5"| 44
+|align=center bgcolor="#FFDAB9"| 48
+|align=center| 136
+|align=left|{{flagIOCathlete|[[Gao Ling]]|CHN}} (2–1–1)
+|align=left|{{flagIOCathlete|[[Gao Ling]]|CHN}} (2–1–1)<br />{{flagIOCathlete|[[Fu Haifeng]]|CHN}} (2–1–0)<br />{{flagIOCathlete|[[Viktor Axelsen]]|DEN}} (2–0–1)<br />{{flagIOCathlete|[[Kim Dong-moon]]|KOR}} (2–0–1)<br />{{flagIOCathlete|[[Zhang Nan (badminton)|Zhang Nan]]|CHN}} (2–0–1)<br />{{flagIOCathlete|[[Zhao Yunlei]]|CHN}} (2–0–1)<br />{{flagIOCathlete|[[Ge Fei (badminton)|Ge Fei]]|CHN}} (2–0–0)<br />{{flagIOCathlete|[[Gu Jun]]|CHN}} (2–0–0)<br />{{flagIOCathlete|[[Lee Yang]]|TPE}} (2–0–0)<br />{{flagIOCathlete|[[Lin Dan]]|CHN}} (2–0–0)<br />{{flagIOCathlete|[[Wang Chi-lin]]|TPE}} (2–0–0)<br />{{flagIOCathlete|[[Zhang Jun (badminton)|Zhang Jun]]|CHN}} (2–0–0)<br />{{flagIOCathlete|[[Zhang Ning]]|CHN}} (2–0–0)
+|-valign="top"
+| align=left| [[Image:Baseball pictogram.svg|20px]] [[List of Olympic medalists in baseball|Baseball]] and [[Image:Softball pictogram.svg|20px]] [[List of Olympic medalists in softball|Softball]]
+| 1992–2008; 2020; 2028
+| align=center|6
+| align=center|0
+|align=center bgcolor="#F7F6A8"| 11
+|align=center bgcolor="#DCE5E5"| 11
+|align=center bgcolor="#FFDAB9"| 11
+|align=center| 33
+|align=left|{{flagIOCathlete|[[Pedro Luis Lazo]]|CUB}} (2–2–0)<br />{{flagIOCathlete|[[Laura Berg]]|USA}} (3–0–1)<br />{{flagIOCathlete|[[Tanya Harding]]|AUS}} (0–1–3)<br />{{flagIOCathlete|[[Melanie Roche]]|AUS}} (0–1–3)<br />{{flagIOCathlete|[[Natalie Ward (softball player)|Natalie Ward]]|AUS}} (0–1–3)
+|align=left|{{flagIOCathlete|[[Laura Berg]]|USA}} (3–0–1)<br />{{flagIOCathlete|[[Lisa Fernandez]]|USA}} (3–0–0)<br />{{flagIOCathlete|[[Lori Harrigan]]|USA}} (3–0–0)<br />{{flagIOCathlete|[[Leah O'Brien]]|USA}} (3–0–0)
+|-valign="top"
+| align=left| [[Image:Basketball pictogram.svg|20px]] [[List of Olympic medalists in basketball|Basketball]]
+| Since 1936
+| align=center|21
+| align=center|4
+|align=center bgcolor="#F7F6A8"| 34
+|align=center bgcolor="#DCE5E5"| 34
+|align=center bgcolor="#FFDAB9"| 34
+|align=center| 102
+|align=left|{{flagIOCathlete|[[Diana Taurasi]]|USA}} (6–0–0)
+|align=left|{{flagIOCathlete|[[Diana Taurasi]]|USA}} (6–0–0)
+|-valign="top"
+|align=left| [[Image:Boxing pictogram.svg|20px]] [[List of Olympic medalists in boxing|Boxing]]
+| 1904; 1908;<br />1920–Present
+| align=center|25
+| align=center|13
+|align=center bgcolor="#F7F6A8"| 226
+|align=center bgcolor="#DCE5E5"| 226
+|align=center bgcolor="#FFDAB9"| 389
+|align=center| 841
+|
+|
+|-valign="top"
+|align=left| [[Image:Canoeing (flatwater) pictogram.svg|20px]] [[Canoeing]] <br> and [[Kayaking]]<br />{{small|([[List of Olympic medalists in canoeing (men)|men]], [[List of Olympic medalists in canoeing (women)|women]])}}
+| Since 1936
+| align=center|21
+| align=center|16
+|align=center bgcolor="#F7F6A8"| 258
+|align=center bgcolor="#DCE5E5"| 258
+|align=center bgcolor="#FFDAB9"| 260
+|align=center| 776
+|align=left|{{flagIOCathlete|[[Birgit Fischer]]|GER}} (8–4–0)
+|align=left|{{flagIOCathlete|[[Birgit Fischer]]|GER}} (8–4–0)<br />{{flagIOCathlete|[[Lisa Carrington]]|NZL}} (8–0–1)
+|-valign="top"
+|align=left| [[Image:Cricket pictogram.svg|20px]] [[List of Olympic medalists in cricket|Cricket]]
+| 1900, 2028
+| align=center|1
+| align=center|0
+|align=center bgcolor="#F7F6A8"| 1
+|align=center bgcolor="#DCE5E5"| 1
+|align=center bgcolor="#FFDAB9"| 0
+|align=center| 2
+|[[List of Olympic medalists in cricket|see list]]
+|[[List of Olympic medalists in cricket|see list]]
+|-valign="top"
+|align=left| [[Image:Cycling pictogram.svg|20px]] [[Cycle sport|Cycling]]<br />{{small|([[List of Olympic medalists in cycling (men)|men]], [[List of Olympic medalists in cycling (women)|women]])}}
+| Since 1896
+| align=center|30
+| align=center|22
+|align=center bgcolor="#F7F6A8"| 305
+|align=center bgcolor="#DCE5E5"| 304
+|align=center bgcolor="#FFDAB9"| 298
+|align=center| 907
+|align=left|{{flagIOCathlete|[[Jason Kenny]]|GBR|}} (7–2–0)
+|align=left|{{flagIOCathlete|[[Jason Kenny]]|GBR}} (7–2–0)
+|-valign="top"
+|align=left| [[Image:Diving pictogram.svg|20px]] [[List of Olympic medalists in diving|Diving]]
+| Since 1904
+| align=center|28
+| align=center|8
+|align=center bgcolor="#F7F6A8"| 138
+|align=center bgcolor="#DCE5E5"| 138
+|align=center bgcolor="#FFDAB9"| 139
+|align=center| 405
+|align=left|{{flagIOCathlete|[[Dmitri Sautin]]|RUS}} (2–2–4)
+|align=left|{{flagIOCathlete|[[Wu Minxia]]|CHN}} (5–1–1)<br />{{flagIOCathlete|[[Chen Ruolin]]|CHN}} (5–0–0)
+|-valign="top"
+|align=left| [[Image:Equestrian pictogram.svg|20px]] [[List of Olympic medalists in equestrian events|Equestrian]]
+| 1900;<br />since 1912
+| align=center|28
+| align=center|6
+|align=center bgcolor="#F7F6A8"| 159
+|align=center bgcolor="#DCE5E5"| 157
+|align=center bgcolor="#FFDAB9"| 157
+|align=center| 473
+|align=left|{{flagIOCathlete|[[Isabell Werth]]|GER}} (8–6–0)
+|align=left|{{flagIOCathlete|[[Isabell Werth]]|GER}} (8–6–0)
+|-valign="top"
+|align=left| [[Image:Fencing pictogram.svg|20px]] [[Fencing]]<br />{{small|([[List of Olympic medalists in fencing (men)|men]], [[List of Olympic medalists in fencing (women)|women]])}}
+| Since 1896
+| align=center|30
+| align=center|12
+|align=center bgcolor="#F7F6A8"| 235
+|align=center bgcolor="#DCE5E5"| 235
+|align=center bgcolor="#FFDAB9"| 234
+|align=center| 704
+|align=left|{{flagIOCathlete|[[Edoardo Mangiarotti]]|ITA}} (6–5–2)
+|align=left|{{flagIOCathlete|[[Aladár Gerevich]]|HUN}} (7–1–2)
+|-valign="top"
+|align=left| [[Image:Field hockey pictogram.svg|20px]] [[List of Olympic medalists in field hockey|Field hockey]]
+| 1908; 1920;<br />since 1928
+| align=center|25
+| align=center|2
+|align=center bgcolor="#F7F6A8"| 37
+|align=center bgcolor="#DCE5E5"| 37
+|align=center bgcolor="#FFDAB9"| 38
+|align=center| 112
+|align=left|{{flagIOCathlete|[[Leslie Claudius]]|IND}} (3–1–0)<br />{{flagIOCathlete|[[Udham Singh (field hockey)|Udham Singh]]|IND}}  (3–1–0)<br /> {{flagIOCathlete|[[Eva de Goede]]|NED}} (3–1–0)<br /> {{flagIOCathlete|[[Teun de Nooijer]]|NED}} (2–2–0) <br />{{flagIOCathlete|[[Luciana Aymar]]|ARG}} (0–2–2)
+|align=left|{{flagIOCathlete|[[Leslie Claudius]]|IND}} (3–1–0)<br />{{flagIOCathlete|[[Udham Singh (field hockey)|Udham Singh]]|IND}} (3–1–0)<br /> {{flagIOCathlete|[[Eva de Goede]]|NED}} (3–1–0)<br />{{flagIOCathlete|[[Richard Allen (field hockey)|Richard Allen]]|IND}} (3–0–0)<br />{{flagIOCathlete|[[Dhyan Chand]]|IND}} (3–0–0)<br />{{flagIOCathlete|[[Ranganandhan Francis]]|IND}} (3–0–0)<br />{{flagIOCathlete|[[Randhir Singh Gentle]]|IND}} (3–0–0)<br />{{flagIOCathlete|[[Rechelle Hawkes]]|AUS}} (3–0–0)<br />{{flagIOCathlete|[[Balbir Singh, Sr.]]|IND}} (3–0–0)
+|-valign="top"
+|align=left| [[Image:Football pictogram.svg|20px]] [[List of Olympic medalists in football|Football]]
+| 1900–1928;<br />since 1936
+| align=center|29
+| align=center|2
+|align=center bgcolor="#F7F6A8"| 36
+|align=center bgcolor="#DCE5E5"| 36
+|align=center bgcolor="#FFDAB9"| 38
+|align=center| 110
+|align=left|{{flagIOCathlete|[[Christie Rampone]]|USA}} (3–1–0)<br />
+|align=left|{{flagIOCathlete|[[Christie Rampone]]|USA}} (3–1–0)<br />{{flagIOCathlete|[[Shannon Boxx]]|USA}} (3–0–0)<br />{{flagIOCathlete|[[Heather Mitts]]|USA}} (3–0–0)<br />{{flagIOCathlete|[[Heather O'Reilly]]|USA}} (3–0–0)
+|-valign="top"
+|align=left| [[Image:Golf pictogram.svg|20px]] [[List of Olympic medalists in golf|Golf]]
+| 1900–1904;<br/>since 2016
+| align=center|5
+| align=center|2
+|align=center bgcolor="#F7F6A8"| 10
+|align=center bgcolor="#DCE5E5"| 10
+|align=center bgcolor="#FFDAB9"| 11
+|align=center| 31
+|align=left|{{flagIOCathlete|[[Lydia Ko]]|NZL}} (1–1–1)
+|[[List of Olympic medalists in golf|see list]]
+|-valign="top"
+|align=left| [[Image:Gymnastics (artistic) pictogram.svg|20px]] [[Gymnastics]]<br />{{small|([[List of Olympic medalists in gymnastics (men)|men]], [[List of Olympic medalists in gymnastics (women)|women]])}}
+| Since 1896
+| align=center|30
+| align=center|18
+|align=center bgcolor="#F7F6A8"| 392
+|align=center bgcolor="#DCE5E5"| 372
+|align=center bgcolor="#FFDAB9"| 378
+|align=center| 1142
+|align=left|{{flagIOCathlete|[[Larisa Latynina]]|URS}} (9–5–4)
+|align=left|{{flagIOCathlete|[[Larisa Latynina]]|URS}} (9–5–4)
+|-valign="top"
+|align=left| [[Image:Handball pictogram.svg|20px]] [[Handball]]<br />{{small|([[List of Olympic medalists in handball (men)|men]], [[List of Olympic medalists in handball (women)|women]])}}
+| 1936;<br />since 1972
+| align=center|15
+| align=center|2
+|align=center bgcolor="#F7F6A8"| 28
+|align=center bgcolor="#DCE5E5"| 28
+|align=center bgcolor="#FFDAB9"| 28
+|align=center| 84
+|align=left|{{flagIOCathlete|[[Katrine Lunde]]|NOR}} (3–0–2)
+|align=left|{{flagIOCathlete|[[Nikola Karabatić]]|FRA}} (3–1–0)<br />{{flagIOCathlete|[[Katrine Lunde]]|NOR}} (3–0–2)<br />{{flagIOCathlete|[[Andrey Lavrov]]|RUS}} (3–0–1)
+|-valign="top"
+|align=left| [[Image:Judo pictogram.svg|20px]] [[List of Olympic medalists in judo|Judo]]
+|1964;<br />since 1972
+| align=center|15
+| align=center|15
+|align=center bgcolor="#F7F6A8"| 167
+|align=center bgcolor="#DCE5E5"| 166
+|align=center bgcolor="#FFDAB9"| 334
+|align=center| 667
+|align=left|{{flagIOCathlete|[[Teddy Riner]]|FRA}} (5–0–2)
+|align=left|{{flagIOCathlete|[[Teddy Riner]]|FRA}} (5–0–2)
+|-valign="top"
+|align=left| [[Image:Lacrosse pictogram.svg|20px]] [[List of Olympic medalists in lacrosse|Lacrosse]]
+| 1904–1908, 2028
+| align=center|2
+| align=center|0
+|align=center bgcolor="#F7F6A8"| 2
+|align=center bgcolor="#DCE5E5"| 2
+|align=center bgcolor="#FFDAB9"| 1
+|align=center| 5
+|[[List of Olympic medalists in lacrosse|see list]]
+|[[List of Olympic medalists in lacrosse|see list]]
+|-valign="top"
+|align=left| [[Image:Modern pentathlon pictogram (post-2025).svg|20px]] [[List of Olympic medalists in modern pentathlon|Modern pentathlon]]
+| Since 1912
+| align=center|26
+| align=center|2
+|align=center bgcolor="#F7F6A8"| 44
+|align=center bgcolor="#DCE5E5"| 44
+|align=center bgcolor="#FFDAB9"| 44
+|align=center| 132
+|align=left|{{flagIOCathlete|[[Pavel Lednyov]]|URS}} (2–2–3)
+|align=left|{{flagIOCathlete|[[András Balczó]]|HUN}} (3–2–0)
+|-valign="top"
+|align=left| [[Image:Rowing pictogram.svg|20px]] [[Rowing (sport)|Rowing]]<br />{{small|([[List of Olympic medalists in rowing (men)|men]], [[List of Olympic medalists in rowing (women)|women]])}}
+| Since 1900
+| align=center|29
+| align=center|14
+|align=center bgcolor="#F7F6A8"| 282
+|align=center bgcolor="#DCE5E5"| 282
+|align=center bgcolor="#FFDAB9"| 286
+|align=center| 850
+|align=left|{{flagIOCathlete|[[Elisabeta Lipă]]|ROU}} (5–2–1)
+|align=left|{{flagIOCathlete|[[Elisabeta Lipă]]|ROU}} (5–2–1)<br />{{flagIOCathlete|[[Georgeta Damian]]|ROU}} (5–0–1)<br />{{flagIOCathlete|[[Steve Redgrave]]|GBR}} (5–0–1)
+|-valign="top"
+|align=left| [[Image:Rugby union pictogram.svg|20px]] [[List of Olympic medalists in rugby|Rugby]]
+| 1900; 1908;<br />1920; 1924; ([[List of Olympic medalists in Rugby sevens|Rugby sevens]] from 2016)
+| align=center|7
+| align=center|2
+|align=center bgcolor="#F7F6A8"| 10
+|align=center bgcolor="#DCE5E5"| 11
+|align=center bgcolor="#FFDAB9"| 7
+|align=center| 28
+|align=left|{{flagIOCathlete|[[Theresa Fitzpatrick]]|NZL}} (2–1–0)<br />{{flagIOCathlete|[[Sarah Hirini]]|NZL}} (2–1–0)<br />{{flagIOCathlete|[[Tyla King]]|NZL}} (2–1–0)<br />{{flagIOCathlete|[[Jerry Tuwai]]|FIJ}} (2–1–0)<br />{{flagIOCathlete|[[Portia Woodman]]|NZL}} (2–1–0)
+|align=left|{{flagIOCathlete|[[Theresa Fitzpatrick]]|NZL}} (2–1–0)<br />{{flagIOCathlete|[[Sarah Hirini]]|NZL}} (2–1–0)<br />{{flagIOCathlete|[[Tyla King]]|NZL}} (2–1–0)<br />{{flagIOCathlete|[[Jerry Tuwai]]|FIJ}} (2–1–0)<br />{{flagIOCathlete|[[Portia Woodman]]|NZL}} (2–1–0)<br />{{flagIOCathlete|[[Michaela Blyde]]|NZL}} (2–0–0)<br />{{flagicon|AUS}}/{{flagIOCathlete|[[Daniel Carroll (rugby union)|Daniel Carroll]]|USA}}/<small>([[Australia at the Olympics|AUS]])</small> (2–0–0)<br />{{flagIOCathlete|[[Charles Doe]]|USA}} (2–0–0)<br />{{flagIOCathlete|[[Joseph Hunter (rugby union)|Joseph Hunter]]|USA}} (2–0–0)<br />{{flagIOCathlete|[[Charles Lee Tilden, Jr.]]|USA}} (2–0–0)<br />{{flagIOCathlete|[[Charles Mehan]]|USA}} (2–0–0)<br />{{flagIOCathlete|[[John O'Neil (rugby union)|John O'Neil]]|USA}} (2–0–0)<br />{{flagIOCathlete|[[John Patrick (rugby union)|John Patrick]]|USA}} (2–0–0)<br />{{flagIOCathlete|[[Risi Pouri-Lane]]|NZL}} (2–0–0)<br />{{flagIOCathlete|[[Alena Saili]]|NZL}} (2–0–0)<br />{{flagIOCathlete|[[Rudolph Scholz]]|USA}} (2–0–0)<br />{{flagIOCathlete|[[Colby Slater]]|USA}} (2–0–0)<br />{{flagIOCathlete|[[Stacey Waaka]]|NZL}} (2–0–0)
+|-valign="top"
+|align=left| [[Image:Sailing pictogram.svg|20px]] [[List of Olympic medalists in sailing|Sailing]]
+| 1900;<br />since 1908
+| align=center|29
+| align=center|10
+|align=center bgcolor="#F7F6A8"| 205
+|align=center bgcolor="#DCE5E5"| 197
+|align=center bgcolor="#FFDAB9"| 190
+|align=center| 592
+|align=left|{{flagIOCathlete|[[Ben Ainslie]]|GBR}} (4–1–0)<br />{{flagIOCathlete|[[Robert Scheidt]]|BRA}} (2–2–1)<br />{{flagIOCathlete|[[Torben Grael]]|BRA}} (2–1–2)
+|align=left|{{flagIOCathlete|[[Ben Ainslie]]|GBR}} (4–1–0)<br />{{flagIOCathlete|[[Paul Elvstrøm]]|DEN}} (4–0–0)
+|-valign="top"
+|align=left| [[Image:Shooting pictogram.svg|20px]] [[List of Olympic medalists in shooting|Shooting]]
+| 1896; 1900;<br />1908–1924;<br />since 1932
+| align=center|28
+| align=center|15
+|align=center bgcolor="#F7F6A8"| 302
+|align=center bgcolor="#DCE5E5"| 303
+|align=center bgcolor="#FFDAB9"| 301
+|align=center| 906
+|align=left|{{flagIOCathlete|[[Carl Osburn]]|USA}} (5–4–2)
+|align=left|{{flagIOCathlete|[[Carl Osburn]]|USA}} (5–4–2)<br />{{flagIOCathlete|[[Willis Augustus Lee]]|USA}} (5–1–1)<br />{{flagIOCathlete|[[Ole Lilloe-Olsen]]|NOR}} (5–1–0)<br />{{flagIOCathlete|[[Alfred Lane]]|USA}} (5–0–1)<br />{{flagIOCathlete|[[Morris Fisher]]|USA}} (5–0–0)
+|-valign="top"
+| align=left|[[Image:Skateboarding pictogram.svg|20px]] [[List of Olympic medalists in skateboarding|Skateboarding]]
+| Since 2020
+| align=center|2
+| align=center|4
+|align=center bgcolor="#F7F6A8"| 8
+|align=center bgcolor="#DCE5E5"| 8
+|align=center bgcolor="#FFDAB9"| 8
+|align=center| 24
+|align=left|{{flagIOCathlete|[[Yuto Horigome (skateboarder)|Yuto Horigome]]|JPN}} (2–0–0)<br />{{flagIOCathlete|[[Keegan Palmer]]|AUS}} (2–0–0)<br />{{flagIOCathlete|[[Kokona Hiraki]]|JPN}} (0–2–0)<br />{{flagIOCathlete|[[Rayssa Leal]]|BRA}} (0–1–1)<br />{{flagIOCathlete|[[Jagger Eaton]]|USA}} (0–1–1)<br />{{flagIOCathlete|[[Sky Brown]]|GBR}} (0–0–2)
+|align=left|{{flagIOCathlete|[[Yuto Horigome (skateboarder)|Yuto Horigome]]|JPN}} (2–0–0)<br />{{flagIOCathlete|[[Keegan Palmer]]|AUS}} (2–0–0)
+|-valign="top"
+| align=left|[[Image:Sport climbing pictogram.svg|20px]] [[List of Olympic medalists in sport climbing|Sport climbing]]
+| Since 2020
+| 2
+| 4
+|align=center bgcolor="#F7F6A8"| 6
+|align=center bgcolor="#DCE5E5"| 6
+|align=center bgcolor="#FFDAB9"| 6
+| 18
+|align=left|{{flagIOCathlete|[[Janja Garnbret]]|SLO}} (2–0–0)<br />{{flagIOCathlete|[[Jakob Schubert]]|AUT}} (0–0–2)
+|align=left|{{flagIOCathlete|[[Janja Garnbret]]|SLO}} (2–0–0)
+|-valign="top"
+| align=left|[[Image:Surfing pictogram.svg|20px]] [[List of Olympic medalists in surfing|Surfing]]
+| Since 2020
+| 2
+| 2
+|align=center bgcolor="#F7F6A8"| 4
+|align=center bgcolor="#DCE5E5"| 4
+|align=center bgcolor="#FFDAB9"| 4
+| 12
+|[[Surfing at the Summer Olympics|see list]]
+|align=left|{{flagIOCathlete|[[Italo Ferreira]]|BRA}} (1–0–0)<br />{{flagIOCathlete|[[Kauli Vaast]]|FRA}} (1–0–0)<br />{{flagIOCathlete|[[Carissa Moore]]|USA}} (1–0–0)<br />{{flagIOCathlete|[[Caroline Marks]]|USA}} (1–0–0)
+|-valign="top"
+|align=left| [[Image:Swimming pictogram.svg|20px]] [[Swimming (sport)|Swimming]]<br />{{small|([[List of Olympic medalists in swimming (men)|men]], [[List of Olympic medalists in swimming (women)|women]])}}
+| Since 1896
+| align=center|30
+| align=center|37
+|align=center bgcolor="#F7F6A8"| 633
+|align=center bgcolor="#DCE5E5"| 632
+|align=center bgcolor="#FFDAB9"| 631
+|align=center| 1896
+|align=left|{{flagIOCathlete|[[Michael Phelps]]|USA}} (23–3–2)
+|align=left|{{flagIOCathlete|[[Michael Phelps]]|USA}} (23–3–2)
+|-valign="top"
+|align=left| [[Image:Table tennis pictogram.svg|20px]] [[List of Olympic medalists in table tennis|Table tennis]]
+| Since 1988
+| align=center|10
+| align=center|5
+|align=center bgcolor="#F7F6A8"| 42
+|align=center bgcolor="#DCE5E5"| 42
+|align=center bgcolor="#FFDAB9"| 46
+|align=center| 130
+|align=left|{{flagIOCathlete|[[Ma Long (table tennis)|Ma Long]]|CHN}} (6–0–0)<br />{{flagIOCathlete|[[Dimitrij Ovtcharov]]|GER}} (0–2–4)
+|align=left|{{flagIOCathlete|[[Ma Long (table tennis)|Ma Long]]|CHN}} (6–0–0)
+|-valign="top"
+|align=left| [[Image:Taekwondo pictogram.svg|20px]] [[List of Olympic medalists in taekwondo|Taekwondo]]
+| Since 2000
+| align=center|7
+| align=center|8
+|align=center bgcolor="#F7F6A8"| 56
+|align=center bgcolor="#DCE5E5"| 56
+|align=center bgcolor="#FFDAB9"| 96
+|align=center| 208
+|align=left|{{flagIOCathlete|[[Hwang Kyung-seon]]|KOR}} (2–0–1)<br />{{flagIOCathlete|[[Steven López]]|USA}} (2–0–1)<br />{{flagIOCathlete|[[Hadi Saei]]|IRI}} (2–0–1)<br />{{flagIOCathlete|[[Panipak Wongpattanakit]]|THA}} (2–0–1)<br />{{flagIOCathlete|[[María Espinoza]]|MEX}} (1–1–1)
+|align=left|{{flagIOCathlete|[[Hwang Kyung-seon]]|KOR}} (2–0–1)<br />{{flagIOCathlete|[[Steven López]]|USA}} (2–0–1)<br />{{flagIOCathlete|[[Hadi Saei]]|IRI}} (2–0–1)<br />{{flagIOCathlete|[[Panipak Wongpattanakit]]|THA}} (2–0–1)<br />{{flagIOCathlete|[[Chen Zhong]]|CHN}} (2–0–0)<br />{{flagIOCathlete|[[Jade Jones (taekwondo)|Jade Jones]]|GBR}} (2–0–0)<br />{{flagIOCathlete|[[Milica Mandić]]|SRB}} (2–0–0)<br />{{flagIOCathlete|[[Ulugbek Rashitov]]|UZB}} (2–0–0)<br />{{flagIOCathlete|[[Wu Jingyu]]|CHN}} (2–0–0)
+|-valign="top"
+|align=left| [[Image:Tennis pictogram.svg|20px]] [[List of Olympic medalists in tennis|Tennis]]
+| 1896–1924;<br />since 1988
+| align=center|17
+| align=center|5
+|align=center bgcolor="#F7F6A8"| 76
+|align=center bgcolor="#DCE5E5"| 76
+|align=center bgcolor="#FFDAB9"| 91
+|align=center| 243
+| align=left|{{flagIOCathlete|[[Venus Williams]]|USA}} (4–1–0)<br />{{flagIOCathlete|[[Kathleen McKane Godfree|Kitty McKane]]|GBR}} (1–2–2)
+| align=left|{{flagIOCathlete|[[Venus Williams]]|USA}} (4–1–0)<br />{{flagIOCathlete|[[Serena Williams]]|USA}} (4–0–0)
+|-valign="top"
+|align=left| [[Image:Triathlon pictogram.svg|20px]] [[List of Olympic medalists in triathlon|Triathlon]]
+| Since 2000
+| align=center|7
+| align=center|2
+|align=center bgcolor="#F7F6A8"| 16
+|align=center bgcolor="#DCE5E5"| 16
+|align=center bgcolor="#FFDAB9"| 16
+|align=center| 48
+|align=left|{{flagIOCathlete|[[Alex Yee]]|GBR}} (2–1–1)
+|align=left|{{flagIOCathlete|[[Alex Yee]]|GBR}} (2–1–1)<br />{{flagIOCathlete|[[Alistair Brownlee]]|GBR}} (2–0–0)
+|-valign="top"
+|align=left| [[Image:Volleyball (indoor) pictogram.svg|20px]] [[List of Olympic medalists in volleyball|Volleyball]]
+| Since 1964
+| align=center|16
+| align=center|4
+|align=center bgcolor="#F7F6A8"| 48
+|align=center bgcolor="#DCE5E5"| 48
+|align=center bgcolor="#FFDAB9"| 48
+|align=center| 144
+|align=left|{{flagIOCathlete|[[Ana Fernández (volleyball)|Ana Fernández]]|CUB}} (3–0–1)<br />{{flagIOCathlete|[[Inna Ryskal]]|URS}} (2–2–0)<br />{{flagIOCathlete|[[Sérgio Santos (volleyball)|Sérgio Santos]]|BRA}} (2–2–0)<br />{{flagIOCathlete|[[Jordan Larson]]|USA}} (1–2–1)<br />{{flagIOCathlete|[[Sergey Tetyukhin]]|RUS}} (1–1–2)<br />{{flagIOCathlete|[[Samuele Papi]]|ITA}} (0–2–2)<br />{{flagIOCathlete|[[Kerri Walsh Jennings]]|USA}} (3–0–1)
+|align=left|{{flagIOCathlete|[[Ana Fernández (volleyball)|Ana Fernández]]|CUB}} (3–0–1)<br />{{flagIOCathlete|[[Regla Bell]]|CUB}} (3–0–0)<br />{{flagIOCathlete|[[Marlenis Costa]]|CUB}} (3–0–0)<br />{{flagIOCathlete|[[Idalmis Gato]]|CUB}} (3–0–0)<br />{{flagIOCathlete|[[Lilia Izquierdo]]|CUB}} (3–0–0)<br />{{flagIOCathlete|[[Karch Kiraly]]|USA}} (3–0–0)<br />{{flagIOCathlete|[[Mireya Luis]]|CUB}} (3–0–0)<br />{{flagIOCathlete|[[Regla Torres]]|CUB}} (3–0–0)<br />{{flagIOCathlete|[[Kerri Walsh Jennings]]|USA}} (3–0–1)<br />{{flagIOCathlete|[[Misty May-Treanor]]|USA}} (3–0–0)
+|-valign="top"
+|align=left| [[Image:Water polo pictogram.svg|20px]] [[Water polo]]<br />{{small|([[List of Olympic medalists in water polo (men)|men]], [[List of Olympic medalists in water polo (women)|women]])}}
+| 1900;<br />since 1908
+| align=center|28
+| align=center|2
+|align=center bgcolor="#F7F6A8"| 36
+|align=center bgcolor="#DCE5E5"| 35
+|align=center bgcolor="#FFDAB9"| 35
+|align=center| 106
+|align=left|{{flagIOCathlete|[[Dezső Gyarmati]]|HUN}} (3–1–1)
+|align=left|{{flagIOCathlete|[[Dezső Gyarmati]]|HUN}} (3–1–1)<br />{{flagIOCathlete|[[György Kárpáti]]|HUN}} (3–0–1)<br />{{flagIOCathlete|[[Dušan Mandić]]|SRB}} (3–0–1)<br />{{flagIOCathlete|[[Tibor Benedek]]|HUN}} (3–0–0)<br />{{flagIOCathlete|[[Péter Biros]]|HUN}} (3–0–0)<br />{{flagIOCathlete|[[Nikola Jakšić]]|SRB}} (3–0–0)<br />{{flagIOCathlete|[[Tamás Kásás]]|HUN}} (3–0–0)<br />{{flagIOCathlete|[[Gergely Kiss]]|HUN}} (3–0–0)<br />{{flagIOCathlete|[[Tamás Molnár]]|HUN}} (3–0–0)<br />{{flagIOCathlete|[[Paulo Radmilovic]]|GBR}} (3–0–0)<br />{{flagIOCathlete|[[Sava Ranđelović]]|SRB}} (3–0–0)<br />{{flagIOCathlete|[[Melissa Seidemann]]|USA}} (3–0–0)<br />{{flagIOCathlete|[[Charles Sydney Smith|Charles Smith]]|GBR}} (3–0–0)<br />{{flagIOCathlete|[[Maggie Steffens]]|USA}} (3–0–0)<br />{{flagIOCathlete|[[Zoltán Szécsi]]|HUN}} (3–0–0)
+|-valign="top"
+|align=left| [[Image:Weightlifting pictogram.svg|20px]] [[List of Olympic medalists in weightlifting|Weightlifting]]
+| 1896; 1904;<br />since 1920
+| align=center|27
+| align=center|10
+|align=center bgcolor="#F7F6A8"| 238
+|align=center bgcolor="#DCE5E5"| 235
+|align=center bgcolor="#FFDAB9"| 236
+|align=center| 709
+|align=left|{{flagIOCathlete|[[Pyrros Dimas]]|GRE}} (3–0–1)<br />{{flagIOCathlete|[[Ronny Weller]]|GER}} (1–2–1)<br />[[Image:Flag of Croatia.svg|22x20px|border]]&nbsp;[[Nikolaj Pešalov]] ([[Bulgaria at the Olympics|BUL]], [[Croatia at the Olympics|CRO]]) (1–1–2)<br />{{flagIOCathlete|[[Norbert Schemansky]]|USA}} (1–1–2)<br />{{flagIOCathlete|[[Eko Yuli Irawan]]|INA}} (0–2–2)
+|align=left|{{flagIOCathlete|[[Pyrros Dimas]]|GRE}} (3–0–1)<br />{{flagIOCathlete|[[Kakhi Kakhiashvili]]|GRE}} (3–0–0)<br />{{flagIOCathlete|[[Halil Mutlu]]|TUR}} (3–0–0)<br />{{flagIOCathlete|[[Naim Süleymanoğlu]]|TUR}} (3–0–0)<br />{{flagIOCathlete|[[Lasha Talakhadze]]|GEO}} (3–0–0)
+|-valign="top"
+|align=left| [[Image:Wrestling pictogram.svg|20px]] [[Wrestling]]<br />{{small|([[List of Olympic medalists in freestyle wrestling|freestyle]], [[List of Olympic medalists in Greco-Roman wrestling|Greco-Roman]])}}
+| 1896;<br />since 1904
+|align=center|29
+|align=center|18
+|align=center bgcolor="#F7F6A8"| 446
+|align=center bgcolor="#DCE5E5"| 446
+|align=center bgcolor="#FFDAB9"| 536
+|align=center| 1428
+|align=left|{{flagIOCathlete|[[Mijaín López]]|CUB}} (5–0–0)<br />{{flagIOCathlete|[[Wilfried Dietrich]]|FRG}} (1–2–2)
+|align=left|{{flagIOCathlete|[[Mijaín López]]|CUB}} (5–0–0)
+|}
+
+===Winter Olympic sports===
+Sports that appeared in the [[2026 Winter Olympics]] are listed below.
+{| class="wikitable sortable sticky-header-multi" width="100%" style="font-size:90%; text-align:center;"
+|-
+! rowspan=2 width=17%| Discipline (link to medalists list)
+! rowspan=2 width=13%| Contested
+! colspan=2 width=10%| Number of
+! colspan=4 width=10%| Medals awarded
+! rowspan=2 width=25%| Athlete(s) with the most medals <br /> <small>(gold-silver-bronze)</small>
+! rowspan=2 width=25%| Athlete(s) with the most gold medals
+|-
+! <small>Olympics<br />(up to [[2026 Winter Olympics|2026]])</small>
+! <small>Medal events<br />(in [[2026 Winter Olympics|2026]])</small>
+!style="background-color:gold; width=7%;"|{{gold1}}
+!style="background-color:silver; width=7%;"|{{silver2}}
+!style="background-color:#cc9966; width=7%;"|{{bronze3}}
+!style="width:4em;" | Total
+|-valign="top"
+|align=left| [[Image:Alpine skiing pictogram.svg|20px]] [[List of Olympic medalists in alpine skiing|Alpine skiing]]
+| Since 1936
+| align=center|22
+| align=center|10
+|align=center bgcolor="#F7F6A8"| 175
+|align=center bgcolor="#DCE5E5"| 178
+|align=center bgcolor="#FFDAB9"| 171
+|align=center| 524
+|align=left|{{flagIOCathlete|[[Kjetil André Aamodt]]|NOR}} (4–2–2)
+|align=left|{{flagIOCathlete|[[Kjetil André Aamodt]]|NOR}} (4–2–2)<br />{{flagIOCathlete|[[Janica Kostelić]]|CRO}} (4–2–0)
+|-valign="top"
+|align=left| [[Image:Biathlon pictogram.svg|20px]] [[List of Olympic medalists in biathlon|Biathlon]]
+| 1924{{efn|Including military patrol event at 1924 Games, which IOC now refers to biathlon.}};<br/>since 1960
+| align=center|22
+| align=center|11
+|align=center bgcolor="#F7F6A8"| 108
+|align=center bgcolor="#DCE5E5"| 108
+|align=center bgcolor="#FFDAB9"| 106
+|align=center| 355
+|align=left|{{flagIOCathlete|[[Ole Einar Bjørndalen]]|NOR}} (8–4–2)
+|align=left|{{flagIOCathlete|[[Ole Einar Bjørndalen]]|NOR}} (8–4–2)
+|-valign="top"
+|align=left| [[Image:Bobsleigh pictogram.svg|20px]] [[List of Olympic medalists in bobsleigh|Bobsleigh]]
+| 1924–1956;<br />since 1964
+| align=center|24
+| align=center|5
+|align=center bgcolor="#F7F6A8"| 57
+|align=center bgcolor="#DCE5E5"| 54
+|align=center bgcolor="#FFDAB9"| 455
+|align=center| 166
+|align=left|{{flagIOCathlete|[[Bogdan Musioł]]|GDR}} (1–5–1)
+|align=left|{{flagIOCathlete|[[Thorsten Margis]]|GER}} (5–0–0)
+|-valign="top"
+|align=left| [[Image:Cross country skiing pictogram.svg|20px]] [[List of Olympic medalists in cross-country skiing|Cross-country skiing]]
+| Since 1924
+| align=center|25
+| align=center|12
+|align=center bgcolor="#F7F6A8"| 182
+|align=center bgcolor="#DCE5E5"| 180
+|align=center bgcolor="#FFDAB9"| 182
+|align=center| 544
+|align=left|{{flagIOCathlete|[[Marit Bjørgen]]|NOR}} (8–4–3)
+|align=left|{{flagIOCathlete|[[Johannes Høsflot Klæbo]]|NOR}} (11–1–1)
+|-valign="top"
+|align=left| [[Image:Curling pictogram.svg|20px]] [[List of Olympic medalists in curling|Curling]]
+| 1924;<br />since 1998
+| align=center|9
+| align=center|3
+|align=center bgcolor="#F7F6A8"| 20
+|align=center bgcolor="#DCE5E5"| 20
+|align=center bgcolor="#FFDAB9"| 20
+|align=center| 60
+|align=left|{{flagIOCathlete|[[Agnes Knochenhauer]]|SWE}} (2–1–1)<br />{{flagIOCathlete|[[Oskar Eriksson]]|SWE}} (1–1–2)
+|align=left|{{flagIOCathlete|[[Agnes Knochenhauer]]|SWE}} (2–1–1)<br />{{flagIOCathlete|[[Rasmus Wranå]]|SWE}} (2–1–0)<br />{{flagIOCathlete|[[Anna Hasselborg]]|SWE}} (2–0–1)<br />{{flagIOCathlete|[[Marc Kennedy]]|CAN}} (2–0–1)<br />{{flagIOCathlete|[[Sara McManus]]|SWE}} (2–0–1)<br />{{flagIOCathlete|[[Sofia Scharback]]|SWE}} (2–0–1)<br />{{flagIOCathlete|[[Ben Hebert]]|CAN}} (2–0–0)<br />{{flagIOCathlete|[[Brad Jacobs]]|CAN}} (2–0–0)<br />{{flagIOCathlete|[[Kaitlyn Lawes]]|CAN}} (2–0–0)<br />{{flagIOCathlete|[[Anna Le Moine]]|SWE}} (2–0–0)<br />{{flagIOCathlete|[[Cathrine Lindahl]]|SWE}} (2–0–0)<br />{{flagIOCathlete|[[Eva Lund]]|SWE}} (2–0–0)<br />{{flagIOCathlete|[[John Morris (curler)|John Morris]]|CAN}} (2–0–0)<br />{{flagIOCathlete|[[Anette Norberg]]|SWE}} (2–0–0)
+|-valign="top"
+|align=left| [[Image:Figure skating pictogram.svg|20px]] [[List of Olympic medalists in figure skating|Figure skating]]
+| {{nowrap|Summer: 1908; 1920<br />Winter: since 1924{{efn|Figure skating was held at the 1908 and 1920 Summer Olympic games prior to the establishment of the Winter Olympics. 21 medals (seven of each color) were awarded in seven events.}}
+| align=center|25
+| align=center|5
+|align=center bgcolor="#F7F6A8"| 101
+|align=center bgcolor="#DCE5E5"| 100
+|align=center bgcolor="#FFDAB9"| 100
+|align=center| 301
+|align=left|{{flagIOCathlete|[[Scott Moir]]|CAN}} (3–2–0)<br />{{flagIOCathlete|[[Tessa Virtue]]|CAN}} (3–2–0)  
+|align=left|{{flagIOCathlete|[[Scott Moir]]|CAN}} (3–2–0)<br />{{flagIOCathlete|[[Tessa Virtue]]|CAN}} (3–2–0)<br />{{flagIOCathlete|[[Gillis Grafström]]|SWE}} (3–1–0)<br />{{flagIOCathlete|[[Sonja Henie]]|NOR}} (3–0–0)<br />{{flagIOCathlete|[[Irina Rodnina]]|URS}} (3–0–0)
+|-valign="top"
+|align=left| [[Image:Freestyle skiing pictogram.svg|20px]] [[List of Olympic medalists in freestyle skiing|Freestyle skiing]]
+| Since 1992
+| align=center|10
+| align=center|15
+|align=center bgcolor="#F7F6A8"| 73
+|align=center bgcolor="#DCE5E5"| 73
+|align=center bgcolor="#FFDAB9"| 74
+|align=center| 220
+|align=left|{{flagIOCathlete|[[Ailing Eileen Gu]]|CHN}} (3–3–0)
+|align=left|{{flagIOCathlete|[[Ailing Eileen Gu]]|CHN}} (3–3–0)
+|-valign="top"
+|align=left| [[Image:Ice hockey pictogram.svg|20px]] [[List of Olympic medalists in ice hockey|Ice hockey]]
+| {{nowrap|Summer: 1920<br />Winter: since 1924{{efn|A men's ice hockey tournament was held at the 1920 Summer Olympics, and then added as a Winter Olympics event. Three medals were awarded.}}
+| align=center|25
+| align=center|2
+|align=center bgcolor="#F7F6A8"| 34
+|align=center bgcolor="#DCE5E5"| 34
+|align=center bgcolor="#FFDAB9"| 34
+|align=center| 102
+|align=left|{{flagIOCathlete|[[Jayna Hefford]]|CAN}} (4–1–0)<br />{{flagIOCathlete|[[Hayley Wickenheiser]]|CAN}} (4–1–0)<br />{{flagIOCathlete|[[Marie-Philip Poulin]]|CAN}} (3–2–0)<br />{{flagIOCathlete|[[Hilary Knight]]|USA}} (2–3–0)
+|align=left|{{flagIOCathlete|[[Jayna Hefford]]|CAN}} (4–1–0)<br />{{flagIOCathlete|[[Hayley Wickenheiser]]|CAN}} (4–1–0)<br />{{flagIOCathlete|[[Caroline Ouellette]]|CAN}} (4–0–0)
+|-valign="top"
+|align=left| [[Image:Luge pictogram.svg|20px]] [[List of Olympic medalists in luge|Luge]]
+| Since 1964
+| align=center|17
+| align=center|5
+|align=center bgcolor="#F7F6A8"| 57
+|align=center bgcolor="#DCE5E5"| 55
+|align=center bgcolor="#FFDAB9"| 56
+|align=center| 168
+|align=left|{{flagIOCathlete|[[Tobias Arlt]]|GER}} (7–0–1)<br />{{flagIOCathlete|[[Tobias Wendl]]|GER}} (7–0–1)
+|align=left|{{flagIOCathlete|[[Tobias Arlt]]|GER}} (7–0–1)<br />{{flagIOCathlete|[[Tobias Wendl]]|GER}} (7–0–1)
+|-valign="top"
+|align=left| [[Image:Nordic combined pictogram.svg|20px]] [[List of Olympic medalists in Nordic combined|Nordic combined]]
+| Since 1924
+| align=center|25
+| align=center|3
+|align=center bgcolor="#F7F6A8"| 43
+|align=center bgcolor="#DCE5E5"| 43
+|align=center bgcolor="#FFDAB9"| 43
+|align=center| 129
+|align=left|{{flagIOCathlete|[[Eric Frenzel]]|GER}} (3–2–2)<br />{{flagIOCathlete|[[Felix Gottwald]]|AUT}} (3–1–3)
+|align=left|{{flagIOCathlete|[[Jørgen Graabak]]|NOR}} (4–2–0)<br />{{flagIOCathlete|[[Jens Lurås Oftebro]]|NOR}} (4–1–0)
+|-valign="top"
+|align=left| [[Image:Short track speed skating pictogram.svg|20px]] [[List of Olympic medalists in short track speed skating|Short track speed skating]]
+| Since 1992
+| align=center|11
+| align=center|9
+|align=center bgcolor="#F7F6A8"| 74
+|align=center bgcolor="#DCE5E5"| 74
+|align=center bgcolor="#FFDAB9"| 74
+|align=center| 222
+|align=left|{{flagIOCathlete|[[Arianna Fontana]]|ITA}} (3–6–5)
+|align=left|{{flagIOCathlete|[[Viktor Ahn]]|RUS}} /<br /> {{flagIOCathlete|[[Viktor Ahn|Ahn Hyun-soo]]|KOR}} (6–0–2)
+|-valign="top"
+|align=left| [[Image:Skeleton pictogram.svg|20px]] [[List of Olympic medalists in skeleton|Skeleton]]
+| 1924; 1948;<br />since 2002
+| align=center|9
+| align=center|3
+|align=center bgcolor="#F7F6A8"| 17
+|align=center bgcolor="#DCE5E5"| 17
+|align=center bgcolor="#FFDAB9"| 17
+|align=center| 51
+|align=left|{{flagIOCathlete|[[Christopher Grotheer]]|GER}} (1–0–2)<br />{{flagIOCathlete|[[Axel Jungk]]|GER}} (0–3–0)<br />{{flagIOCathlete|[[Jacqueline Pfeifer]]|GER}} (0–1–2)
+|align=left|{{flagIOCathlete|[[Matt Weston (skeleton racer)|Matt Weston]]|GBR}} (2–0–0)<br />{{flagIOCathlete|[[Lizzy Yarnold]]|GBR}} (2–0–0)
+|-valign="top"
+|align=left| [[Image:Ski jumping pictogram.svg|20px]] [[List of Olympic medalists in ski jumping|Ski jumping]]
+| Since 1924
+| align=center|25
+| align=center|6
+|align=center bgcolor="#F7F6A8"| 60
+|align=center bgcolor="#DCE5E5"| 61
+|align=center bgcolor="#FFDAB9"| 60
+|align=center| 181
+|align=left|{{flagIOCathlete|[[Matti Nykänen]]|FIN}} (4–1–0)
+|align=left|{{flagIOCathlete|[[Matti Nykänen]]|FIN}} (4–1–0)<br />{{flagIOCathlete|[[Simon Ammann]]|SUI}} (4–0–0)
+|-valign="top"
+|align=left| [[Image:Ski mountaineering pictogram.svg|20px]] [[List of Olympic medalists in ski mountaineering|Ski mountaineering]]
+| Since 2026
+| align=center|3
+| align=center|3
+|align=center bgcolor="#F7F6A8"| 3
+|align=center bgcolor="#DCE5E5"| 3
+|align=center bgcolor="#FFDAB9"| 3
+|align=center|9
+|align=center|[[List of Olympic medalists in ski mountaineering|see list]]
+|align=center|[[List of Olympic medalists in ski mountaineering|see list]]
+|-valign="top"
+|align=left| [[Image:Snowboarding pictogram.svg|20px]] [[List of Olympic medalists in snowboarding|Snowboarding]]
+| Since 1998
+| align=center|8
+| align=center|11
+|align=center bgcolor="#F7F6A8"| 62
+|align=center bgcolor="#DCE5E5"| 62
+|align=center bgcolor="#FFDAB9"| 62
+|align=center| 186
+|align=left|{{flagIOCathlete|[[Zoi Sadowski-Synnott]]|NZL}} (1–3–1)
+|align=left|{{flagIOCathlete|[[Shaun White]]|USA}} (3–0–0)
+|-valign="top"
+|align=left| [[Image:Speed skating pictogram.svg|20px]] [[List of Olympic medalists in speed skating|Speed skating]]
+| Since 1924
+| align=center|25
+| align=center|14
+|align=center bgcolor="#F7F6A8"| 224
+|align=center bgcolor="#DCE5E5"| 223
+|align=center bgcolor="#FFDAB9"| 214
+|align=center| 661
+|align=left|{{flagIOCathlete|[[Ireen Wüst]]|NED}} (6–5–1)
+|align=left|{{flagIOCathlete|[[Ireen Wüst]]|NED}} (6–5–1)<br />{{flagIOCathlete|[[Lidiya Skoblikova]]|URS}} (6–0–0)
+|}
+
+===Discontinued summer sports===
+<!-- Many of these sports only appeared in a single Games. It is not necessary to create a separate "Olympic medalists in <sport>" article when all the medalists are already listed on a single page.  -->
+{| class="wikitable sortable sticky-header-multi" width=50% style="font-size:90%; text-align:center;"
+|-
+! rowspan=2 width=60% | Discipline
+! rowspan=2 width=40% | Contested
+! rowspan=2 width=20% | <small>Number of<br />Olympics</small>
+! colspan=4 width=20% | Medals awarded
+<!--! rowspan=2| Athlete(s) with the most medals-->
+|-
+!style="background-color:gold; width=7%;"|{{gold1}}
+!style="background-color:silver; width=7%;"|{{silver2}}
+!style="background-color:#cc9966; width=7%;"|{{bronze3}}
+!style="width:4em;" | Total
+|-valign="top"
+| align=left| [[Image:Basque pelota pictogram.svg|20px]] [[Basque pelota at the 1900 Summer Olympics|Basque pelota]]
+| 1900
+| align=center|1
+|align=center bgcolor="#F7F6A8"| 1
+|align=center bgcolor="#DCE5E5"| 0
+|align=center bgcolor="#FFDAB9"| 0
+| align=center|1
+|-valign="top"
+| align=left| [[Image:Breakdancing pictogram.svg|20px]] [[Breaking at the 2024 Summer Olympics|Breaking]]
+| 2024
+| align=center|1
+|align=center bgcolor="#F7F6A8"| 2
+|align=center bgcolor="#DCE5E5"| 2
+|align=center bgcolor="#FFDAB9"| 2
+|align=center| 6
+|-valign="top"
+|align=left| [[Image:Croquet pictogram.svg|20px]] [[Croquet at the 1900 Summer Olympics|Croquet]]
+| 1900
+| align=center|1
+|align=center bgcolor="#F7F6A8"| 3
+|align=center bgcolor="#DCE5E5"| 2
+|align=center bgcolor="#FFDAB9"| 2
+|align=center| 7
+|-valign="top"
+|align=left| [[Image:Jeu de paume pictogram.svg|20px]] [[Jeu de paume at the 1908 Summer Olympics|Jeu de paume]]
+| 1908
+| align=center|1
+|align=center bgcolor="#F7F6A8"| 1
+|align=center bgcolor="#DCE5E5"| 1
+|align=center bgcolor="#FFDAB9"| 1
+|align=center| 3
+|-valign="top"
+|align=left| [[Image:Karate pictogram.svg|20px]] [[Karate at the 2020 Summer Olympics|Karate]]
+|2020
+| align=center|1
+|align=center bgcolor="#F7F6A8"| 8
+|align=center bgcolor="#DCE5E5"| 8
+|align=center bgcolor="#FFDAB9"| 16
+| align=center|32
+|-valign="top"
+| align=left| [[Image:Polo pictogram.svg|20px]] [[List of Olympic medalists in polo|Polo]]
+| 1900; 1908; 1920;<br />1924; 1936
+| align=center|5
+|align=center bgcolor="#F7F6A8"| 5
+|align=center bgcolor="#DCE5E5"| 6
+|align=center bgcolor="#FFDAB9"| 5
+|align=center| 16
+|-
+| align=left| [[Image:Racquets pictogram.svg|20px]] [[Rackets at the 1908 Summer Olympics|Rackets]]
+| 1908
+| align=center|1
+|align=center bgcolor="#F7F6A8"| 2
+|align=center bgcolor="#DCE5E5"| 2
+|align=center bgcolor="#FFDAB9"| 3
+|align=center| 7
+|-
+| align=left| [[Image:Roque pictogram.svg|20px]] [[Roque at the 1904 Summer Olympics|Roque]]
+| 1904
+| align=center|1
+|align=center bgcolor="#F7F6A8"| 1
+|align=center bgcolor="#DCE5E5"| 1
+|align=center bgcolor="#FFDAB9"| 1
+|align=center| 3
+|-valign="top"
+| align=left| [[Image:Tug of war pictogram.svg|20px]] [[List of Olympic medalists in tug of war|Tug of war]]
+| 1900–1920
+| align=center|5
+|align=center bgcolor="#F7F6A8"| 5
+|align=center bgcolor="#DCE5E5"| 5
+|align=center bgcolor="#FFDAB9"| 3
+|align=center| 13
+|-
+| align=left| [[Image:Water motorsports pictogram.svg|20px]] [[Water motorsports at the 1908 Summer Olympics|Water motorsports]]
+| 1908
+| align=center|1
+|align=center bgcolor="#F7F6A8"| 3
+|align=center bgcolor="#DCE5E5"| 0
+|align=center bgcolor="#FFDAB9"| 0
+|align=center| 3
+|}
+
+==Medalist with most medals by Olympiad==
+
+===Summer Olympic Games===
+{| class="wikitable sortable sticky-header-multi"
+|-
+! rowspan="2" width="3%" | Games
+! colspan="2" rowspan="2" width="7%" | Medal
+! rowspan="2" width="20%" | Host
+! rowspan="2" width="10%" |<small>Number of<br />medal events</small>
+! colspan="4" width="10%" | Medals awarded
+! rowspan="2" width="25%" | Athlete(s) with the most medals <br /> <small>(gold–silver–bronze)</small>
+! rowspan="2" width="25%" | Athlete(s) with the most gold medals
+|-
+! style="background-color:gold; width=7%;" |{{gold1}}
+! style="background-color:silver; width=7%;" |{{silver2}}
+! style="background-color:#cc9966; width=7%;" |{{bronze3}}
+! style="width:4em;" | Total
+|- valign="top"
+|[[1896 Summer Olympics|1896]]
+|[[List of 1896 Summer Olympics medal winners|winners]]
+|[[1896 Summer Olympics medal table|table]]
+|{{flagicon|Greece|old}} [[Athens]], [[Kingdom of Greece (Glücksburg)|Greece]]
+| align="center" |43
+| align="center" bgcolor="#F7F6A8" |43
+| align="center" bgcolor="#DCE5E5" |43
+| align="center" bgcolor="#FFDAB9" |36
+| align="center" |122
+|{{flagIOCathlete|[[Hermann Weingärtner]]|GER|1896 Summer}} (3–2–1)
+|{{flagIOCathlete|[[Carl Schuhmann]]|GER|1896 Summer}} (4–0–0)
+|- valign="top"
+|[[1900 Summer Olympics|1900]]
+|[[List of 1900 Summer Olympics medal winners|winners]]
+|[[1900 Summer Olympics medal table|table]]
+|{{flagicon|France}} [[Paris]], [[France]]
+| align="center" |95{{efn|The IOC overview web page for the 1900 Olympic Games gives a figure of 96 events,<ref name=Games1900>{{cite web |title=Paris 1900 |website=IOC |url=https://olympics.com/en/olympic-games/paris-1900 |access-date=31 January 2022}}</ref> while the IOC database for the 1900 Olympic Games lists 95.}}
+| align="center" bgcolor="#F7F6A8" |96
+| align="center" bgcolor="#DCE5E5" |95
+| align="center" bgcolor="#FFDAB9" |93
+| align="center" |284
+|{{flagIOCathlete|[[Irving Baxter]]|USA|1900 Summer}} (2–3–0)<br />{{flagIOCathlete|[[Walter Tewksbury]]|USA|1900 Summer}} (2–2–1)
+|{{flagIOCathlete|[[Alvin Kraenzlein]]|USA|1900 Summer}} (4–0–0)
+|- valign="top"
+|[[1904 Summer Olympics|1904]]
+|[[List of 1904 Summer Olympics medal winners|winners]]
+|[[1904 Summer Olympics medal table|table]]
+|{{flagicon|United States|1896}} [[St. Louis, Missouri|St. Louis]], [[United States]]
+| align="center" |95{{efn|The IOC overview web page for the 1904 Olympic Games gives a figure of 95 events;<ref name=Games1904>{{cite web |title=St.Louis 1904 |website=IOC |url=https://olympics.com/en/olympic-games/st-louis-1904 |access-date=31 January 2022}}</ref> the IOC database for the 1904 Olympic Games also lists 95.}}
+| align="center" bgcolor="#F7F6A8" |96
+| align="center" bgcolor="#DCE5E5" |96
+| align="center" bgcolor="#FFDAB9" |93
+| align="center" |285
+|{{flagIOCathlete|[[Anton Heida]]|USA|1904 Summer}} (5–1–0)<br />{{flagIOCathlete|[[George Eyser]]|USA|1904 Summer}} (3–2–1)<br />{{flagIOCathlete|[[Burton Downing]]|USA|1904 Summer}} (2–3–1)
+|{{flagIOCathlete|[[Anton Heida]]|USA|1904 Summer}} (5–1–0)
+|- valign="top"
+|[[1908 Summer Olympics|1908]]
+|[[List of 1908 Summer Olympics medal winners|winners]]
+|[[1908 Summer Olympics medal table|table]]
+|{{flagicon|United Kingdom}} [[London]], [[United Kingdom of Great Britain and Ireland|United Kingdom]]
+| align="center" |110
+| align="center" bgcolor="#F7F6A8" |110
+| align="center" bgcolor="#DCE5E5" |107
+| align="center" bgcolor="#FFDAB9" |107
+| align="center" |324
+|{{flagIOCathlete|[[Mel Sheppard]]|USA|1908 Summer}} (3–0–0)<br />{{flagIOCathlete|[[Henry Taylor (swimmer)|Henry Taylor]]|GBR|1908 Summer}} (3–0–0)<br />{{flagIOCathlete|[[Benjamin Jones (cyclist)|Benjamin Jones]]|GBR|1908 Summer}} (2–1–0)<br />{{flagIOCathlete|[[Oscar Swahn]]|SWE|1908 Summer}} (2–0–1)<br />{{flagIOCathlete|[[Martin Sheridan]]|USA|1908 Summer}} (2–0–1)<br />{{flagIOCathlete|[[Josiah Ritchie]]|GBR|1908 Summer}} (1–1–1)<br />{{flagIOCathlete|[[Ted Ranken]]|GBR|1908 Summer}} (0–3–0)
+|{{flagIOCathlete|[[Mel Sheppard]]|USA|1908 Summer}} (3–0–0)<br />{{flagIOCathlete|[[Henry Taylor (swimmer)|Henry Taylor]]|GBR|1908 Summer}} (3–0–0)
+|- valign="top"
+|[[1912 Summer Olympics|1912]]
+|[[List of 1912 Summer Olympics medal winners|winners]]
+|[[1912 Summer Olympics medal table|table]]
+|{{flagicon|Sweden}} [[Stockholm]], [[Sweden]]
+| align="center" |102
+| align="center" bgcolor="#F7F6A8" |103
+| align="center" bgcolor="#DCE5E5" |104
+| align="center" bgcolor="#FFDAB9" |103
+| align="center" |310
+|{{flagIOCathlete|[[Vilhelm Carlberg]]|SWE|1912 Summer}} (3–2–0)
+|{{flagIOCathlete|[[Vilhelm Carlberg]]|SWE|1912 Summer}} (3–2–0)<br />{{flagIOCathlete|[[Hannes Kolehmainen]]|FIN|1912 Summer}} (3–1–0)<br />{{flagIOCathlete|[[Alfred Lane]]|USA|1912 Summer}} (3–0–0)
+|- valign="top"
+|[[1920 Summer Olympics|1920]]
+|[[List of 1920 Summer Olympics medal winners|winners]]
+|[[1920 Summer Olympics medal table|table]]
+|{{flagicon|Belgium}} [[Antwerp]], [[Belgium]]
+| align="center" |156{{efn|The IOC overview web page for the 1920 Olympic Games gives a figure of 156 events;<ref name=Games1920>{{cite web |title=Antwerp 1920 |website=IOC |url=https://olympics.com/en/olympic-games/antwerp-1920 |access-date=31 January 2022}}</ref> the IOC database for the 1920 Olympic Games also lists 156.}}
+| align="center" bgcolor="#F7F6A8" |156
+| align="center" bgcolor="#DCE5E5" |147
+| align="center" bgcolor="#FFDAB9" |136
+| align="center" |439
+|{{flagIOCathlete|[[Willis A. Lee|Willis Lee]]|USA|1920 Summer}} (5–1–1)<br />{{flagIOCathlete|[[Lloyd Spooner]]|USA|1920 Summer}} (4–1–2)
+|{{flagIOCathlete|[[Willis A. Lee|Willis Lee]]|USA|1920 Summer}} (5–1–1)<br />{{flagIOCathlete|[[Nedo Nadi]]|ITA|1920 Summer}} (5–0–0)
+|- valign="top"
+|[[1924 Summer Olympics|1924]]
+|[[List of 1924 Summer Olympics medal winners|winners]]
+|[[1924 Summer Olympics medal table|table]]
+|{{flagicon|France}} Paris, France
+| align="center" |126
+| align="center" bgcolor="#F7F6A8" | 126
+| align="center" bgcolor="#DCE5E5" | 127
+| align="center" bgcolor="#FFDAB9" | 125
+| align="center" | 378
+|{{flagIOCathlete|[[Ville Ritola]]|FIN|1924 Summer}} (4–2–0)
+|{{flagIOCathlete|[[Paavo Nurmi]]|FIN|1924 Summer}} (5–0–0)
+|- valign="top"
+|[[1928 Summer Olympics|1928]]
+|[[List of 1928 Summer Olympics medal winners|winners]]
+|[[1928 Summer Olympics medal table|table]]
+|{{flagicon|Netherlands}} [[Amsterdam]], [[Netherlands]]
+| align="center" |109
+| align="center" bgcolor="#F7F6A8" |110
+| align="center" bgcolor="#DCE5E5" |108
+| align="center" bgcolor="#FFDAB9" |109
+| align="center" |327
+|{{flagIOCathlete|[[Georges Miez]]|SUI|1928 Summer}} (3–1–0)<br />{{flagIOCathlete|[[Hermann Hänggi]]|SUI|1928 Summer}} (2–1–1)
+|{{flagIOCathlete|[[Georges Miez]]|SUI|1928 Summer}} (3–1–0)
+|- valign="top"
+|[[1932 Summer Olympics|1932]]
+|[[List of 1932 Summer Olympics medal winners|winners]]
+|[[1932 Summer Olympics medal table|table]]
+|{{flagicon|United States|1912}} [[Los Angeles, California|Los Angeles]], United States
+| align="center" |116
+| align="center" bgcolor="#F7F6A8" |116
+| align="center" bgcolor="#DCE5E5" |116
+| align="center" bgcolor="#FFDAB9" |114
+| align="center" |346
+|{{flagIOCathlete|[[István Pelle]]|HUN|1932 Summer}} (2–2–0)<br />{{flagIOCathlete|[[Giulio Gaudini]]|ITA|1932 Summer}} 0–3–1)<br />{{flagIOCathlete|[[Heikki Savolainen (gymnast)|Heikki Savolainen]]|FIN|1932 Summer}} (0–1–3)
+|{{flagIOCathlete|[[Helene Madison]]|USA|1932 Summer}} (3–0–0)<br />{{flagIOCathlete|[[Romeo Neri]]|ITA|1932 Summer}} (3–0–0)
+|- valign="top"
+|[[1936 Summer Olympics|1936]]
+|[[List of 1936 Summer Olympics medal winners|winners]]
+|[[1936 Summer Olympics medal table|table]]
+|{{flagicon|Germany|Nazi}} [[Berlin]], [[Nazi Germany|Germany]]
+| align="center" |129
+| align="center" bgcolor="#F7F6A8" |130
+| align="center" bgcolor="#DCE5E5" |128
+| align="center" bgcolor="#FFDAB9" |130
+| align="center" |388
+|{{flagIOCathlete|[[Konrad Frey]]|GER|1936 Summer}} (3–1–2)
+|{{flagIOCathlete|[[Jesse Owens]]|USA|1936 Summer}} (4–0–0)
+|- valign="top"
+|[[1948 Summer Olympics|1948]]
+|[[List of 1948 Summer Olympics medal winners|winners]]
+|[[1948 Summer Olympics medal table|table]]
+|{{flagicon|United Kingdom}} London, United Kingdom
+| align="center" |136
+| align="center" bgcolor="#F7F6A8" |138
+| align="center" bgcolor="#DCE5E5" |135
+| align="center" bgcolor="#FFDAB9" |138
+| align="center" |411
+|{{flagIOCathlete|[[Veikko Huhtanen]]|FIN|1948 Summer}} (3–1–1)
+|{{flagIOCathlete|[[Fanny Blankers-Koen]]|NED|1948 Summer}} (4–0–0)
+|- valign="top"
+|[[1952 Summer Olympics|1952]]
+|[[List of 1952 Summer Olympics medal winners|winners]]
+|[[1952 Summer Olympics medal table|table]]
+|{{flagicon|Finland}} [[Helsinki]], [[Finland]]
+| align="center" |149
+| align="center" bgcolor="#F7F6A8" |149
+| align="center" bgcolor="#DCE5E5" |152
+| align="center" bgcolor="#FFDAB9" |158
+| align="center" |459
+|{{flagIOCathlete|[[Maria Gorokhovskaya]]|URS|1952 Summer}} (2–5–0)
+|{{flagIOCathlete|[[Viktor Chukarin]]|URS|1952 Summer}} (4–2–0)
+|- valign="top"
+|[[1956 Summer Olympics|1956]]
+|[[List of 1956 Summer Olympics medal winners|winners]]
+|[[1956 Summer Olympics medal table|table]]
+|{{flagicon|Australia}} [[Melbourne]], [[Australia]]<br />{{flagicon|Sweden}} Stockholm, Sweden{{efn|Due to Australian quarantine laws, 6 [[equestrian at the 1956 Summer Olympics|equestrian events]] were held in [[Stockholm]] several months before the rest of the 1956 Games in [[Melbourne]].}}
+| align="center" |151{{efn|The IOC overview web page for the 1956 Olympic Games gives a figure of 151 events;<ref name=Games1956>{{cite web |title=Melbourne 1956 |website=IOC |url=https://olympics.com/en/olympic-games/melbourne-1956 |access-date=31 January 2022}}</ref> (145 events in Melbourne and 6 equestrian events in Stockholm).}}
+| align="center" bgcolor="#F7F6A8" |153
+| align="center" bgcolor="#DCE5E5" |153
+| align="center" bgcolor="#FFDAB9" |163
+| align="center" |469
+|{{flagIOCathlete|[[Ágnes Keleti]]|HUN|1956 Summer}} (4–2–0)<br />{{flagIOCathlete|[[Larisa Latynina]]|URS|1956 Summer}} (4–1–1)
+|{{flagIOCathlete|[[Ágnes Keleti]]|HUN|1956 Summer}} (4–2–0)<br />{{flagIOCathlete|[[Larisa Latynina]]|URS|1956 Summer}} (4–1–1)
+|- valign="top"
+|[[1960 Summer Olympics|1960]]
+|[[List of 1960 Summer Olympics medal winners|winners]]
+|[[1960 Summer Olympics medal table|table]]
+|{{flagicon|Italy}} [[Rome]], [[Italy]]
+| align="center" |150
+| align="center" bgcolor="#F7F6A8" |152
+| align="center" bgcolor="#DCE5E5" |149
+| align="center" bgcolor="#FFDAB9" |160
+| align="center" |461
+|{{flagIOCathlete|[[Boris Shakhlin]]|URS|1960 Summer}} (4–2–1)
+|{{flagIOCathlete|[[Boris Shakhlin]]|URS|1960 Summer}} (4–2–1)
+|- valign="top"
+|[[1964 Summer Olympics|1964]]
+|[[List of 1964 Summer Olympics medal winners|winners]]
+|[[1964 Summer Olympics medal table|table]]
+|{{flagicon|Japan}} [[Tokyo]], Japan
+| align="center" |163
+| align="center" bgcolor="#F7F6A8" |163
+| align="center" bgcolor="#DCE5E5" |167
+| align="center" bgcolor="#FFDAB9" |174
+| align="center" |504
+|{{flagIOCathlete|[[Larisa Latynina]]|URS|1964 Summer}} (2–2–2)
+|{{flagIOCathlete|[[Don Schollander]]|USA|1964 Summer}} (4–0–0)
+|- valign="top"
+|[[1968 Summer Olympics|1968]]
+|[[List of 1968 Summer Olympics medal winners|winners]]
+|[[1968 Summer Olympics medal table|table]]
+|{{flagicon|Mexico}} [[Mexico City]], [[Mexico]]
+| align="center" |172
+| align="center" bgcolor="#F7F6A8" |174
+| align="center" bgcolor="#DCE5E5" |170
+| align="center" bgcolor="#FFDAB9" |183
+| align="center" |527
+|{{flagIOCathlete|[[Mikhail Voronin]]|URS|1968 Summer}} (2–4–1)
+|{{flagIOCathlete|[[Věra Čáslavská]]|TCH|1968 Summer}} (4–2–0)<br />{{flagIOCathlete|[[Akinori Nakayama]]|JPN|1968 Summer}} (4–1–1)
+|- valign="top"
+|[[1972 Summer Olympics|1972]]
+|[[List of 1972 Summer Olympics medal winners|winners]]
+|[[1972 Summer Olympics medal table|table]]
+|{{flagicon|West Germany}} [[Munich]], [[West Germany]]
+| align="center" |195
+| align="center" bgcolor="#F7F6A8" |195
+| align="center" bgcolor="#DCE5E5" |195
+| align="center" bgcolor="#FFDAB9" |210
+| align="center" |600
+|{{flagIOCathlete|[[Mark Spitz]]|USA|1972 Summer}} (7–0–0)
+|{{flagIOCathlete|[[Mark Spitz]]|USA|1972 Summer}} (7–0–0)
+|- valign="top"
+|[[1976 Summer Olympics|1976]]
+|[[List of 1976 Summer Olympics medal winners|winners]]
+|[[1976 Summer Olympics medal table|table]]
+|{{flagicon|Canada}} [[Montreal]], [[Quebec]], Canada
+| align="center" |198
+| align="center" bgcolor="#F7F6A8" |198
+| align="center" bgcolor="#DCE5E5" |199
+| align="center" bgcolor="#FFDAB9" |216
+| align="center" |613
+|{{flagIOCathlete|[[Nikolai Andrianov]]|URS|1976 Summer}} (4–2–1)
+|{{flagIOCathlete|[[Nikolai Andrianov]]|URS|1976 Summer}} (4–2–1)<br />{{flagIOCathlete|[[Kornelia Ender]]|GDR|1976 Summer}} (4–1–0)<br />{{flagIOCathlete|[[John Naber]]|USA|1976 Summer}} (4–1–0)
+|- valign="top"
+|[[1980 Summer Olympics|1980]]
+|[[List of 1980 Summer Olympics medal winners|winners]]
+|[[1980 Summer Olympics medal table|table]]
+|{{flagicon|Soviet Union|1955}} [[Moscow]], [[Soviet Union]]
+| align="center" |203
+| align="center" bgcolor="#F7F6A8" |204
+| align="center" bgcolor="#DCE5E5" |204
+| align="center" bgcolor="#FFDAB9" |223
+| align="center" |631
+|{{flagIOCathlete|[[Alexander Dityatin]]|URS|1980 Summer}} (3–4–1)
+|{{flagIOCathlete|[[Alexander Dityatin]]|URS|1980 Summer}} (3–4–1)<br />{{flagIOCathlete|[[Caren Metschuck]]|GDR|1980 Summer}} (3–1–0)<br />{{flagIOCathlete|[[Barbara Krause]]|GDR|1980 Summer}} (3–0–0)<br />{{flagIOCathlete|[[Vladimir Parfenovich]]|URS|1980 Summer}} (3–0–0)<br />{{flagIOCathlete|[[Rica Reinisch]]|GDR|1980 Summer}} (3–0–0)<br />{{flagIOCathlete|[[Vladimir Salnikov]]|URS|1980 Summer}} (3–0–0)
+|- valign="top"
+|[[1984 Summer Olympics|1984]]
+|[[List of 1984 Summer Olympics medal winners|winners]]
+|[[1984 Summer Olympics medal table|table]]
+|{{flagicon|United States}} Los Angeles, United States
+| align="center" |221
+| align="center" bgcolor="#F7F6A8" |226
+| align="center" bgcolor="#DCE5E5" |219
+| align="center" bgcolor="#FFDAB9" |243
+| align="center" |688
+|{{flagIOCathlete|[[Li Ning]]|CHN|1984 Summer}} (3–2–1)
+|{{flagIOCathlete|[[Ecaterina Szabo]]|ROU|1984 Summer}} (4–1–0)<br />{{flagIOCathlete|[[Carl Lewis]]|USA|1984 Summer}} (4–0–0)
+|- valign="top"
+|[[1988 Summer Olympics|1988]]
+|[[List of 1988 Summer Olympics medal winners|winners]]
+|[[1988 Summer Olympics medal table|table]]
+|{{flagicon|South Korea}} [[Seoul]], [[South Korea]]
+| align="center" |237
+| align="center" bgcolor="#F7F6A8" |241
+| align="center" bgcolor="#DCE5E5" |234
+| align="center" bgcolor="#FFDAB9" |264
+| align="center" |739
+|{{flagIOCathlete|[[Matt Biondi]]|USA|1988 Summer}} (5–1–1)
+|{{flagIOCathlete|[[Kristin Otto]]|GDR|1988 Summer}} (6–0–0)
+|- valign="top"
+|[[1992 Summer Olympics|1992]]
+|[[List of 1992 Summer Olympics medal winners|winners]]
+|[[1992 Summer Olympics medal table|table]]
+|{{flagicon|Spain}} [[Barcelona]], [[Spain]]
+| align="center" |257
+| align="center" bgcolor="#F7F6A8" |260
+| align="center" bgcolor="#DCE5E5" |257
+| align="center" bgcolor="#FFDAB9" |298
+| align="center" |815
+|{{flagIOCathlete|[[Vitaly Scherbo]]|EUN|1992 Summer}} (6–0–0)
+|{{flagIOCathlete|[[Vitaly Scherbo]]|EUN|1992 Summer}} (6–0–0)
+|- valign="top"
+|[[1996 Summer Olympics|1996]]
+|[[List of 1996 Summer Olympics medal winners|winners]]
+|[[1996 Summer Olympics medal table|table]]
+|{{flagicon|United States}} [[Atlanta, Georgia|Atlanta]], United States
+| align="center" |271
+| align="center" bgcolor="#F7F6A8" |271
+| align="center" bgcolor="#DCE5E5" |273
+| align="center" bgcolor="#FFDAB9" |298
+| align="center" |842
+|{{flagIOCathlete|[[Alexei Nemov]]|RUS|1996 Summer}} (2–1–3)
+|{{flagIOCathlete|[[Amy Van Dyken]]|USA|1996 Summer}} (4–0–0)
+|- valign="top"
+|[[2000 Summer Olympics|2000]]
+|[[List of 2000 Summer Olympics medal winners|winners]]
+|[[2000 Summer Olympics medal table|table]]
+|{{flagicon|Australia}} [[Sydney]], Australia
+| align="center" |300
+| align="center" bgcolor="#F7F6A8" |300
+| align="center" bgcolor="#DCE5E5" |300
+| align="center" bgcolor="#FFDAB9" |327
+| align="center" |927
+|{{flagIOCathlete|[[Alexei Nemov]]|RUS|2000 Summer}} (2–1–3)
+|{{flagIOCathlete|[[Ian Thorpe]]|AUS|2000 Summer}} (3–2–0)<br />{{flagIOCathlete|[[Inge de Bruijn]]|NED|2000 Summer}} (3–1–0)<br />{{flagIOCathlete|[[Leontien Zijlaard-van Moorsel]]|NED|2000 Summer}} (3–1–0)<br />{{flagIOCathlete|[[Jenny Thompson]]|USA|2000 Summer}} (3–0–1)<br />{{flagIOCathlete|[[Lenny Krayzelburg]]|USA|2000 Summer}} (3–0–0)
+|- valign="top"
+|[[2004 Summer Olympics|2004]]
+|[[List of 2004 Summer Olympics medal winners|winners]]
+|[[2004 Summer Olympics medal table|table]]
+|{{flagicon|Greece}} Athens, Greece
+| align="center" |301
+| align="center" bgcolor="#F7F6A8" |301
+| align="center" bgcolor="#DCE5E5" |300
+| align="center" bgcolor="#FFDAB9" |326
+| align="center" |927
+|{{flagIOCathlete|[[Michael Phelps]]|USA|2004 Summer}} (6–0–2)
+|{{flagIOCathlete|[[Michael Phelps]]|USA|2004 Summer}} (6–0–2)
+|- valign="top"
+|[[2008 Summer Olympics|2008]]
+|[[List of 2008 Summer Olympics medal winners|winners]]
+|[[2008 Summer Olympics medal table|table]]
+|{{flagicon|China}} [[Beijing]], [[China]]
+| align="center" |302
+| align="center" bgcolor="#F7F6A8" |302
+| align="center" bgcolor="#DCE5E5" |303
+| align="center" bgcolor="#FFDAB9" |353
+| align="center" |958
+|{{flagIOCathlete|[[Michael Phelps]]|USA|2008 Summer}} (8–0–0)
+|{{flagIOCathlete|[[Michael Phelps]]|USA|2008 Summer}} (8–0–0)
+|- valign="top"
+|[[2012 Summer Olympics|2012]]
+|[[List of 2012 Summer Olympics medal winners|winners]]
+|[[2012 Summer Olympics medal table|table]]
+|{{flagicon|United Kingdom}} [[London]], [[United Kingdom]]
+| align="center" |302
+| align="center" bgcolor="#F7F6A8" |302
+| align="center" bgcolor="#DCE5E5" |301
+| align="center" bgcolor="#FFDAB9" |357
+| align="center" |960
+|{{flagIOCathlete|[[Michael Phelps]]|USA|2012 Summer}} (4–2–0)
+|{{flagIOCathlete|[[Michael Phelps]]|USA|2012 Summer}} (4–2–0)<br />{{flagIOCathlete|[[Missy Franklin]]|USA|2012 Summer}} (4–0–1)
+|- valign="top"
+|[[2016 Summer Olympics|2016]]
+|[[List of 2016 Summer Olympics medal winners|winners]]
+|[[2016 Summer Olympics medal table|table]]
+|{{flagicon|Brazil}} [[Rio de Janeiro]], [[Brazil]]
+| align="center" |306
+| align="center" bgcolor="#F7F6A8" |307
+| align="center" bgcolor="#DCE5E5" |307
+| align="center" bgcolor="#FFDAB9" |359
+| align="center" |973
+|{{flagIOCathlete|[[Michael Phelps]]|USA|2012 Summer}} (5–1–0)
+|{{flagIOCathlete|[[Michael Phelps]]|USA|2012 Summer}} (5–1–0)
+|- valign="top"
+|[[2020 Summer Olympics|2020]]
+|[[List of 2020 Summer Olympics medal winners|winners]]
+|[[2020 Summer Olympics medal table|table]]
+|{{flagicon|Japan}} [[Tokyo]], Japan
+| align="center" |339
+| align="center" bgcolor="#F7F6A8" |340
+| align="center" bgcolor="#DCE5E5" |338
+| align="center" bgcolor="#FFDAB9" |402
+| align="center" |1,080
+|{{flagIOCathlete|[[Emma McKeon]]|AUS|2020 Summer}} (4–0–3)
+|{{flagIOCathlete|[[Caeleb Dressel]]|USA|2020 Summer}} (5–0–0)
+|- valign="top"
+|[[2024 Summer Olympics|2024]]
+|[[List of 2024 Summer Olympics medal winners|winners]]
+|[[2024 Summer Olympics medal table|table]]
+|{{flagicon|France}} [[Paris]], [[France]]
+| align="center" |329
+| align="center" bgcolor="#F7F6A8" |329
+| align="center" bgcolor="#DCE5E5" |330
+| align="center" bgcolor="#FFDAB9" |385
+| align="center" |1,044
+|{{flagIOCathlete|[[Zhang Yufei (swimmer)|Zhang Yufei]]|CHN|2024 Summer}} (0–1–5)
+|{{flagIOCathlete|[[Léon Marchand]]|FRA|2024 Summer}} (4–0–1)
+|}
+
+===Winter Olympic Games===
+{| class="wikitable sortable sticky-header-multi"
+|-
+! rowspan=2 width=3% | Games
+! rowspan=2 colspan=2 width=7% | Medal
+! rowspan=2 width=20% | Host
+! rowspan=2 width=10% | <small>Number of<br />medal events</small>
+! colspan=4 width=10% | Medals awarded
+! rowspan=2 width=25% | Athlete(s) with the most medals <br /> <small>(gold–silver–bronze)</small>
+! rowspan=2 width=25% | Athlete(s) with the most gold medals
+|-
+!style="background-color:gold; width=7%;"|{{gold1}}
+!style="background-color:silver; width=7%;"|{{silver2}}
+!style="background-color:#cc9966; width=7%;"|{{bronze3}}
+!style="width:4em;" | Total
+|-valign="top"
+| [[1924 Winter Olympics|1924]]
+| [[List of 1924 Winter Olympics medal winners|winners]]
+| [[1924 Winter Olympics medal table|table]]
+| {{flagicon|France}} [[Chamonix]], [[French Third Republic|France]]
+| align=center|16
+|align=center bgcolor="#F7F6A8"| 16
+|align=center bgcolor="#DCE5E5"| 16
+|align=center bgcolor="#FFDAB9"| 17
+|align=center| 49
+|{{flagIOCathlete|[[Clas Thunberg]]|FIN|1924 Winter}} (3–1–1)<br />{{flagIOCathlete|[[Roald Larsen]]|NOR|1924 Winter}} (0–2–3)
+|{{flagIOCathlete|[[Clas Thunberg]]|FIN|1924 Winter}} (3–1–1)<br />{{flagIOCathlete|[[Thorleif Haug]]|NOR|1924 Winter}} (3–0–0)
+|-valign="top"
+| [[1928 Winter Olympics|1928]]
+| [[List of 1928 Winter Olympics medal winners|winners]]
+| [[1928 Winter Olympics medal table|table]]
+| {{flagicon|Switzerland}} [[St. Moritz]], [[Switzerland]]
+| align=center|14
+|align=center bgcolor="#F7F6A8"| 14
+|align=center bgcolor="#DCE5E5"| 12
+|align=center bgcolor="#FFDAB9"| 15
+|align=center| 41
+|{{flagIOCathlete|[[Bernt Evensen]]|NOR|1928 Winter}} (1–1–1)
+|{{flagIOCathlete|[[Johan Grøttumsbraaten]]|NOR|1928 Winter}} (2–0–0)<br />{{flagIOCathlete|[[Clas Thunberg]]|FIN|1928 Winter}} (2–0–0)
+|-valign="top"
+| [[1932 Winter Olympics|1932]]
+| [[List of 1932 Winter Olympics medal winners|winners]]
+| [[1932 Winter Olympics medal table|table]]
+| {{flagicon|United States|1912}} [[Lake Placid, New York|Lake Placid]], [[United States]]
+| align=center|14
+|align=center bgcolor="#F7F6A8"| 14
+|align=center bgcolor="#DCE5E5"| 14
+|align=center bgcolor="#FFDAB9"| 14
+|align=center| 42
+|{{flagIOCathlete|[[Irving Jaffee]]|USA|1932 Winter}} (2–0–0)<br />{{flagIOCathlete|[[Jack Shea (speed skater)|Jack Shea]]|USA|1932 Winter}} (2–0–0)<br />{{flagIOCathlete|[[Veli Saarinen]]|FIN|1932 Winter}} (1–0–1)<br />{{flagIOCathlete|[[Alexander Hurd]]|CAN|1932 Winter}} (0–1–1)<br />{{flagIOCathlete|[[Willy Logan]]|CAN|1932 Winter}} (0–0–2)
+|{{flagIOCathlete|[[Irving Jaffee]]|USA|1932 Winter}} (2–0–0)<br />{{flagIOCathlete|[[Jack Shea (speed skater)|Jack Shea]]|USA|1932 Winter}} (2–0–0)
+|-valign="top"
+| [[1936 Winter Olympics|1936]]
+| [[List of 1936 Winter Olympics medal winners|winners]]
+| [[1936 Winter Olympics medal table|table]]
+| {{flagicon|Germany|Nazi}} [[Garmisch-Partenkirchen]], [[Germany]]
+| align=center|17
+|align=center bgcolor="#F7F6A8"| 17
+|align=center bgcolor="#DCE5E5"| 17
+|align=center bgcolor="#FFDAB9"| 17
+|align=center| 51
+|{{flagIOCathlete|[[Ivar Ballangrud]]|NOR|1936 Winter}} (3–1–0)
+|{{flagIOCathlete|[[Ivar Ballangrud]]|NOR|1936 Winter}} (3–1–0)
+|-valign="top"
+| [[1948 Winter Olympics|1948]]
+| [[List of 1948 Winter Olympics medal winners|winners]]
+| [[1948 Winter Olympics medal table|table]]
+| {{flagicon|Switzerland}} [[St. Moritz]], [[Switzerland]]
+| align=center|22
+|align=center bgcolor="#F7F6A8"| 22
+|align=center bgcolor="#DCE5E5"| 24
+|align=center bgcolor="#FFDAB9"| 22
+|align=center| 68
+|{{flagIOCathlete|[[Henri Oreiller]]|FRA|1948 Winter}} (2–0–1)
+|{{flagIOCathlete|[[Henri Oreiller]]|FRA|1948 Winter}} (2–0–1)<br />{{flagIOCathlete|[[Martin Lundström]]|SWE|1948 Winter}} (2–0–0)
+|-valign="top"
+| [[1952 Winter Olympics|1952]]
+| [[List of 1952 Winter Olympics medal winners|winners]]
+| [[1952 Winter Olympics medal table|table]]
+| {{flagicon|Norway}} [[Oslo]], [[Norway]]
+| align=center|22
+|align=center bgcolor="#F7F6A8"| 22
+|align=center bgcolor="#DCE5E5"| 22
+|align=center bgcolor="#FFDAB9"| 23
+|align=center| 67
+|{{flagIOCathlete|[[Hjalmar Andersen]]|NOR|1952 Winter}} (3–0–0)<br />{{flagIOCathlete|[[Annemarie Buchner]]|GER|1952 Winter}} (0–1–2)
+|{{flagIOCathlete|[[Hjalmar Andersen]]|NOR|1952 Winter}} (3–0–0)
+|-valign="top"
+| [[1956 Winter Olympics|1956]]
+| [[List of 1956 Winter Olympics medal winners|winners]]
+| [[1956 Winter Olympics medal table|table]]
+| {{flagicon|Italy}} [[Cortina d'Ampezzo]], [[Italy]]
+| align=center|24
+|align=center bgcolor="#F7F6A8"| 25
+|align=center bgcolor="#DCE5E5"| 23
+|align=center bgcolor="#FFDAB9"| 24
+|align=center| 72
+|{{flagIOCathlete|[[Sixten Jernberg]]|SWE|1956 Winter}} (1–2–1)
+|{{flagIOCathlete|[[Toni Sailer]]|AUT|1956 Winter}} (3–0–0)
+|-valign="top"
+| [[1960 Winter Olympics|1960]]
+| [[List of 1960 Winter Olympics medal winners|winners]]
+| [[1960 Winter Olympics medal table|table]]
+| {{flagicon|United States}} [[Squaw Valley, Placer County, California|Squaw Valley]], United States
+| align=center|27
+|align=center bgcolor="#F7F6A8"| 28
+|align=center bgcolor="#DCE5E5"| 26
+|align=center bgcolor="#FFDAB9"| 27
+|align=center| 81
+|{{flagIOCathlete|[[Veikko Hakulinen]]|FIN|1960 Winter}} (1–1–1)
+|{{flagIOCathlete|[[Yevgeny Grishin (speed skater)|Yevgeny Grishin]]|URS|1960 Winter}} (2–0–0)<br />{{flagIOCathlete|[[Lidiya Skoblikova]]|URS|1960 Winter}} (2–0–0)
+|-valign="top"
+| [[1964 Winter Olympics|1964]]
+| [[List of 1964 Winter Olympics medal winners|winners]]
+| [[1964 Winter Olympics medal table|table]]
+| {{flagicon|Austria}} [[Innsbruck]], [[Austria]]
+| align=center|34
+|align=center bgcolor="#F7F6A8"| 34
+|align=center bgcolor="#DCE5E5"| 38
+|align=center bgcolor="#FFDAB9"| 31
+|align=center| 103
+|{{flagIOCathlete|[[Lidiya Skoblikova]]|URS|1964 Winter}} (4–0–0)
+|{{flagIOCathlete|[[Lidiya Skoblikova]]|URS|1964 Winter}} (4–0–0)
+|-valign="top"
+| [[1968 Winter Olympics|1968]]
+| [[List of 1968 Winter Olympics medal winners|winners]]
+| [[1968 Winter Olympics medal table|table]]
+| {{flagicon|France}} [[Grenoble]], France
+| align=center|35
+|align=center bgcolor="#F7F6A8"| 35
+|align=center bgcolor="#DCE5E5"| 39
+|align=center bgcolor="#FFDAB9"| 32
+|align=center| 106
+| {{flagIOCathlete|[[Jean-Claude Killy]]|FRA|1968 Winter}} (3–0–0)<br />{{flagIOCathlete|[[Toini Gustafsson]]|SWE|1968 Winter}} (2–1–0)<br />{{flagIOCathlete|[[Eero Mäntyranta]]|FIN|1968 Winter}} (0–1–2)
+| {{flagIOCathlete|[[Jean-Claude Killy]]|FRA|1968 Winter}} (3–0–0)
+|-valign="top"
+| [[1972 Winter Olympics|1972]]
+| [[List of 1972 Winter Olympics medal winners|winners]]
+| [[1972 Winter Olympics medal table|table]]
+| {{flagicon|Japan}} [[Sapporo]], [[Japan]]
+| align=center|35
+|align=center bgcolor="#F7F6A8"| 36
+|align=center bgcolor="#DCE5E5"| 34
+|align=center bgcolor="#FFDAB9"| 35
+|align=center| 105
+|{{flagIOCathlete|[[Galina Kulakova]]|URS|1972 Winter}} (3–0–0)<br />{{flagIOCathlete|[[Ard Schenk]]|NED|1972 Winter}} (3–0–0)<br />{{flagIOCathlete|[[Vyacheslav Vedenin]]|URS|1972 Winter}} (2–0–1)<br />{{flagIOCathlete|[[Pål Tyldum]]|NOR|1972 Winter}} (1–2–0)<br />{{flagIOCathlete|[[Marjatta Kajosmaa]]|FIN|1972 Winter}} (0–2–1)<br />{{flagIOCathlete|[[Atje Keulen-Deelstra]]|NED|1972 Winter}} (0–1–2)
+|{{flagIOCathlete|[[Galina Kulakova]]|URS|1972 Winter}} (3–0–0)<br />{{flagIOCathlete|[[Ard Schenk]]|NED|1972 Winter}} (3–0–0)
+|-valign="top"
+| [[1976 Winter Olympics|1976]]
+| [[List of 1976 Winter Olympics medal winners|winners]]
+| [[1976 Winter Olympics medal table|table]]
+| {{flagicon|Austria}} Innsbruck, Austria
+| align=center|37
+|align=center bgcolor="#F7F6A8"| 37
+|align=center bgcolor="#DCE5E5"| 37
+|align=center bgcolor="#FFDAB9"| 37
+|align=center| 111
+|{{flagIOCathlete|[[Tatyana Averina]]|URS|1976 Winter}} (2–0–2)
+|{{flagIOCathlete|[[Rosi Mittermaier]]|FRG|1976 Winter}} (2–1–0)<br />{{flagIOCathlete|[[Raisa Smetanina]]|URS|1976 Winter}} (2–1–0)<br />{{flagIOCathlete|[[Tatyana Averina]]|URS|1976 Winter}} (2–0–2)<br />{{flagIOCathlete|[[Bernhard Germeshausen]]|GDR|1976 Winter}} (2–0–0)<br />{{flagIOCathlete|[[Nikolay Kruglov]]|URS|1976 Winter}} (2–0–0)<br />{{flagIOCathlete|[[Meinhard Nehmer]]|GDR|1976 Winter}} (2–0–0)
+|-valign="top"
+| [[1980 Winter Olympics|1980]]
+| [[List of 1980 Winter Olympics medal winners|winners]]
+| [[1980 Winter Olympics medal table|table]]
+| {{flagicon|United States}} Lake Placid, United States
+| align=center|38
+|align=center bgcolor="#F7F6A8"| 38
+|align=center bgcolor="#DCE5E5"| 39
+|align=center bgcolor="#FFDAB9"| 38
+|align=center| 115
+|{{flagIOCathlete|[[Eric Heiden]]|USA|1980 Winter}} (5–0–0)
+|{{flagIOCathlete|[[Eric Heiden]]|USA|1980 Winter}} (5–0–0)
+|-valign="top"
+| [[1984 Winter Olympics|1984]]
+| [[List of 1984 Winter Olympics medal winners|winners]]
+| [[1984 Winter Olympics medal table|table]]
+| {{flagicon|Yugoslavia}} [[Sarajevo]], [[Socialist Federal Republic of Yugoslavia|Yugoslavia]]
+| align=center|39
+|align=center bgcolor="#F7F6A8"| 39
+|align=center bgcolor="#DCE5E5"| 39
+|align=center bgcolor="#FFDAB9"| 39
+|align=center| 117
+|{{flagIOCathlete|[[Marja-Liisa Kirvesniemi|Marja-Liisa Hämäläinen]]|FIN|1984 Winter}} (3–0–1)<br />{{flagIOCathlete|[[Karin Enke]]|GDR|1984 Winter}} (2–2–0)<br />{{flagIOCathlete|[[Gunde Svan]]|SWE|1984 Winter}} (2–1–1)
+|{{flagIOCathlete|[[Marja-Liisa Kirvesniemi|Marja-Liisa Hämäläinen]]|FIN|1984 Winter}} (3–0–1)
+|-valign="top"
+| [[1988 Winter Olympics|1988]]
+| [[List of 1988 Winter Olympics medal winners|winners]]
+| [[1988 Winter Olympics medal table|table]]
+| {{flagicon|Canada}} [[Calgary]], Canada
+| align=center|46
+|align=center bgcolor="#F7F6A8"| 46
+|align=center bgcolor="#DCE5E5"| 46
+|align=center bgcolor="#FFDAB9"| 46
+|align=center| 138
+|{{flagIOCathlete|[[Yvonne van Gennip]]|NED|1988 Winter}} (3–0–0)<br />{{flagIOCathlete|[[Matti Nykänen]]|FIN|1988 Winter}} (3–0–0)<br />{{flagIOCathlete|[[Tamara Tikhonova]]|URS|1988 Winter}} (2–1–0)<br />{{flagIOCathlete|[[Valeriy Medvedtsev]]|URS|1988 Winter}} (1–2–0)<br />{{flagIOCathlete|[[Marjo Matikainen-Kallström|Marjo Matikainen]]|FIN|1988 Winter}} (1–0–2)<br />{{flagIOCathlete|[[Karin Enke]]|GDR|1988 Winter}} (0–2–1)<br />{{flagIOCathlete|[[Andrea Ehrig-Mitscherlich|Andrea Ehrig]]|GDR|1988 Winter}} (0–2–1)<br />{{flagIOCathlete|[[Vladimir Smirnov (skier)|Vladimir Smirnov]]|URS|1988 Winter}} (0–2–1)
+|{{flagIOCathlete|[[Yvonne van Gennip]]|NED|1988 Winter}} (3–0–0)<br />{{flagIOCathlete|[[Matti Nykänen]]|FIN|1988 Winter}} (3–0–0)
+|-valign="top"
+| [[1992 Winter Olympics|1992]]
+| [[List of 1992 Winter Olympics medal winners|winners]]
+| [[1992 Winter Olympics medal table|table]]
+| {{flagicon|France}} [[Albertville]], France
+| align=center|57
+|align=center bgcolor="#F7F6A8"| 57
+|align=center bgcolor="#DCE5E5"| 58
+|align=center bgcolor="#FFDAB9"| 56
+|align=center| 171
+|{{flagIOCathlete|[[Lyubov Yegorova (cross-country skier)|Lyubov Yegorova]]|EUN|1992 Winter}} (3–2–0)<br />{{flagIOCathlete|[[Yelena Välbe]]|EUN|1992 Winter}} (1–0–4)
+|{{flagIOCathlete|[[Lyubov Yegorova (cross-country skier)|Lyubov Yegorova]]|EUN|1992 Winter}} (3–2–0)<br />{{flagIOCathlete|[[Bjørn Dæhlie]]|NOR|1992 Winter}} (3–1–0)<br />{{flagIOCathlete|[[Vegard Ulvang]]|NOR|1992 Winter}} (3–1–0)
+|-valign="top"
+| [[1994 Winter Olympics|1994]]
+| [[List of 1994 Winter Olympics medal winners|winners]]
+| [[1994 Winter Olympics medal table|table]]
+| {{flagicon|Norway}} [[Lillehammer]], [[Norway]]
+| align=center|61
+|align=center bgcolor="#F7F6A8"| 61
+|align=center bgcolor="#DCE5E5"| 61
+|align=center bgcolor="#FFDAB9"| 61
+|align=center| 183
+|{{flagIOCathlete|[[Manuela Di Centa]]|ITA|1994 Winter}} (2–2–1)
+|{{flagIOCathlete|[[Lyubov Yegorova (cross-country skier)|Lyubov Yegorova]]|RUS|1994 Winter}} (3–1–0)<br />{{flagIOCathlete|[[Johann Olav Koss]]|NOR|1994 Winter}} (3–0–0)
+|-valign="top"
+| [[1998 Winter Olympics|1998]]
+| [[List of 1998 Winter Olympics medal winners|winners]]
+| [[1998 Winter Olympics medal table|table]]
+| {{flagicon|Japan}} [[Nagano (city)|Nagano]], Japan
+| align=center|68
+|align=center bgcolor="#F7F6A8"| 69
+|align=center bgcolor="#DCE5E5"| 68
+|align=center bgcolor="#FFDAB9"| 68
+|align=center| 205
+|{{flagIOCathlete|[[Larisa Lazutina]]|RUS|1998 Winter}} (3–1–1)
+|{{flagIOCathlete|[[Larisa Lazutina]]|RUS|1998 Winter}} (3–1–1)<br />{{flagIOCathlete|[[Bjørn Dæhlie]]|NOR|1992 Winter}} (3–1–0)
+|-valign="top"
+| [[2002 Winter Olympics|2002]]
+| [[List of 2002 Winter Olympics medal winners|winners]]
+| [[2002 Winter Olympics medal table|table]]
+| {{flagicon|United States}} [[Salt Lake City]], United States
+| align=center|78
+|align=center bgcolor="#F7F6A8"| 80
+|align=center bgcolor="#DCE5E5"| 76
+|align=center bgcolor="#FFDAB9"| 78
+|align=center| 234
+|{{flagIOCathlete|[[Ole Einar Bjørndalen]]|NOR|2002 Winter}} (4–0–0)<br />{{flagIOCathlete|[[Janica Kostelić]]|CRO|2002 Winter}} (3–1–0)
+|{{flagIOCathlete|[[Ole Einar Bjørndalen]]|NOR|2002 Winter}} (4–0–0)
+|-valign="top"
+| [[2006 Winter Olympics|2006]]
+| [[List of 2006 Winter Olympics medal winners|winners]]
+| [[2006 Winter Olympics medal table|table]]
+| {{flagicon|Italy}} [[Turin]], Italy
+| align=center|84
+|align=center bgcolor="#F7F6A8"| 84
+|align=center bgcolor="#DCE5E5"| 84
+|align=center bgcolor="#FFDAB9"| 84
+|align=center| 252
+| {{flagIOCathlete|[[Cindy Klassen]]|CAN|2006 Winter}} (1–2–2)
+| {{flagIOCathlete|[[Viktor Ahn|Ahn Hyun-soo]]|KOR|2006 Winter}} (3–0–1)<br />{{flagIOCathlete|[[Michael Greis]]|GER|2006 Winter}} (3–0–0)<br />{{flagIOCathlete|[[Jin Sun-yu]]|KOR|2006 Winter}} (3–0–0)
+|-valign="top"
+| [[2010 Winter Olympics|2010]]
+| [[List of 2010 Winter Olympics medal winners|winners]]
+| [[2010 Winter Olympics medal table|table]]
+| {{flagicon|Canada}} [[Vancouver]], Canada
+| align=center|86
+|align=center bgcolor="#F7F6A8"| 86
+|align=center bgcolor="#DCE5E5"| 87
+|align=center bgcolor="#FFDAB9"| 85
+|align=center| 258
+|{{flagIOCathlete|[[Marit Bjørgen]]|NOR|2010 Winter}} (3–1–1)
+|{{flagIOCathlete|[[Marit Bjørgen]]|NOR|2010 Winter}} (3–1–1)<br />{{flagIOCathlete|[[Wang Meng (speed skater)|Wang Meng]]|CHN|2010 Winter}} (3–0–0)
+|-valign="top"
+| [[2014 Winter Olympics|2014]]
+| [[List of 2014 Winter Olympics medal winners|winners]]
+| [[2014 Winter Olympics medal table|table]]
+| {{flagicon|Russia}} [[Sochi]], Russia
+| align=center|98
+|align=center bgcolor="#F7F6A8"|99
+|align=center bgcolor="#DCE5E5"|97
+|align=center bgcolor="#FFDAB9"|99
+|align=center|295
+|{{flagIOCathlete|[[Ireen Wüst]]|NED|2014 Winter}} (2–3–0)
+|{{flagIOCathlete|[[Viktor Ahn]]|RUS|2014 Winter}} (3–0–1)<br />{{flagIOCathlete|[[Marit Bjørgen]]|NOR|2014 Winter}} (3–0–0)<br />{{flagIOCathlete|[[Darya Domracheva]]|BLR|2014 Winter}} (3–0–0)
+|-valign="top"
+| [[2018 Winter Olympics|2018]]
+| [[List of 2018 Winter Olympics medal winners|winners]]
+| [[2018 Winter Olympics medal table|table]]
+| {{flagicon|South Korea}} [[Pyeongchang]], South Korea
+| align=center|102
+|align=center bgcolor="#F7F6A8"|103
+|align=center bgcolor="#DCE5E5"|102
+|align=center bgcolor="#FFDAB9"|102
+|align=center|307
+|{{flagIOCathlete|[[Marit Bjørgen]]|NOR|2018 Winter}} (2–1–2)
+|{{flagIOCathlete|[[Martin Fourcade]]|FRA|2018 Winter}} (3–0–0)<br />{{flagIOCathlete|[[Johannes Høsflot Klæbo]]|NOR|2018 Winter}} (3–0–0)
+|-valign="top"
+| [[2022 Winter Olympics|2022]]
+| [[List of 2022 Winter Olympics medal winners|winners]]
+|[[2022 Winter Olympics medal table|table]]
+| {{flagicon|China}} [[Beijing]], China
+| align=center|109
+|align=center bgcolor="#F7F6A8"|109
+|align=center bgcolor="#DCE5E5"|109
+|align=center bgcolor="#FFDAB9"|110
+|align=center|327
+|{{flagIOCathlete|[[Johannes Thingnes Bø]]|NOR|2022 Winter}} (4–0–1)<br />{{flagIOCathlete|[[Alexander Bolshunov]]|ROC|2022 Winter}} (3–1–1)<br />{{flagIOCathlete|[[Marte Olsbu Røiseland]]|NOR|2022 Winter}} (3–0–2)<br />{{flagIOCathlete|[[Quentin Fillon Maillet]]|FRA|2022 Winter}} (2–3–0)
+|{{flagIOCathlete|[[Johannes Thingnes Bø]]|NOR|2022 Winter}} (4–0–1)
+|-valign="top"
+| [[2026 Winter Olympics|2026]]
+| [[List of 2026 Winter Olympics medal winners|winners]]
+|[[2026 Winter Olympics medal table|table]]
+| {{flagicon|Italy}} [[Milan]]/[[Cortina d'Ampezzo]], Italy
+| align=center|116
+|align=center bgcolor="#F7F6A8"|116
+|align=center bgcolor="#DCE5E5"|118
+|align=center bgcolor="#FFDAB9"|115
+|align=center|349
+|{{flagIOCathlete|[[Johannes Høsflot Klæbo]]|NOR|2026 Winter}} (6–0–0)
+|{{flagIOCathlete|[[Johannes Høsflot Klæbo]]|NOR|2026 Winter}} (6–0–0)
+|}
+
+==Medalists by age==
+
+===By sport===
+{|class="wikitable sticky-header"
+|-
+! Title 
+! Age
+! Medalist
+! Details
+! Notes
+|-
+! colspan=5 | Freestyle skiing
+|-
+| Youngest freestyle skiing medalist
+| align=center | 18 years 158 days
+| [[Ailing Eileen Gu]]
+| 
+|-
+| Youngest freestyle skiing gold medalist
+| align=center | 18 years 158 days
+| [[Ailing Eileen Gu]]
+| 
+<!--
+|-
+| Youngest male freestyle skiing medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest male freestyle skiing gold medalist
+| 
+| 
+| 
+| -->
+|-
+| Youngest female freestyle skiing medalist
+| align=center | 18 years 158 days
+| [[Ailing Eileen Gu]]
+| 
+|-
+| Youngest female freestyle skiing gold medalist
+| align=center | 18 years 158 days
+| [[Ailing Eileen Gu]]
+| At the [[2022 Winter Olympics]], [[Ailing Eileen Gu]] became the youngest freestyle skiing gold medalist. In the women's big air, she finished the first with an astonishing score, 188.25.
+| 
+<!--
+|-
+| Oldest freestyle skiing medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Oldest freestyle skiing gold medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Oldest male freestyle skiing medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Oldest male freestyle skiing gold medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Oldest female freestyle skiing medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Oldest female freestyle skiing gold medalist
+| 
+| 
+| 
+| -->
+|-
+! colspan=5 | Biathlon
+<!--
+|-
+| Youngest biathlon medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest biathlon gold medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest male biathlon medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest male biathlon gold medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest female biathlon medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest female biathlon gold medalist
+| 
+| 
+| 
+| -->
+|-
+| Oldest biathlon medalist
+| align=center | 40
+| [[Ole Einar Bjørndalen]]
+| 
+| <ref name=HuffPost-2014-02-08-Bjoerndalen/>
+|-
+| Oldest biathlon gold medalist
+| align=center | 40
+| [[Ole Einar Bjørndalen]]
+| 
+| <ref name=HuffPost-2014-02-08-Bjoerndalen/>
+|-
+| Oldest male biathlon medalist
+| align=center | 40
+| [[Ole Einar Bjørndalen]]
+| 
+| <ref name=HuffPost-2014-02-08-Bjoerndalen/>
+|-
+| Oldest male biathlon gold medalist
+| align=center | 40
+| [[Ole Einar Bjørndalen]]
+| At [[2014 Winter Olympics]], [[Ole Einar Bjørndalen]] won gold at the 10&nbsp;km sprint biathlon event, tying the record number of total medals in the Winter Olympics at 12, along with [[Bjørn Dæhlie]], and becoming the oldest Winter Olympics medalist at age 40.
+| <ref name=HuffPost-2014-02-08-Bjoerndalen>{{cite news |url= http://www.huffingtonpost.com/2014/02/08/ole-einar-bjoerndalen-olympics-gold-oldest_n_4751484.html |title= Ole Einar Bjoerndalen Becomes Oldest Winter Olympic Gold Medalist In 10-Kilometer Sprint |author= Eric Williamsen |date= 8 February 2014 |work= Huffington Post }}</ref>
+<!--
+|-
+| Oldest female biathlon medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Oldest female biathlon gold medalist
+| 
+| 
+| 
+| -->
+|-
+! colspan=5 | Skeleton
+<!--
+|-
+| Youngest skeleton medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest skeleton gold medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest male skeleton medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest male skeleton gold medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest female skeleton medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest female skeleton gold medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Oldest skeleton medalist
+| 
+| 
+| 
+| -->
+|-
+| Oldest skeleton gold medalist
+| align=center | 39
+| [[Duff Gibson]]
+| 
+| <ref name=SMH-Sochi-Day-2/>
+<!--
+|-
+| Oldest male skeleton medalist
+| 
+| 
+| 
+| -->
+|-
+| Oldest male skeleton gold medalist
+| align=center | 39
+| [[Duff Gibson]]
+| At the [[2006 Winter Olympics]], [[Duff Gibson]] became the oldest Winter Games gold medalist by winning gold in skeleton. He has subsequently been eclipsed as the oldest gold medalist at the Winter Games.
+| <ref name=SMH-Sochi-Day-2>{{cite news |title= All the winners on day two at Sochi |url= http://www.smh.com.au/sport/winter-olympics/all-the-winners-on-day-two-at-sochi-20140209-329dl.html |date= 9 February 2014 |author= Rob Gloster |publisher= Sidney Morning Herald }}</ref>
+<!--
+|-
+| Oldest female skeleton medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Oldest female skeleton gold medalist
+| 
+| 
+| 
+| -->
+|-
+! colspan=5 | Luge
+<!--
+|-
+| Youngest luge medalist
+| 
+| 
+| 
+| -->
+|-
+| Youngest luge gold medalist
+| align=center | 20
+| [[Felix Loch]]
+| 
+| <ref name=Reuters-Luge-2014-02-08/>
+<!--
+|-
+| Youngest male luge medalist
+| 
+| 
+| 
+| -->
+|-
+| Youngest male luge gold medalist
+| align=center | 20
+| [[Felix Loch]]
+| At the [[2010 Winter Olympics]], he became the youngest ever Olympic luge gold medalist.
+| <ref name=Reuters-Luge-2014-02-08>{{cite news |url= http://uk.reuters.com/article/us-olympics-luge-men-idUKBREA170OX20140208 |archive-url= https://web.archive.org/web/20160306154016/http://uk.reuters.com/article/us-olympics-luge-men-idUKBREA170OX20140208 |url-status= dead |archive-date= 6 March 2016 |title= Germany's Loch in pole position to win second gold |author= Justin Palmer |date= 8 February 2014 |work= Reuters }}</ref>
+<!--
+|-
+| Youngest female luge medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest female luge gold medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Oldest luge medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Oldest luge gold medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Oldest male luge medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Oldest male luge gold medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Oldest female luge medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Oldest female luge gold medalist
+| 
+| 
+| 
+| -->
+|-
+! colspan=5 | Cycling
+<!--
+|-
+| Oldest cycling medalist
+| 
+| 
+| 
+| -->
+|-
+| Oldest cycling gold medalist
+| align=center | 42
+| [[Kristin Armstrong]]
+| At the [[2012 Summer Olympics]], she became the oldest cycling gold medalist, when she won the women's road time trial race, defending her gold medal from Beijing 2008. She repeated her success at the [[2016 Summer Olympics]], winning third gold in a row and setting a new record.
+| <ref name="Associated Press">{{cite news|url=http://www.espn.com/olympics/cycling/story/_/id/17262585/2016-rio-olympics-kristin-armstrong-wins-gold-medal-women-cycling-trial|title=Kristin Armstrong wins third consecutive gold in women's cycling time trial|date=11 August 2016|agency=Associated Press|publisher=ESPN}}</ref>
+<!--
+|-
+| Oldest male cycling medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Oldest male cycling gold medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Oldest female cycling medalist
+| 
+| 
+| 
+| -->
+|-
+| Oldest female cycling gold medalist
+| align=center | 42
+| [[Kristin Armstrong]]
+| 
+| <ref name="Associated Press"/>
+<!--
+|-
+| Youngest cycling medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest cycling gold medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest male cycling medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest male cycling gold medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest female cycling medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest female cycling gold medalist
+| 
+| 
+| 
+| -->
+|-
+! colspan=5 | Athletics
+|-
+| Oldest athletics medalist
+| align=center | 48
+| [[Terence Lloyd Johnson]]
+| 
+| <ref name=ESPNuk-2013-09-14/>
+|-
+| Oldest athletics gold medalist
+| align=center | 42
+| [[Pat McDonald (athlete)|Pat McDonald]]
+| 
+| <ref name=ESPNuk-2013-09-14/>
+|-
+| Oldest male athletics medalist
+| align=center | 48
+| [[Terence Lloyd Johnson]]
+| At the [[1948 Summer Olympics]], he won bronze in the men's 50&nbsp;km walk.
+| <ref name=ESPNuk-2013-09-14/>
+|-
+| Oldest male athletics gold medalist
+| align=center | 42
+| [[Pat McDonald (athlete)|Pat McDonald]]
+| At the [[1920 Summer Olympics]], he won the men's 56&nbsp;lbs toss.
+| <ref name=ESPNuk-2013-09-14/>
+|-
+| Oldest female athletics medalist
+| align=center | 40
+| [[Merlene Ottey]]
+| At the [[2000 Summer Olympics]], she won bronze in the women's 100m dash.
+| <ref name=ESPNuk-2013-09-14/>
+|-
+| Oldest female athletics gold medalist
+| align=center | 39
+| [[Ellina Zvereva]]
+| At the [[2000 Summer Olympics]], she won gold for the discus throw.
+| <ref name=ESPNuk-2013-09-14>{{cite web |author= Steven Lynch |publisher= ESPN |work= Ask Steven |title= The oldest Olympic medalist |url= http://www.espn.co.uk/blogs/sport/story/238631.html |date= 14 September 2013 }}</ref>
+<!--
+|-
+| Youngest athletics medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest athletics gold medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest male athletics medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest male athletics gold medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest female athletics medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest female athletics gold medalist
+| 
+| 
+| 
+| -->
+|-
+! colspan=5 | Swimming
+<!--
+|-
+| Youngest swimming medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest swimming gold medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest male swimming medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest male swimming gold medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest female swimming medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest female swimming gold medalist
+| 
+| 
+| 
+| -->
+|-
+| Oldest swimming medalist
+| align=center | 41
+| [[Dara Torres]]
+| Torres won silver for the women's 4x100 freestyle team relay as anchor at the [[2008 Summer Olympics]].
+| <ref name="USNews-2008-08-13-Torres"/>
+<!--
+|-
+| Oldest swimming gold medalist
+| 
+| 
+| 
+| -->
+|-
+| Oldest male swimming medalist
+| align=center | 38
+| [[William Robinson (swimmer)|William Robinson]]
+| Robinson won silver for the men's 200m breaststroke at the [[1908 Summer Olympics]].
+| <ref name="USNews-2008-08-13-Torres"/>
+<!--
+|-
+| Oldest male swimming gold medalist
+| 
+| 
+| 
+| -->
+|-
+| Oldest female swimming medalist
+| align=center | 41
+| [[Dara Torres]]
+| 
+| <ref name="USNews-2008-08-13-Torres">{{cite magazine|url=http://money.usnews.com/money/blogs/planning-to-retire/2008/08/13/the-oldest-olympic-swimming-medalist-in-history |title=Dara Torres: The Oldest Olympic Swimming Medalist in History |date=13 August 2008 |magazine=U.S. News & World Report |author=Emily Brandon |url-status=dead |archive-url=https://web.archive.org/web/20141209164550/http://money.usnews.com/money/blogs/planning-to-retire/2008/08/13/the-oldest-olympic-swimming-medalist-in-history |archive-date=9 December 2014 }}</ref>
+<!--
+|-
+| Oldest female swimming gold medalist
+| 
+| 
+| 
+| --><!--
+|-
+-->
+|-
+! colspan=5 | Sailing
+<!--
+|-
+| Youngest sailing medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest sailing gold medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest male sailing medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest male sailing gold medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest female sailing medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Youngest female sailing gold medalist
+| 
+| 
+| 
+| --><!--
+|-
+| Oldest sailing medalist
+| align=center | 
+| 
+| 
+| -->
+
+<!--
+|-
+| Oldest male sailing medalist
+| 
+| 
+| 
+| -->
+|-
+| Oldest male sailing gold medalist
+| align=center | 54
+| [[Santiago Lange]]
+| Lange won gold for the [[Nacra 17]] at the [[2016 Summer Olympics]].
+| <ref>{{cite web
+ |url         = https://www.bbc.com/sport/olympics/36690180
+ |title       = Rio Olympics 2016: Santiago Lange wins gold with Cecilia Carranza Saroli
+ |quote       = The 54-year-old, the oldest sailor competing in Rio, and his compatriot won the Nacra 17 mixed category.
+ |date        = 17 August 2016
+ |work        = BBC
+ |access-date  = 20 September 2016
+ }}</ref>
+<!--
+|-
+| Oldest female sailing medalist
+| align=center | 
+| 
+| 
+| 
+-->
+<!--
+|-
+| Oldest female sailing gold medalist
+| 
+| 
+| 
+| --><!--
+|-
+-->
+|}
+
+===By Olympiad===
+
+==See also==
+* [[List of sport awards]]
+* [[List of multiple Olympic gold medalists]]
+* [[List of multiple Olympic gold medalists at a single Games]]
+* [[List of multiple Olympic gold medalists in one event]]
+* [[List of multiple Olympic medalists]]
+* [[List of multiple Olympic medalists at a single Games]]
+* [[List of multiple Olympic medalists in one event]]
+* [[List of Olympians who won medals in the Summer and Winter Games]]
+* [[List of athletes with the most appearances at Olympic Games]]
+* [[Lists of Paralympic medalists]]
+* [[List of Olympic medalists in art competitions]]
+
+==Notes==
+{{Notelist}}
+
+==References==
+;General
+* {{cite press release|title=Factsheet: Records and medals Games of the Olympiad|publisher=International Olympic Committee|url=http://www.olympic.org/Assets/OSC%20Section/pdf/QR_1E.pdf|access-date=23 February 2009|date=January 2009|url-status=dead|archive-url=https://web.archive.org/web/20111016065015/http://www.olympic.org/Assets/OSC%20Section/pdf/QR_1E.pdf|archive-date=16 October 2011}}
+* {{cite press release|title=Factsheet: Records and medals at the Olympic Winter Games|publisher=International Olympic Committee |url=http://www.olympic.org/Assets/OSC%20Section/pdf/QR_2E.pdf|access-date=23 February 2009|date=February 2008|archive-url=https://web.archive.org/web/20111016072750/http://www.olympic.org/Assets/OSC%20Section/pdf/QR_2E.pdf|archive-date=16 October 2011|url-status=dead}}
+*{{Cite web|url=http://www.olympic.org/uk/athletes/results/search_r_uk.asp|publisher= International Olympic Committee |title=Results database|access-date=23 February 2009}}
+*{{Cite web|url=https://www.sports-reference.com/olympics/sports/ |archive-url=https://web.archive.org/web/20200419212721/https://www.sports-reference.com/olympics/sports/ |url-status=dead |archive-date=19 April 2020 |title=Olympic sports index|publisher=sports-reference.com|access-date=23 February 2009}}
+*{{Cite web|url=https://www.sports-reference.com/olympics/summer/ |archive-url=https://web.archive.org/web/20200419223255/https://www.sports-reference.com/olympics/summer/ |url-status=dead |archive-date=19 April 2020 |title=Summer games index|publisher=sports-reference.com|access-date=26 February 2009}}
+*{{Cite web|url=https://www.sports-reference.com/olympics/winter/ |archive-url=https://web.archive.org/web/20200419210910/https://www.sports-reference.com/olympics/winter/ |url-status=dead |archive-date=19 April 2020 |title=Winter games index|publisher=sports-reference.com|access-date=23 February 2009}}
+
+;Specific
+{{Reflist}}
+
+==External links==
+* [https://web.archive.org/web/20090501145239/http://www.la84foundation.org/5va/review_frmst.htm Olympic Review and Revue Olympique] – LA84 Foundation (archived)
+
+{{Olympic medalists}}
+{{Olympic games medal winners}}
+{{Olympic games medal table}}
+{{Olympic Games}}
+{{Olympics statistics}}
+{{Portal bar|Olympics}}
+
+{{list of lists |sports}}
+
+{{DEFAULTSORT:Medalists}}
+[[Category:Lists of Olympic medalists| ]]
+[[Category:Olympic medals|Medalists, Lists]]
+[[Category:Lists of Olympic competitors]]
+[[Category:Olympic Games medal tables]]
